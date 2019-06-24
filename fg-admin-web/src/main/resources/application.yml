@@ -34,6 +34,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     #date-format: yyyy-MM-dd
     time-zone: GMT+8
+  security:
+    user:
+      name: yoko
+      password: 123
 logging:
   #日志级别
   level:
@@ -45,7 +49,7 @@ logging:
 management:
   server:
     #端口可以不配
-    port: 8100
+    port: 8101
     servlet:
       context-path: /admin
   #健康监控级别
