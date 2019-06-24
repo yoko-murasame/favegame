@@ -1,0 +1,61 @@
+#配置七牛云的验证key
+qiniu:
+  accessKey: zrPgkmztAVlJWWfh_j8xtKNRGu_18a1mx6O59Swy
+  secretKey: GNOSIuF8bPFA5v3Dx6XoooxZtXut2FeZHQxoj9hA
+  bucket: fairyhouse    #存储空间名称
+  domain: http://img.dmdream.cn/    #外链域名
+server:
+  #修改端口
+  port: 8080
+spring:
+  dubbo:
+      application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+        name: fg-admin-web
+      registry:                 #注册中心配置，用于配置连接注册中心相关信息。
+        address: zookeeper://193.112.41.124:2181
+      consumer:
+        check: false
+      reference:
+        loadbalance: roundrobin #轮询机制
+        #loadbalance: random #随机机制
+        #loadbalance: leastactive #最少活跃调用数机制
+  thymeleaf:
+    #设置缓存为false，开发的时候用，避免网页不刷新还是旧的样子
+    cache: false
+    #不要校验网页标签的结束符号,新版本'LEGENCYHTML5'已弃用,直接HTML即可
+    mode: HTML
+    #前后缀，前缀默认：classpath:/templates/ 后缀默认：.html
+    prefix: classpath:/templates/
+    suffix: .html
+    #编码
+    encoding: UTF-8
+  #设置json日期转换
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    #date-format: yyyy-MM-dd
+    time-zone: GMT+8
+logging:
+  #日志级别
+  level:
+    root: info
+  #控制台日志输出，注意：一定要使用单引号引起来，否则会报%的异常，若@符号报异常，在maven中需要配置依赖
+  pattern:
+    console: '%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n'
+##配置Actuator
+management:
+  server:
+    #端口可以不配
+    port: 8100
+    servlet:
+      context-path: /admin
+  #健康监控级别
+  endpoints:
+    web:
+      exposure:
+        #默认开启health和info，设置为*，则全部开启
+        include: '*'
+  #显示详细的健康信息
+  endpoint:
+    health:
+      show-details: always
+

@@ -1,0 +1,6 @@
+server:
+  port: 8090
+#activeMQ
+spring:
+  activemq:
+    broker-url: tcp://193.112.41.124:61616

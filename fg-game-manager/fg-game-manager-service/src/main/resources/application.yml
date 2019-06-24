@@ -1,0 +1,44 @@
+server:
+  #修改端口
+  port: 8092
+spring:
+  #配置数据库连接信息,在最新版本(8.XX)jdbc中,url中需要指定时区,springboot默认的Tomcat中时区是美国时区
+  datasource:
+    url: jdbc:mysql://cloud.dmdream.cn:3306/favegame?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: root
+    password: s18334435420
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #Dubbo配置
+  dubbo:
+    application:
+      name: fg-game-manager-service
+    server: true
+    registry:
+      address: zookeeper://193.112.41.124:2181
+    protocol:
+      name: dubbo
+      port: 20880
+  #ActiveMQ配置
+  activemq:
+    broker-url: tcp://193.112.41.124:61616
+  #配置Redis
+  redis:
+    host: 193.112.41.124
+    port: 6379
+    password: s18334435420
+    database: 0
+    #最大空闲连接数
+    jedis:
+      pool:
+        max-idle: 10
+logging:
+  #日志级别
+  level:
+    root: info
+  #控制台日志输出，注意：一定要使用单引号引起来，否则会报%的异常，若@符号报异常，在maven中需要配置依赖
+  pattern:
+    console: '%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n'
+#mybatis-plus默认会将Java蛇形与数据库驼峰进行匹配,这里我将保持一致,因此关闭
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false

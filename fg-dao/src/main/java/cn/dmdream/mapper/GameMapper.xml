@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dmdream.mapper.GameMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cn.dmdream.entity.Game">
+        insert into tab_game(
+        createTime,
+        destroyTime,
+        version,
+        isValid,
+        gmName,
+        gmVersion,
+        gmPublisherId,
+        gmTypeId,
+        gmIcon,
+        gmMark,
+        gmPlatformIsAndroid,
+        gmAndroidUrl,
+        gmPlatformIsIOS,
+        gmIOSUrl,
+        gmOperatorId,
+        gmRunenv,
+        gmDetail,
+        gmIntroMedia,
+        gmFree,
+        gmPrice,
+        gmTag,
+        gmPubdate
+        )
+        values(
+        #{createTime},
+        #{destroyTime},
+        #{version},
+        #{isValid},
+        #{gmName},
+        #{gmVersion},
+        #{gmPublisherId},
+        #{gmTypeId},
+        #{gmIcon},
+        #{gmMark},
+        #{gmPlatformIsAndroid},
+        #{gmAndroidUrl},
+        #{gmPlatformIsIOS},
+        #{gmIOSUrl},
+        #{gmOperatorId},
+        #{gmRunenv},
+        #{gmDetail},
+        #{gmIntroMedia},
+        #{gmFree},
+        #{gmPrice},
+        #{gmTag},
+        #{gmPubdate}
+        );
+    </insert>
+
+    <select id="findAllGameVoByPage" resultType="cn.dmdream.entity.vo.GameVo">
+      select g.*,t.id as gmTypeId,t.gmTypeEnName as gmTypeName,p.id as gmPublisherId,p.gmPublisherName as gmPublisherName
+      ,o.id as gmOperatorId,o.gmOperatorName as gmOperatorName
+      from tab_game g
+      left join tab_type t on g.gmTypeId = t.id
+      left join tab_publisher p on g.gmPublisherId = p.id
+      left join tab_operator o on g.gmOperatorId = o.id
+      limit #{start},#{pageSize};
+    </select>
+    <select id="findGameVoById" resultType="cn.dmdream.entity.vo.GameVo">
+      select g.*,t.id as gmTypeId,t.gmTypeEnName as gmTypeName,p.id as gmPublisherId,p.gmPublisherName as gmPublisherName
+      ,o.id as gmOperatorId,o.gmOperatorName as gmOperatorName
+      from tab_game g
+      left join tab_type t on g.gmTypeId = t.id
+      left join tab_publisher p on g.gmPublisherId = p.id
+      left join tab_operator o on g.gmOperatorId = o.id
+      where g.id = #{id};
+    </select>
+
+</mapper>
