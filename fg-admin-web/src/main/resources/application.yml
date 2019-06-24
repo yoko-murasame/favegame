@@ -10,15 +10,19 @@ server:
 spring:
   dubbo:
       application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
-        name: fg-admin-web
+        name: fg-admin-web-sch
       registry:                 #注册中心配置，用于配置连接注册中心相关信息。
-        address: zookeeper://193.112.41.124:2181
+        #address: zookeeper://193.112.41.124:2181
+        address: zookeeper://localhost:2181
       consumer:
         check: false
       reference:
         loadbalance: roundrobin #轮询机制
         #loadbalance: random #随机机制
         #loadbalance: leastactive #最少活跃调用数机制
+      protocol:
+        name: dubbo
+        port: 20889
   thymeleaf:
     #设置缓存为false，开发的时候用，避免网页不刷新还是旧的样子
     cache: false

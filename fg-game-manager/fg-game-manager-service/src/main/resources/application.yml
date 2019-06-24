@@ -14,7 +14,8 @@ spring:
       name: fg-game-manager-service
     server: true
     registry:
-      address: zookeeper://193.112.41.124:2181
+      #address: zookeeper://193.112.41.124:2181
+      address: zookeeper://localhost:2181
     protocol:
       name: dubbo
       port: 20880
