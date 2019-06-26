@@ -5,6 +5,7 @@ import cn.dmdream.game.service.OperatorService;
 import cn.dmdream.mapper.OperatorMapper;
 import cn.dmdream.utils.EmptyUtils;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,9 @@ public class OperatorServiceImpl implements OperatorService{
 
     @Override
     public List<Operator> findAll() {
-        return operatorMapper.selectList(null);
+        QueryWrapper<Operator> qr = new QueryWrapper<>();
+        qr = qr.eq("isValid", 1);
+        return operatorMapper.selectList(qr);
     }
 
     @Override

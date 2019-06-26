@@ -3,9 +3,13 @@
     justify-content: space-around;
 }
 
-my-img{
+.my-img{
     width: auto;
     height: auto;
     max-width: 100%;
     max-height: 100%;
+}
+
+.my-hidden{
+    display: none;
 }

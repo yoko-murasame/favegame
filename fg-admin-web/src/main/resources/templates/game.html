@@ -293,10 +293,12 @@
                                 <button type="button" class="am-btn am-btn-default am-btn-success js-modal-new">
                                     <span class="am-icon-plus"></span> 新增
                                 </button>
-                                <button id="btn-checked-list" type="button" class="am-btn am-btn-default am-btn-secondary">
+                                <button id="btn-checked-list" type="button"
+                                        class="am-btn am-btn-default am-btn-secondary">
                                     <span class="am-icon-save"></span> 已审核
                                 </button>
-                                <button id="btn-unchecked-list" type="button" class="am-btn am-btn-default am-btn-warning">
+                                <button id="btn-unchecked-list" type="button"
+                                        class="am-btn am-btn-default am-btn-warning">
                                     <span class="am-icon-archive"></span> 未审核
                                 </button>
                             </div>
@@ -306,15 +308,19 @@
                         <div class="am-form-group">
                             <select data-am-selected="{btnSize: 'sm'}" th:id="btn-type-list" th:value="-1">
                                 <option value="-1">所有类别</option>
-                                <option th:each="type:${typeList}" th:value="${type.id}" th:text="${type.gmTypeChName}" th:selected="${type.id eq queryGame.gmTypeId}" value="option2">单机</option>
+                                <option th:each="type:${typeList}" th:value="${type.id}" th:text="${type.gmTypeChName}"
+                                        th:selected="${type.id eq queryGame.gmTypeId}" value="option2">单机
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="am-u-sm-12 am-u-md-3">
                         <div class="am-input-group am-input-group-sm">
-                            <input th:id="input-search-title" th:value="${queryGame.gmName}" type="text" class="am-form-field">
+                            <input th:id="input-search-title" th:value="${queryGame.gmName}" type="text"
+                                   class="am-form-field">
                             <span class="am-input-group-btn">
-            <button th:id="btn-title-list" class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
+            <button th:id="btn-title-list"
+                    class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
                     type="button"></button>
           </span>
                         </div>
@@ -323,7 +329,7 @@
                 <div class="am-g">
                     <div class="tpl-table-images">
                         <div class="am-u-sm-12 am-u-md-6 am-u-lg-4" th:each="game:${gamePageModelJsm.data.list}">
-                            <div class="tpl-table-images-content"  style="height: 510px;">
+                            <div class="tpl-table-images-content" style="height: 510px;">
                                 <div class="tpl-table-images-content-i-time">发布时间：<span
                                         th:text="${#dates.format(game.gmPubdate,'yyyy-mm-dd')}">2016-09-12</span></div>
                                 <div class="tpl-i-title" th:text="${game.gmName}">
@@ -337,7 +343,8 @@
 
                                     </div>
                                     <span class="tpl-table-images-content-i-shadow"></span>
-                                    <img th:class="am-radius" height="255px" th:src="@{${game.gmIcon}}" src="/assets/img/a1.png"
+                                    <img th:class="am-radius" height="255px" th:src="@{${game.gmIcon}}"
+                                         src="/assets/img/a1.png"
                                          alt="游戏icon">
                                 </a>
                                 <div class="tpl-table-images-content-block">
@@ -356,10 +363,14 @@
                                     </div>
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs tpl-edit-content-btn row-line-spaceBetween">
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary js-modal-edit" th:value="${game.id}"><span
+                                            <button type="button"
+                                                    class="am-btn am-btn-default am-btn-secondary js-modal-edit"
+                                                    th:value="${game.id}"><span
                                                     class="am-icon-edit"></span> 编辑
                                             </button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning js-modal-check" th:value="${game.id}"><span
+                                            <button type="button"
+                                                    class="am-btn am-btn-default am-btn-warning js-modal-check"
+                                                    th:value="${game.id}"><span
                                                     class="am-icon-archive"></span> 审核
                                             </button>
                                             <button type="button" class="am-btn am-btn-default am-btn-danger"><span
@@ -411,96 +422,217 @@
                         <div class="am-g">
                             <div class="tpl-form-body tpl-form-line">
                                 <form class="am-form tpl-form-line-form">
+                                    <input th:type="hidden" th:id="id-id" th:name="id"/><!--隐藏域用于更新操作-->
+                                    <!--游戏名-->
                                     <div class="am-form-group">
-                                        <label for="id-gmName" class="am-u-sm-3 am-form-label">标题 <span
-                                                class="tpl-form-line-small-title">Title</span></label>
+                                        <label for="id-gmName" class="am-u-sm-3 am-form-label">游戏名 <span
+                                                class="tpl-form-line-small-title">GameName</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" th:name="gmName" id="id-gmName" placeholder="请输入游戏名称">
+                                            <input type="text" class="tpl-form-input" th:name="gmName" id="id-gmName"
+                                                   placeholder="请输入游戏名称">
+                                            <small>游戏名必填</small>
                                         </div>
                                     </div>
-
+                                    <!--游戏版本号-->
                                     <div class="am-form-group">
-                                        <label for="id-gmPubdate" class="am-u-sm-3 am-form-label">发布时间 <span
-                                                class="tpl-form-line-small-title">Time</span></label>
+                                        <label for="id-gmVersion" class="am-u-sm-3 am-form-label">发行版本 <span
+                                                class="tpl-form-line-small-title">Version</span></label>
                                         <div class="am-u-sm-9">
-                                            <input th:name="gmPubdate" id="id-gmPubdate" type="text" class="am-form-field tpl-form-no-bg" placeholder="发布时间"
-                                                   data-am-datepicker="" readonly/>
-                                            <small>发布时间为必填</small>
+                                            <input th:name="gmVersion" id="id-gmVersion" type="text"
+                                                   placeholder="输入发行的版本号">
+                                            <small>版本号必填</small>
                                         </div>
                                     </div>
-
-                                    <div class="am-form-group">
-                                        <label for="id-gmPublisherId" class="am-u-sm-3 am-form-label">发行商 <span
-                                                class="tpl-form-line-small-title">Publisher</span></label>
-                                        <div class="am-u-sm-9">
-                                            <select th:name="gmPublisherId" id="id-gmPublisherId" data-am-selected="{searchBox: 1}">
-                                                <option value="a">-The.CC</option>
-                                                <option value="b">夕风色</option>
-                                                <option value="o">Orange</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="am-form-group">
-                                        <label class="am-u-sm-3 am-form-label">发行版本 <span class="tpl-form-line-small-title">Version</span></label>
-                                        <div class="am-u-sm-9">
-                                            <input th:name="gmVersion" id="id-gmVersion" type="text" placeholder="输入发行的版本号">
-                                        </div>
-                                    </div>
-
-                                    <div class="am-form-group">
-                                        <label for="id-gmIcon" class="am-u-sm-3 am-form-label">封面图 <span
-                                                class="tpl-form-line-small-title">Images</span></label>
-                                        <input th:name="gmIcon" id="id-gmIcon" type="hidden">
-                                        <div class="am-u-sm-9">
-                                            <div class="am-form-group am-form-file">
-                                                <div class="tpl-form-file-img">
-                                                    <img src="http://pspq953ox.bkt.clouddn.com/214.jpg" alt="">
-                                                </div>
-                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
-                                                    <i class="am-icon-cloud-upload"></i> 添加封面图片
-                                                </button>
-                                                <input id="doc-form-file" type="file" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    <!--游戏类型-->
                                     <div class="am-form-group">
                                         <label for="id-gmTypeId" class="am-u-sm-3 am-form-label">游戏类型 <span
                                                 class="tpl-form-line-small-title">Type</span></label>
                                         <div class="am-u-sm-9">
-                                            <select th:name="gmTypeId" id="id-gmTypeId" data-am-selected="{searchBox: 1}">
-                                                <option value="a">-The.CC</option>
-                                                <option value="b">夕风色</option>
-                                                <option value="o">Orange</option>
+                                            <select th:name="gmTypeId" id="id-gmTypeId"
+                                                    data-am-selected="{searchBox: 1}">
+                                                <option value="-1">请选择一个类别</option>
+                                                <option th:each="type:${typeList}" th:value="${type.id}"
+                                                        th:text="${type.gmTypeChName}">单机
+                                                </option>
                                             </select>
+                                            <small>游戏类型必选</small>
                                         </div>
                                     </div>
-
+                                    <!--发行商-->
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">隐藏文章</label>
+                                        <label for="id-gmPublisherId" class="am-u-sm-3 am-form-label">发行商 <span
+                                                class="tpl-form-line-small-title">Publisher</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select th:name="gmPublisherId" id="id-gmPublisherId"
+                                                    data-am-selected="{searchBox: 1}">
+                                                <option value="a">发行商select</option>
+                                            </select>
+                                            <small>发行商必选</small>
+                                        </div>
+                                    </div>
+                                    <!--发布时间-->
+                                    <div class="am-form-group">
+                                        <label for="id-gmPubdate" class="am-u-sm-3 am-form-label">发布时间 <span
+                                                class="tpl-form-line-small-title">Time</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input th:name="gmPubdate" id="id-gmPubdate" type="text"
+                                                   class="am-form-field tpl-form-no-bg" placeholder="发布时间"
+                                                   data-am-datepicker="" readonly/>
+                                            <small>发布时间必填</small>
+                                        </div>
+                                    </div>
+                                    <!--运营商-->
+                                    <div class="am-form-group">
+                                        <label for="id-gmOperatorId" class="am-u-sm-3 am-form-label">运营商 <span
+                                                class="tpl-form-line-small-title">Operator</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select th:name="gmOperatorId" id="id-gmOperatorId"
+                                                    data-am-selected="{searchBox: 1}">
+                                                <option value="a">运营商select</option>
+                                            </select>
+                                            <small>运营商可选</small>
+                                        </div>
+                                    </div>
+                                    <!--付费开关-->
+                                    <div class="am-form-group">
+                                        <label for="id-gmFree" class="am-u-sm-3 am-form-label">是否付费 <span
+                                                class="tpl-form-line-small-title">Fee</span></label>
                                         <div class="am-u-sm-9">
                                             <div class="tpl-switch">
-                                                <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" checked/>
+                                                <input th:name="gmFree" id="id-gmFree" type="checkbox"
+                                                       class="ios-switch bigswitch tpl-switch-btn"
+                                                       style="width: 100%;height: 100%;"/>
                                                 <div class="tpl-switch-btn-view">
                                                     <div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
-
+                                    <!--付费金额的模态框，当付费开关开启时，要求输入金额-->
+                                    <div class="am-modal am-modal-prompt" tabindex="-1" id="id-gmPrice-modal">
+                                        <div class="am-modal-dialog">
+                                            <div class="am-modal-hd">请输入金额</div>
+                                            <div class="am-modal-bd">
+                                                <input th:name="gmPrice" id="id-gmPrice" type="text"
+                                                       class="am-modal-prompt-input">
+                                            </div>
+                                            <div class="am-modal-footer">
+                                                <span class="am-modal-btn" data-am-modal-cancel>还是免费吧</span>
+                                                <span class="am-modal-btn" data-am-modal-confirm>加钱!</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--安卓开关-->
                                     <div class="am-form-group">
-                                        <label for="user-intro" class="am-u-sm-3 am-form-label">游戏详情</label>
+                                        <label for="id-gmPlatformIsAndroid" class="am-u-sm-3 am-form-label">安卓 <span
+                                                class="tpl-form-line-small-title">Android</span></label>
+                                        <div class="am-u-sm-9" style="display: flex;">
+                                            <div class="tpl-switch">
+                                                <input th:name="gmPlatformIsAndroid" id="id-gmPlatformIsAndroid"
+                                                       type="checkbox" class="ios-switch bigswitch tpl-switch-btn"
+                                                       style="width: 100%;height: 100%;"/>
+                                                <div class="tpl-switch-btn-view">
+                                                    <div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--安卓安装包上传-->
+                                            <div class="am-form-group am-form-file my-hidden"
+                                                 style="margin-left: 20px;">
+                                                <div>
+                                                    <button type="button" class="am-btn am-btn-default am-btn-sm">
+                                                        <i class="am-icon-cloud-upload"></i> <span
+                                                            id="id-fileupload-rename">选择要上传的文件</span></button>
+                                                </div>
+                                                <input type="file" id="id-android-upload">
+                                                <input type="hidden" id="id-gmAndroidUrl" th:name="gmAndroidUrl">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--IOS开关-->
+                                    <div class="am-form-group">
+                                        <label for="id-gmPlatformIsIOS" class="am-u-sm-3 am-form-label">IOS <span
+                                                class="tpl-form-line-small-title">IOS</span></label>
                                         <div class="am-u-sm-9">
-                                            <textarea class="" rows="10" id="user-intro" placeholder="请输入游戏内容"></textarea>
+                                            <div class="tpl-switch">
+                                                <input th:name="gmPlatformIsIOS" id="id-gmPlatformIsIOS" type="checkbox"
+                                                       class="ios-switch bigswitch tpl-switch-btn"
+                                                       style="width: 100%;height: 100%;"/>
+                                                <div class="tpl-switch-btn-view">
+                                                    <div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--IOS地址的模态框-->
+                                    <div class="am-modal am-modal-prompt" tabindex="-1" id="id-gmIOSUrl-modal">
+                                        <div class="am-modal-dialog">
+                                            <div class="am-modal-hd">请输入游戏IOS商店地址</div>
+                                            <div class="am-modal-bd">
+                                                <input th:name="gmIOSUrl" id="id-gmIOSUrl" type="text"
+                                                       class="am-modal-prompt-input">
+                                            </div>
+                                            <div class="am-modal-footer">
+                                                <span class="am-modal-btn" data-am-modal-cancel>算了,不填了</span>
+                                                <span class="am-modal-btn" data-am-modal-confirm>哼哼~</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--游戏运行配置-->
+                                    <div class="am-form-group">
+                                        <label for="id-gmRunenv" class="am-u-sm-3 am-form-label">运行配置 <span
+                                                class="tpl-form-line-small-title">EnvConf</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input th:name="gmRunenv" id="id-gmRunenv" type="text"
+                                                   placeholder="输入游戏运行配置">
+                                            <small>运行配置可选</small>
+                                        </div>
+                                    </div>
+                                    <!--游戏Icon-->
+                                    <div class="am-form-group">
+                                        <label for="id-gmIcon" class="am-u-sm-3 am-form-label">封面图 <span
+                                                class="tpl-form-line-small-title">Icon</span></label>
+                                        <input th:name="gmIcon" id="id-gmIcon" type="hidden"><!--隐藏表单,存放icon地址-->
+                                        <div class="am-u-sm-9">
+                                            <div class="am-form-group am-form-file">
+                                                <div class="tpl-form-file-img">
+                                                    <img id="id-reShow-img" src="http://pspq953ox.bkt.clouddn.com/214.jpg" alt="">
+                                                </div>
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm" id="id-btn-addIcon">
+                                                    <i class="am-icon-cloud-upload"></i> 添加封面图片
+                                                </button>
+                                                <input id="id-upload-icon" type="file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--介绍视频和图片-->
+                                    <div class="am-form-group">
+                                        <label for="id-gmIntroMedia" class="am-u-sm-3 am-form-label">封面图 <span
+                                                class="tpl-form-line-small-title">Icon</span></label>
+                                        <input th:name="gmIntroMedia" id="id-gmIntroMedia" type="hidden"><!--隐藏表单,存放gmIntroMedia地址-->
+                                        <div class="am-u-sm-9">
+                                            <div class="am-form-group am-form-file">
+                                                <input id="id-upload-icon" type="file">
+                                            </div>
                                         </div>
                                     </div>
 
+                                    <!--游戏详情-->
+                                    <div class="am-form-group">
+                                        <label for="id-gmDetail" class="am-u-sm-3 am-form-label">游戏详情 <span
+                                                class="tpl-form-line-small-title">Detail</span></label>
+                                        <div class="am-u-sm-9">
+                                            <textarea class="" rows="10" id="id-gmDetail" th:name="gmDetail"
+                                                      placeholder="请输入游戏内容"></textarea>
+                                        </div>
+                                    </div>
+                                    <!--提交按钮-->
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交
+                                            <button type="submit"
+                                                    class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交
                                             </button>
                                         </div>
                                     </div>
@@ -523,22 +655,27 @@
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/amazeui.min.js"></script>
 <script src="/assets/js/app.js"></script>
+<!--我自己引用的js插件-->
 <script type="text/javascript" src="/assets/js/amazeui.page.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/gritter/css/jquery.gritter.css"/>
+<script type="text/javascript" src="/js/gritter/js/jquery.gritter.js"></script>
+<script src="https://unpkg.com/qiniu-js@2.5.4/dist/qiniu.min.js"></script>
+<script src="/js/common.js"></script>
 <script th:inline="javascript">
     //初始化跳转路径,处理分页多条件组合逻辑
     var url = "/admin/game?page=%page%";
     //处理跳转逻辑,组合查询条件
-    var gethandleSearchUrl = function(url) {
+    var gethandleSearchUrl = function (url) {
         //判断已审核和未审核
-        if([[${queryGame.isValid}]] != 1 && url.indexOf("&isValid=0")==-1){
+        if ([[${queryGame.isValid}]] != 1 && url.indexOf("&isValid=0") == -1) {
             url = url + "&isValid=0";
         }
         //判断游戏类型
-        if([[${queryGame.gmTypeId}]] != null && url.indexOf("gmTypeId")==-1){
+        if ([[${queryGame.gmTypeId}]] != null && url.indexOf("gmTypeId") == -1) {
             url = url + "&gmTypeId=" + [[${queryGame.gmTypeId}]];
         }
         //判断用于搜索的游戏名称
-        if([[${queryGame.gmName}]] != null && [[${queryGame.gmName}]] != "" && url.indexOf("gmName")==-1){
+        if ([[${queryGame.gmName}]] != null && [[${queryGame.gmName}]] != "" && url.indexOf("gmName") == -1) {
             url = url + "&gmName=" + [[${queryGame.gmName}]];
         }
         return url;
@@ -553,7 +690,7 @@
         next: false,
         first: "‹‹",
         last: "››",
-        before:function(context,next){
+        before: function (context, next) {
             //指定跳转路径
             this.jump = gethandleSearchUrl(url);
             next();
@@ -562,8 +699,8 @@
         theme: "am-pagination tpl-pagination",
     });
 
-    // 搜索触发事件
     $(function () {
+        // 搜索触发事件
         //搜索已审核
         $("#btn-checked-list").click(function () {
             var innerUrl = "/admin/game?isValid=1";
@@ -577,14 +714,14 @@
             window.location.href = innerUrl;
         });
         //搜索类型
-        $("#btn-type-list").on("change",function () {
+        $("#btn-type-list").on("change", function () {
             //console.log(this.value);
             var innerUrl = "/admin/game?gmTypeId=" + this.value;
             innerUrl = gethandleSearchUrl(innerUrl);
             window.location.href = innerUrl;
         });
         //搜索名称
-        $("#btn-title-list").on("click",function () {
+        $("#btn-title-list").on("click", function () {
             var gmName = $("#input-search-title").val();
             var innerUrl = "/admin/game?gmName=" + gmName;
             innerUrl = gethandleSearchUrl(innerUrl);
@@ -594,12 +731,19 @@
         //模态窗口按钮监听处理
         var $modal = $('#saveOrUpdate');
         //siblings用于选择样式绑定的事件处理
-        $(".am-btn").siblings().on("click",function (e) {
+        $(".am-btn").siblings().on("click", function (e) {
             var $target = $(e.target);
-            console.log($target);
+            //console.log($target);
             //处理新增操作
             if (($target).hasClass('js-modal-new')) {
-                $modal.modal();
+                //取消父modal关闭监听,用于子modal的打开关闭操作
+                $modal.modal({
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                    closeViaDimmer:false,
+                });
+                handlePublisher();
+                handleOperator();
             }
             //处理编辑操作
             else if (($target).hasClass('js-modal-edit')) {
@@ -610,10 +754,127 @@
                 console.log("审核触发,id:" + $target.context.value);
             }
         });
+
         //处理游戏发行商列表
         function handlePublisher() {
-            getAjaxPromise("/admin/game/"+)
+            getAjaxPromise("/admin/game/publisher").then(function (value) {
+                if (value.status == 200) {
+                    var list = value.data;
+                    console.log(list);
+                    var $publisherSelect = $("#id-gmPublisherId");
+                    $publisherSelect.empty();
+                    $publisherSelect.append("<option value='-1'>请选择发行商</option>");
+                    for (var i in list) {
+                        var option = "<option value=" + list[i].id + ">" + list[i].gmPublisherName + "</option>";
+                        $publisherSelect.append(option);
+                    }
+                } else {
+                    showGritter("消息", "发行商列表查询失败,请检查网络!");
+                }
+            });
         }
+
+        //处理运营商列表
+        function handleOperator() {
+            getAjaxPromise("/admin/game/operator").then(function (value) {
+                if (value.status == 200) {
+                    var list = value.data;
+                    console.log(list);
+                    var $operatorSelect = $("#id-gmOperatorId");
+                    $operatorSelect.empty();
+                    $operatorSelect.append("<option value='-1'>无</option>");
+                    for (var i in list) {
+                        var option = "<option value=" + list[i].id + ">" + list[i].gmOperatorName + "</option>";
+                        $operatorSelect.append(option);
+                    }
+                } else {
+                    showGritter("消息", "运营商列表查询失败,请检查网络!");
+                }
+            });
+        }
+
+        //付费开关
+        $("#id-gmFree").on("change", function () {
+            var $switchBtn = $(this);
+            if ($switchBtn.prop("checked")) {
+                $('#id-gmPrice-modal').modal({
+                    relatedTarget: this,
+                    onConfirm: function (e) {
+                        $switchBtn.val(1);//表示收费状态
+                        $switchBtn.parent().after("<span style='position: absolute;left:101px;top:3px;'>￥" + e.data + "</span>");//确认后将金额回显
+                    },
+                    onCancel: function (e) {
+                        $switchBtn.removeAttr("checked");
+                        $switchBtn.val(0);//表示免费状态
+                        $("#id-gmPrice").val("");//将价格置空
+                    }
+                });
+            } else {
+                console.log("免费了");
+                $("#id-gmPrice").val("");//将价格置空
+                $switchBtn.parent().parent().children("span").remove();
+            }
+        });
+        //安卓开关
+        $("#id-gmPlatformIsAndroid").on("change", function () {
+            var $switchBtn = $(this);
+            $("#id-android-upload").parent().toggleClass("my-hidden");//开启/关闭安卓下载地址显示
+            //取消选择清空下载地址
+            if (!$switchBtn.prop("checked")) {
+                console.log("无安卓版本");
+                $("#id-gmAndroidUrl").val("");//将下载地址置空
+                $switchBtn.val(0);//表示不存在安卓版本
+            }else{
+                $switchBtn.val(1);//表示存在安卓版本
+            }
+        });
+        //监听安卓文件上传
+        $("#id-android-upload").on("change", function () {
+            var fileName = $(this).val();
+            if (fileName == null || fileName == "") return;
+            var promiseObj = handleUploadUrl("/admin/game/QiniuUpToken", this, $("#id-fileupload-rename"), null, $("#id-gmAndroidUrl"));
+            promiseObj.then(function (value) {
+                console.log(value);
+                console.log("安卓地址已设置:"+$("#id-gmAndroidUrl").val());
+            })
+        });
+        //IOS开关
+        $("#id-gmPlatformIsIOS").on("change", function () {
+            var $switchBtn = $(this);
+            if ($switchBtn.prop("checked")) {
+                $('#id-gmIOSUrl-modal').modal({
+                    relatedTarget: this,
+                    onConfirm: function (e) {
+                        $switchBtn.val(1);//表示存在IOS版本
+                        $switchBtn.parent().after("<span style='position: absolute;left:101px;top:3px;'>IOS地址已设置</span>");//确认后将IOS地址
+                    },
+                    onCancel: function (e) {
+                        $switchBtn.removeAttr("checked");
+                        $switchBtn.val(0);//表示不存在IOS版本
+                        $("#id-gmIOSUrl").val("");//将IOS地址置空
+                    }
+                });
+            } else {
+                console.log("无IOS版本");
+                $("#id-gmIOSUrl").val("");//将IOS地址置空
+                $switchBtn.parent().parent().children("span").remove();
+            }
+        });
+
+        //监听Icon图片上传
+        $("#id-upload-icon").on("change",function () {
+            var fileName = $(this).val();
+            if (fileName == null || fileName == "") return;
+            var promiseObj = handleUploadUrl("/admin/game/QiniuUpToken", this, null, $("#id-reShow-img"), $("#id-gmIcon"));
+            promiseObj.then(function (value) {
+                //隐藏上传按钮
+                $("#id-btn-addIcon").addClass("my-hidden");
+                console.log(value);
+                console.log("游戏Icon地址已设置:"+$("#id-gmIcon").val());
+            })
+        })
+
+
     });
 </script>
 
