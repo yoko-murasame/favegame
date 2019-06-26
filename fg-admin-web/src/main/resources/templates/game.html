@@ -290,7 +290,7 @@
                     <div class="am-u-sm-12 am-u-md-6">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                <button type="button" class="am-btn am-btn-default am-btn-success">
+                                <button type="button" class="am-btn am-btn-default am-btn-success js-modal-new">
                                     <span class="am-icon-plus"></span> 新增
                                 </button>
                                 <button id="btn-checked-list" type="button" class="am-btn am-btn-default am-btn-secondary">
@@ -307,24 +307,14 @@
                             <select data-am-selected="{btnSize: 'sm'}" th:id="btn-type-list" th:value="-1">
                                 <option value="-1">所有类别</option>
                                 <option th:each="type:${typeList}" th:value="${type.id}" th:text="${type.gmTypeChName}" th:selected="${type.id eq queryGame.gmTypeId}" value="option2">单机</option>
-                                <!-- <option value="option3">角色扮演</option>
-                                <option value="option3">动作</option>
-                                <option value="option3">MOBA</option>
-                                <option value="option3">策略</option>
-                                <option value="option3">卡牌</option>
-                                <option value="option3">生存</option>
-                                <option value="option3">模拟</option>
-                                <option value="option3">竞速</option>
-                                <option value="option3">益智</option>
-                                <option value="option3">二次元</option>-->
                             </select>
                         </div>
                     </div>
                     <div class="am-u-sm-12 am-u-md-3">
                         <div class="am-input-group am-input-group-sm">
-                            <input type="text" class="am-form-field">
+                            <input th:id="input-search-title" th:value="${queryGame.gmName}" type="text" class="am-form-field">
                             <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
+            <button th:id="btn-title-list" class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
                     type="button"></button>
           </span>
                         </div>
@@ -366,10 +356,10 @@
                                     </div>
                                     <div class="am-btn-toolbar">
                                         <div class="am-btn-group am-btn-group-xs tpl-edit-content-btn row-line-spaceBetween">
-                                            <button type="button" class="am-btn am-btn-default am-btn-secondary"><span
+                                            <button type="button" class="am-btn am-btn-default am-btn-secondary js-modal-edit" th:value="${game.id}"><span
                                                     class="am-icon-edit"></span> 编辑
                                             </button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-warning"><span
+                                            <button type="button" class="am-btn am-btn-default am-btn-warning js-modal-check" th:value="${game.id}"><span
                                                     class="am-icon-archive"></span> 审核
                                             </button>
                                             <button type="button" class="am-btn am-btn-default am-btn-danger"><span
@@ -398,6 +388,135 @@
 
     </div>
 
+    <!--新增/修改模态框saveOrUpdate-->
+    <div class="am-popup" id="saveOrUpdate">
+        <div class="am-popup-inner">
+            <div class="am-popup-hd">
+                <h4 class="am-popup-title">
+                    <!--表单标题-->
+                    <div class="portlet-title">
+                        <div class="caption font-green bold">
+                            <!-- <span class="am-icon-code"></span>--> 填写内容
+                        </div>
+                    </div>
+                </h4>
+                <span data-am-modal-close
+                      class="am-close">&times;</span>
+            </div>
+            <div class="am-popup-bd" style="padding: 0;">
+                <!--模态框body开始-->
+                <div class="tpl-portlet-components">
+                    <div class="tpl-block">
+
+                        <div class="am-g">
+                            <div class="tpl-form-body tpl-form-line">
+                                <form class="am-form tpl-form-line-form">
+                                    <div class="am-form-group">
+                                        <label for="id-gmName" class="am-u-sm-3 am-form-label">标题 <span
+                                                class="tpl-form-line-small-title">Title</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" th:name="gmName" id="id-gmName" placeholder="请输入游戏名称">
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="id-gmPubdate" class="am-u-sm-3 am-form-label">发布时间 <span
+                                                class="tpl-form-line-small-title">Time</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input th:name="gmPubdate" id="id-gmPubdate" type="text" class="am-form-field tpl-form-no-bg" placeholder="发布时间"
+                                                   data-am-datepicker="" readonly/>
+                                            <small>发布时间为必填</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="id-gmPublisherId" class="am-u-sm-3 am-form-label">发行商 <span
+                                                class="tpl-form-line-small-title">Publisher</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select th:name="gmPublisherId" id="id-gmPublisherId" data-am-selected="{searchBox: 1}">
+                                                <option value="a">-The.CC</option>
+                                                <option value="b">夕风色</option>
+                                                <option value="o">Orange</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">发行版本 <span class="tpl-form-line-small-title">Version</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input th:name="gmVersion" id="id-gmVersion" type="text" placeholder="输入发行的版本号">
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="id-gmIcon" class="am-u-sm-3 am-form-label">封面图 <span
+                                                class="tpl-form-line-small-title">Images</span></label>
+                                        <input th:name="gmIcon" id="id-gmIcon" type="hidden">
+                                        <div class="am-u-sm-9">
+                                            <div class="am-form-group am-form-file">
+                                                <div class="tpl-form-file-img">
+                                                    <img src="http://pspq953ox.bkt.clouddn.com/214.jpg" alt="">
+                                                </div>
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                                                    <i class="am-icon-cloud-upload"></i> 添加封面图片
+                                                </button>
+                                                <input id="doc-form-file" type="file" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="id-gmTypeId" class="am-u-sm-3 am-form-label">游戏类型 <span
+                                                class="tpl-form-line-small-title">Type</span></label>
+                                        <div class="am-u-sm-9">
+                                            <select th:name="gmTypeId" id="id-gmTypeId" data-am-selected="{searchBox: 1}">
+                                                <option value="a">-The.CC</option>
+                                                <option value="b">夕风色</option>
+                                                <option value="o">Orange</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">隐藏文章</label>
+                                        <div class="am-u-sm-9">
+                                            <div class="tpl-switch">
+                                                <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn" checked/>
+                                                <div class="tpl-switch-btn-view">
+                                                    <div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="user-intro" class="am-u-sm-3 am-form-label">游戏详情</label>
+                                        <div class="am-u-sm-9">
+                                            <textarea class="" rows="10" id="user-intro" placeholder="请输入游戏内容"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -406,7 +525,26 @@
 <script src="/assets/js/app.js"></script>
 <script type="text/javascript" src="/assets/js/amazeui.page.js"></script>
 <script th:inline="javascript">
+    //初始化跳转路径,处理分页多条件组合逻辑
     var url = "/admin/game?page=%page%";
+    //处理跳转逻辑,组合查询条件
+    var gethandleSearchUrl = function(url) {
+        //判断已审核和未审核
+        if([[${queryGame.isValid}]] != 1 && url.indexOf("&isValid=0")==-1){
+            url = url + "&isValid=0";
+        }
+        //判断游戏类型
+        if([[${queryGame.gmTypeId}]] != null && url.indexOf("gmTypeId")==-1){
+            url = url + "&gmTypeId=" + [[${queryGame.gmTypeId}]];
+        }
+        //判断用于搜索的游戏名称
+        if([[${queryGame.gmName}]] != null && [[${queryGame.gmName}]] != "" && url.indexOf("gmName")==-1){
+            url = url + "&gmName=" + [[${queryGame.gmName}]];
+        }
+        return url;
+    }
+
+    //分页控件
     var page = $("#pageBar").page({
         pages: [[${gamePageModelJsm.data.totalPage}]],
         curr: [[${gamePageModelJsm.data.currPage}]],
@@ -416,43 +554,66 @@
         first: "‹‹",
         last: "››",
         before:function(context,next){
-            //console.log(url)
-            //console.log(this);
-            //判断已审核和未审核
-            if([[${queryGame.isValid}]] != 1 && url.indexOf("&isValid=0")==-1){
-                url = url + "&isValid=0";
-            }
-            //判断游戏类型
-            if([[${queryGame.gmTypeId}]] != null && url.indexOf("gmTypeId")==-1){
-                url = url + "&gmTypeId=" + [[${queryGame.gmTypeId}]];
-            }
-            //判断用于搜索的游戏名称
-            if([[${queryGame.gmName}]] != null && [[${queryGame.gmName}]] != "" && url.indexOf("gmName")==-1){
-                url = url + "&gmName=" + [[${queryGame.gmName}]];
-            }
             //指定跳转路径
-            this.jump = url;
+            this.jump = gethandleSearchUrl(url);
             next();
         },
         jump: url,
         theme: "am-pagination tpl-pagination",
     });
 
+    // 搜索触发事件
     $(function () {
         //搜索已审核
         $("#btn-checked-list").click(function () {
-            window.location.href = "/admin/game?isValid=1";
+            var innerUrl = "/admin/game?isValid=1";
+            innerUrl = gethandleSearchUrl(innerUrl);
+            window.location.href = innerUrl;
         });
         //搜索未审核
         $("#btn-unchecked-list").click(function () {
-            window.location.href = "/admin/game?isValid=0";
+            var innerUrl = "/admin/game?isValid=0";
+            innerUrl = gethandleSearchUrl(innerUrl);
+            window.location.href = innerUrl;
         });
         //搜索类型
         $("#btn-type-list").on("change",function () {
             //console.log(this.value);
-            var typeId = this.value;
-            window.location.href = "/admin/game?gmTypeId=" + typeId;
-        })
+            var innerUrl = "/admin/game?gmTypeId=" + this.value;
+            innerUrl = gethandleSearchUrl(innerUrl);
+            window.location.href = innerUrl;
+        });
+        //搜索名称
+        $("#btn-title-list").on("click",function () {
+            var gmName = $("#input-search-title").val();
+            var innerUrl = "/admin/game?gmName=" + gmName;
+            innerUrl = gethandleSearchUrl(innerUrl);
+            window.location.href = innerUrl;
+        });
+
+        //模态窗口按钮监听处理
+        var $modal = $('#saveOrUpdate');
+        //siblings用于选择样式绑定的事件处理
+        $(".am-btn").siblings().on("click",function (e) {
+            var $target = $(e.target);
+            console.log($target);
+            //处理新增操作
+            if (($target).hasClass('js-modal-new')) {
+                $modal.modal();
+            }
+            //处理编辑操作
+            else if (($target).hasClass('js-modal-edit')) {
+                console.log("编辑触发,id:" + $target.context.value);
+            }
+            //处理审核操作
+            else if (($target).hasClass('js-modal-check')) {
+                console.log("审核触发,id:" + $target.context.value);
+            }
+        });
+        //处理游戏发行商列表
+        function handlePublisher() {
+            getAjaxPromise("/admin/game/"+)
+        }
     });
 </script>
 

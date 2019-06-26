@@ -105,7 +105,8 @@ public class GameServiceImpl implements GameService {
             QueryWrapper<Game> queryWrapper = new QueryWrapper<Game>().eq("isValid", game.getIsValid());
             if (!EmptyUtils.isEmpty(game.getGmTypeId()) && game.getGmTypeId() > -1) {
                 queryWrapper = queryWrapper.eq("gmTypeId", game.getGmTypeId());
-            } else if (!EmptyUtils.isEmpty(game.getGmName())) {
+            }
+            if (!EmptyUtils.isEmpty(game.getGmName())) {
                 queryWrapper = queryWrapper.like("gmName", game.getGmName());
             }
             Integer count = gameMapper.selectCount(queryWrapper);

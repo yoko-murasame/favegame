@@ -4,6 +4,7 @@ import cn.dmdream.entity.Game;
 import cn.dmdream.entity.Type;
 import cn.dmdream.entity.vo.GameVo;
 import cn.dmdream.game.service.GameService;
+import cn.dmdream.game.service.PublisherService;
 import cn.dmdream.game.service.TypeService;
 import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -20,6 +21,8 @@ public class AdminGameController {
     private GameService gameService;
     @Reference
     private TypeService typeService;
+    @Reference
+    private PublisherService publisherService;
 
     @RequestMapping({"/",""})
     public ModelAndView toGamePage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "6") Integer pageSize, Game game, @RequestParam(defaultValue = "createTime desc") String orderField) {
@@ -34,5 +37,9 @@ public class AdminGameController {
         return mav;
     }
 
+    @GetMapping("one/id")
+    public JsonMsg findGameVoById(Integer id) {
+        return gameService.findGameVoById(id);
+    }
 
 }
