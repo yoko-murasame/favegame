@@ -5,26 +5,15 @@ import cn.dmdream.game.service.AdminService;
 import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("admin")
 public class AdminController {
 
-    @Reference(timeout = 1000000)
+    @Reference
     private AdminService adminService;
 
     private JsonMsg jsonMsg;
-
-    @GetMapping("toLogin")
-    public ModelAndView toLogin() {
-        return new ModelAndView("login");
-    }
-
-    @GetMapping({"index", "", "/"})
-    public ModelAndView toIndex() {
-        return new ModelAndView("index");
-    }
 
     @GetMapping("one/{id}")
     public JsonMsg findById(@PathVariable("id") Integer id) {
@@ -37,5 +26,6 @@ public class AdminController {
         }
         return jsonMsg;
     }
+
 
 }
