@@ -9,6 +9,8 @@ public interface UserService {
 
     IPage<User> findAllByPage(Integer page, Integer pageSize);
 
+    IPage<User> searchByCondition(User user, Integer page, Integer pageSize);
+
     List<User> findAll();
 
     User findById(Integer id);
