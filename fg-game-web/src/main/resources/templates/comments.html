@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/icomoon-social.css">
+
+		<link rel="stylesheet" href="css/leaflet.css" />
+		<!--[if lte IE 8]>
+		    <link rel="stylesheet" href="css/leaflet.ie.css" />
+		<![endif]-->
+		<!--<link rel="stylesheet" href="css/main.css">-->
+
+		<script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<style>
+			.comments-ul .no-list-style {
+				list-style-type: none;
+				margin-left: 0;
+			}
+			
+			.comments-ul .no-list-style li {
+				line-height: 28px;
+			}
+			
+			li{
+				list-style: none;
+			}
+			
+			div[class*="span"] {
+				-webkit-transition: all .4s linear;
+				-moz-transition: all .4s linear;
+				-o-transition: all .4s linear;
+				-ms-transition: all .4s linear;
+				transition: all .4s linear;
+			}
+			.comment-wrapper p {
+				margin: 0;
+				position: relative;
+				border: 1px solid #CCC;
+				padding: 10px;
+				margin-bottom: 10px;
+				-webkit-border-radius: 3px;
+				-webkit-background-clip: padding-box;
+				-moz-border-radius: 3px;
+				-moz-background-clip: padding;
+				border-radius: 3px;
+				background-clip: padding-box;
+			}
+			
+			.comment-author {
+				font-size: 1.3em;
+				font-weight: 600;
+				margin-bottom: 10px;
+			}
+			
+			.comment-author img {
+				max-width: 50px;
+				-webkit-border-radius: 25px;
+				-webkit-background-clip: padding-box;
+				-moz-border-radius: 25px;
+				-moz-background-clip: padding;
+				border-radius: 25px;
+				background-clip: padding-box;
+				margin-right: 10px;
+			}
+			
+			.comment-date {
+				font-size: 0.9em;
+				margin-right: 20px;
+			}
+			
+			.comment-actions {
+				text-align: right;
+				opacity: 0.6;
+				-webkit-transition: opacity .25s linear;
+				-moz-transition: opacity .25s linear;
+				-o-transition: opacity .25s linear;
+				-ms-transition: opacity .25s linear;
+				transition: opacity .25s linear;
+			}
+			
+			.comment-actions:hover {
+				text-align: right;
+				opacity: 1;
+			}
+			
+			.comment-actions i {
+				color: #333;
+			}
+			
+			.comment-reply-btn {
+				margin-left: 10px;
+			}
+			
+			.glyphicon {
+				position: relative;
+				top: 1px;
+				display: inline-block;
+				font-family: 'Glyphicons Halflings';
+				font-style: normal;
+				font-weight: 400;
+				line-height: 1;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale
+			}
+			
+			.glyphicon-thumbs-up:before {
+				content: "\e125"
+			}
+			
+			.glyphicon-thumbs-down:before {
+				content: "\e126"
+			}
+			
+			.glyphicon-share-alt:before {
+				content: "\e095"
+			}
+			
+			.btn {
+				border: 1px solid #4f8db3;
+				-webkit-border-radius: 2px;
+				-webkit-background-clip: padding-box;
+				-moz-border-radius: 2px;
+				-moz-background-clip: padding;
+				border-radius: 2px;
+				background-clip: padding-box;
+				color: #FFFFFF;
+				cursor: pointer;
+				display: inline-block;
+				text-transform: none;
+				-webkit-transition: all .25s ease;
+				-moz-transition: all .25s ease;
+				-o-transition: all .25s ease;
+				-ms-transition: all .25s ease;
+				transition: all .25s ease;
+				text-align: center;
+				background: none repeat scroll 0 0 #4f8db3;
+				text-shadow: none;
+				box-shadow: none;
+				color: #FFF;
+				white-space: nowrap;
+			}
+			
+			.btn:hover {
+				background: none repeat scroll 0 0 #3b3c41;
+				color: #FFF;
+				text-decoration: none;
+				border: 1px solid #3b3c41;
+			}
+			
+			.btn .caret {
+				border-top: 4px solid #FFF;
+			}
+			
+			.btn-micro {
+				padding: 1px 8px;
+				font-size: 10px;
+			}
+			
+			.btn-grey {
+				border: 1px solid #cecece;
+				color: #333;
+				background: none repeat scroll 0 0 #E7E7E7;
+			}
+			
+			.btn-grey:hover {
+				background: none repeat scroll 0 0 #cecece;
+				color: #333;
+				text-decoration: none;
+				border: 1px solid #cecece;
+			}
+			
+			.btn-grey .caret {
+				border-top: 4px solid #333;
+			}
+			
+			.comment-reply-btn {
+				margin-left: 10px;
+			}
+			
+			.label {
+				display: inline;
+				padding: .2em .6em .3em;
+				font-size: 75%;
+				font-weight: 700;
+				line-height: 1;
+				color: #fff;
+				text-align: center;
+				white-space: nowrap;
+				vertical-align: baseline;
+				border-radius: .25em
+			}
+			
+			.label[href]:hover,
+			.label[href]:focus {
+				color: #fff;
+				text-decoration: none;
+				cursor: pointer
+			}
+			
+			.label:empty {
+				display: none
+			}
+			
+			.label-success {
+				background-color: #5cb85c
+			}
+			
+			.label-success[href]:hover,
+			.label-success[href]:focus {
+				background-color: #449d44
+			}
+			
+			.label-danger {
+				background-color: #d9534f
+			}
+			
+			.label-danger[href]:hover,
+			.label-danger[href]:focus {
+				background-color: #c9302c
+			}
+			
+			.pagination-wrapper {
+				margin-top: 15px;
+				text-align: center;
+			}
+			
+			.pagination>li>a,
+			.pagination>li>span {
+				border: none;
+				border-bottom: 3px solid #FFF;
+				color: #666666;
+				margin-left: 0;
+				margin-bottom: 5px;
+				-webkit-transition: all .25s linear;
+				-moz-transition: all .25s linear;
+				-o-transition: all .25s linear;
+				-ms-transition: all .25s linear;
+				transition: all .25s linear;
+			}
+			
+			.pagination>li>a:hover,
+			.pagination>li>a:focus,
+			.pagination>.active>a,
+			.pagination>.active>span {
+				background: #FFF;
+			}
+			
+			.pagination>li>a:hover {
+				border-bottom: 3px solid #666666;
+			}
+			
+			.pagination>.active>a,
+			.pagination>.active>span {
+				color: #666666;
+				border-bottom: 3px solid #4f8db3;
+			}
+			
+			.pagination>.disabled>a {
+				border-color: #fff;
+			}
+			
+			.pagination>.disabled>span,
+			.pagination>.disabled>a,
+			.pagination>.disabled>a:hover,
+			.pagination>.disabled>a:focus {
+				margin-bottom: 0;
+				color: #C9C9C9;
+				background-color: #FFF;
+				cursor: default;
+			}
+			
+			.active>a,
+			.active>a:hover,
+			.active>a:focus {
+				font-weight: 600;
+				background-color: #ffffff;
+				border: 1px solid #ddd;
+				border-top: 3px solid #4f8db3;
+				border-bottom-color: transparent;
+				cursor: default;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- Comments -->
+		<div class="post-coments">
+			<h4>Comments (53)</h4>
+			<ul class="post-comments comments-ul ">
+				<li>
+					<div class="comment-wrapper">
+						<div class="comment-author"><img src="img/user1.jpg" alt="User Name"> User Name</div>
+						<p>
+							Morbi eleifend congue elit nec sagittis. Praesent aliquam lobortis tellus, nec consequat massa ornare vitae. Ut fermentum justo vel venenatis eleifend. Fusce id magna eros. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+						</p>
+						<!-- Comment Controls -->
+						<div class="comment-actions">
+							<span class="comment-date">June 10th, 2013 3:16 pm</span>
+							<a href="#" data-toggle="tooltip" data-original-title="Vote Up" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+							<a href="#" data-toggle="tooltip" data-original-title="Vote Down" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+							<span class="label label-success">+8</span>
+							<a href="#" class="btn btn-micro btn-grey comment-reply-btn"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>
+						</div>
+					</div>
+				</li>
+				<li>
+					<ul class="comments-ul">
+						<li>
+							<div class="comment-wrapper">
+								<div class="comment-author"><img src="img/user2.jpg" alt="User Name"> User Name</div>
+								<p>
+									Vivamus euismod elit ac libero facilisis tristique. Duis mollis non ligula vel tincidunt. Nulla consectetur libero id nunc ornare, vel vulputate tellus mollis. Sed quis nulla magna.
+								</p>
+								<!-- Comment Controls -->
+								<div class="comment-actions">
+									<span class="comment-date">June 10th, 2013 3:16 pm</span>
+									<a href="#" data-toggle="tooltip" data-original-title="Vote Up" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+									<a href="#" data-toggle="tooltip" data-original-title="Vote Down" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+									<span class="label label-danger">-2</span>
+									<a href="#" class="btn btn-micro btn-grey comment-reply-btn"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<div class="comment-wrapper">
+						<div class="comment-author"><img src="img/user5.jpg" alt="User Name"> User Name</div>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel magna lectus.
+						</p>
+						<!-- Comment Controls -->
+						<div class="comment-actions">
+							<span class="comment-date">June 10th, 2013 3:16 pm</span>
+							<a href="#" data-toggle="tooltip" data-original-title="Vote Up" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+							<a href="#" data-toggle="tooltip" data-original-title="Vote Down" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-down"></i></a>
+							<span class="label label-success">+8</span>
+							<a href="#" class="btn btn-micro btn-grey comment-reply-btn"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<!-- Pagination -->
+			<div class="pagination-wrapper ">
+				<ul class="pagination pagination-sm comments-ul">
+					<li class="disabled">
+						<a href="#">Previous</a>
+					</li>
+					<li class="active">
+						<a href="#">1</a>
+					</li>
+					<li>
+						<a href="#">2</a>
+					</li>
+					<li>
+						<a href="#">3</a>
+					</li>
+					<li>
+						<a href="#">4</a>
+					</li>
+					<li>
+						<a href="#">5</a>
+					</li>
+					<li>
+						<a href="#">Next</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- End Comments -->
+		
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/jquery.fitvids.js"></script>
+        <script src="js/jquery.sequence-min.js"></script>
+        <script src="js/jquery.bxslider.js"></script>
+        <script src="js/main-menu.js"></script>
+        <script src="js/template.js"></script>
+	</body>
+
+</html>

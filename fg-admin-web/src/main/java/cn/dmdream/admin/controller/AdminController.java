@@ -26,11 +26,6 @@ public class AdminController {
         return new ModelAndView("index");
     }
 
-    @GetMapping("game")
-    public ModelAndView toGamePage() {
-        return new ModelAndView("game");
-    }
-
     @GetMapping("one/{id}")
     public JsonMsg findById(@PathVariable("id") Integer id) {
         try {

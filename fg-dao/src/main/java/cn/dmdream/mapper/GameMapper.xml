@@ -53,15 +53,33 @@
         );
     </insert>
 
-    <select id="findAllGameVoByPage" resultType="cn.dmdream.entity.vo.GameVo">
-      select g.*,t.id as gmTypeId,t.gmTypeEnName as gmTypeName,p.id as gmPublisherId,p.gmPublisherName as gmPublisherName
-      ,o.id as gmOperatorId,o.gmOperatorName as gmOperatorName
-      from tab_game g
-      left join tab_type t on g.gmTypeId = t.id
-      left join tab_publisher p on g.gmPublisherId = p.id
-      left join tab_operator o on g.gmOperatorId = o.id
-      limit #{start},#{pageSize};
+    <select id="findAllGameVoByPage" parameterType="cn.dmdream.entity.Game" resultType="cn.dmdream.entity.vo.GameVo">
+        select g.*,t.id as gmTypeId,t.gmTypeEnName as gmTypeName,p.id as gmPublisherId,p.gmPublisherName as
+        gmPublisherName
+        ,o.id as gmOperatorId,o.gmOperatorName as gmOperatorName
+        ,(select count(1) from tab_collection c where c.gmGameId = g.id) as countCollector
+        ,(select count(1) from tab_attention a where a.gmGameId = g.id) as countAttentrion <!--查询收藏和关注人数-->
+        from tab_game g
+        left join tab_type t on g.gmTypeId = t.id
+        left join tab_publisher p on g.gmPublisherId = p.id
+        left join tab_operator o on g.gmOperatorId = o.id
+        <where>
+            <if test="game.isValid!=null"><!--判断是否启用-->
+                g.isValid = #{game.isValid}
+            </if>
+            <if test="game.gmTypeId!=null and game.gmTypeId!='' and game.gmTypeId>-1"><!--判断是否类型查询-->
+                and g.gmTypeId = #{game.gmTypeId}
+            </if>
+            <if test="game.gmName!=null and game.gmName!=''"><!--判断是否游戏名模糊查询-->
+                and g.gmName like '%${game.gmName}%'
+            </if>
+        </where>
+        <if test="orderField!=null and orderField!=''">
+          order by ${orderField}
+        </if>
+        limit #{start},#{pageSize};
     </select>
+
     <select id="findGameVoById" resultType="cn.dmdream.entity.vo.GameVo">
       select g.*,t.id as gmTypeId,t.gmTypeEnName as gmTypeName,p.id as gmPublisherId,p.gmPublisherName as gmPublisherName
       ,o.id as gmOperatorId,o.gmOperatorName as gmOperatorName

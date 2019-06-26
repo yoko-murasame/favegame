@@ -1,20 +1,18 @@
 package cn.dmdream.game.service;
 
 import cn.dmdream.entity.Game;
-import cn.dmdream.entity.vo.GameVo;
-
-import java.util.List;
+import cn.dmdream.utils.JsonMsg;
 
 public interface GameService {
-    List<Game> findAll();
+    JsonMsg findAll();
 
-    Game findById(Integer id);
+    JsonMsg findById(Integer id);
 
-    boolean saveOrUpdate(Game game);
+    JsonMsg saveOrUpdate(Game game);
 
-    boolean deleteById(Integer id);
+    JsonMsg deleteById(Integer id);
 
-    List<GameVo> findAllGameVoByPage(Integer page, Integer pageSize);
+    JsonMsg findAllGameVoByPage(Integer page, Integer pageSize, Game game, String orderField);
 
-    GameVo findGameVoById(Integer id);
+    JsonMsg findGameVoById(Integer id);
 }

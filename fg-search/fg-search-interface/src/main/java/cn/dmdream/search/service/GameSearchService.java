@@ -1,12 +1,9 @@
 package cn.dmdream.search.service;
 
-import cn.dmdream.entity.vo.GameVo;
-import cn.dmdream.utils.PageModel;
-
-import java.util.List;
+import cn.dmdream.utils.JsonMsg;
 
 public interface GameSearchService {
 
-    PageModel<GameVo> findByKeywordByPage(String keyword, Integer page, Integer pageSize);
+    JsonMsg findByKeywordByPage(String keyword, Integer page, Integer pageSize);
 
 }

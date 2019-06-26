@@ -3,10 +3,10 @@ package cn.dmdream.search.service.impl;
 import cn.dmdream.entity.vo.GameVo;
 import cn.dmdream.game.service.GameService;
 import cn.dmdream.search.service.GameSearchService;
+import cn.dmdream.utils.JsonMsg;
 import cn.dmdream.utils.PageModel;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.data.solr.core.query.Criteria;
@@ -15,11 +15,9 @@ import org.springframework.data.solr.core.query.SimpleHighlightQuery;
 import org.springframework.data.solr.core.query.result.HighlightEntry;
 import org.springframework.data.solr.core.query.result.HighlightPage;
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Service(interfaceClass = GameSearchService.class)
@@ -30,12 +28,14 @@ public class GameSearchServiceImpl implements GameSearchService {
     @Reference
     private GameService gameService;
 
+    private JsonMsg jsonMsg;
 
     // 监听新增/修改/删除
     @JmsListener(destination = "fg-game-search-update")
     public void listenSaveOrUpdate(String message){
         try {
-            GameVo gameVo = gameService.findGameVoById(Integer.parseInt(message));
+            JsonMsg jm = gameService.findGameVoById(Integer.parseInt(message));
+            GameVo gameVo = (GameVo) jm.getData();
             if (gameVo == null) {
                 //找不到,删除
                 solrTemplate.deleteByIds("game", message);
@@ -60,77 +60,85 @@ public class GameSearchServiceImpl implements GameSearchService {
      * @return
      */
     @Override
-    public PageModel<GameVo> findByKeywordByPage(String keyword, Integer page, Integer pageSize) {
-        if(keyword == null || keyword.equals("")) return null;
-        // 创建solrQuery对象,封装条件
-        SimpleHighlightQuery query = new SimpleHighlightQuery();
-        //条件查询
-        Criteria criteria = new Criteria("gmKeyword").is(keyword);
-        //将条件添加到查询对象
-        query.addCriteria(criteria);
+    public JsonMsg findByKeywordByPage(String keyword, Integer page, Integer pageSize) {
 
-        //创建高亮对象,添加高亮操作
-        HighlightOptions highlightOptions = new HighlightOptions();
-        highlightOptions.addField("gmName");
-        highlightOptions.addField("gmPublisherName");
-        highlightOptions.addField("gmTypeName");
-        highlightOptions.addField("gmOperatorName");
-        highlightOptions.addField("gmTag");
-        highlightOptions.setSimplePrefix("<font color='red'>");
-        highlightOptions.setSimplePostfix("</font>");
-        //启用多字段高亮
-        highlightOptions.addHighlightParameter("hl.preserveMulti", "true");
+        try {
 
-        //设置高亮查询
-        query.setHighlightOptions(highlightOptions);
+            if(keyword == null || keyword.equals("")) return null;
+            // 创建solrQuery对象,封装条件
+            SimpleHighlightQuery query = new SimpleHighlightQuery();
+            //条件查询
+            Criteria criteria = new Criteria("gmKeyword").is(keyword);
+            //将条件添加到查询对象
+            query.addCriteria(criteria);
 
-        // 设置分页条件
-        // 设置分页查询起始位置
-        query.setOffset((long) ((page-1) * pageSize));
-        // 设置分页查询每页显示条数
-        query.setRows(pageSize);
+            //创建高亮对象,添加高亮操作
+            HighlightOptions highlightOptions = new HighlightOptions();
+            highlightOptions.addField("gmName");
+            highlightOptions.addField("gmPublisherName");
+            highlightOptions.addField("gmTypeName");
+            highlightOptions.addField("gmOperatorName");
+            highlightOptions.addField("gmTag");
+            highlightOptions.setSimplePrefix("<font color='red'>");
+            highlightOptions.setSimplePostfix("</font>");
+            //启用多字段高亮
+            highlightOptions.addHighlightParameter("hl.preserveMulti", "true");
 
-        // 执行查询
-        HighlightPage<GameVo> highlightPage = solrTemplate.queryForHighlightPage("game", query, GameVo.class);
+            //设置高亮查询
+            query.setHighlightOptions(highlightOptions);
 
-        // 获取高亮分页记录
-        List<GameVo> list = highlightPage.getContent();
+            // 设置分页条件
+            // 设置分页查询起始位置
+            query.setOffset((long) ((page-1) * pageSize));
+            // 设置分页查询每页显示条数
+            query.setRows(pageSize);
 
-        // 获取总记录数
-        long totalElements = highlightPage.getTotalElements();
+            // 执行查询
+            HighlightPage<GameVo> highlightPage = solrTemplate.queryForHighlightPage("game", query, GameVo.class);
 
-        //循环搜索小说集合,获取高亮
-        for (GameVo gameVo : list) {
-            //获取高亮
-            List<HighlightEntry.Highlight> highlights = highlightPage.getHighlights(gameVo);
+            // 获取高亮分页记录
+            List<GameVo> list = highlightPage.getContent();
 
-            //判断高亮是否存在
-            if(highlights != null  && highlights.size() > 0){
-                //多个域字段,开始遍历
-                for (HighlightEntry.Highlight highlight : highlights) {
-                    //获取高亮的域字段名字
-                    String fieldName = highlight.getField().getName();
-                    //获取高亮值[{}]
-                    List<String> snipplets = highlight.getSnipplets();
-                    //设置高亮字段
-                    if(fieldName.equals("gmName")){
-                        gameVo.setGmName(snipplets.get(0));
-                    }else if(fieldName.equals("gmPublisherName")){
-                        gameVo.setGmPublisherName(snipplets.get(0));
-                    }else if(fieldName.equals("gmTypeName")){
-                        gameVo.setGmTypeName(snipplets.get(0));
-                    }else if(fieldName.equals("gmOperatorName")){
-                        gameVo.setGmOperatorName(snipplets.get(0));
-                    }else if(fieldName.equals("gmTag")){
-                        gameVo.setGmTag(snipplets.get(0));
+            // 获取总记录数
+            long totalElements = highlightPage.getTotalElements();
+
+            //循环搜索小说集合,获取高亮
+            for (GameVo gameVo : list) {
+                //获取高亮
+                List<HighlightEntry.Highlight> highlights = highlightPage.getHighlights(gameVo);
+
+                //判断高亮是否存在
+                if(highlights != null  && highlights.size() > 0){
+                    //多个域字段,开始遍历
+                    for (HighlightEntry.Highlight highlight : highlights) {
+                        //获取高亮的域字段名字
+                        String fieldName = highlight.getField().getName();
+                        //获取高亮值[{}]
+                        List<String> snipplets = highlight.getSnipplets();
+                        //设置高亮字段
+                        if(fieldName.equals("gmName")){
+                            gameVo.setGmName(snipplets.get(0));
+                        }else if(fieldName.equals("gmPublisherName")){
+                            gameVo.setGmPublisherName(snipplets.get(0));
+                        }else if(fieldName.equals("gmTypeName")){
+                            gameVo.setGmTypeName(snipplets.get(0));
+                        }else if(fieldName.equals("gmOperatorName")){
+                            gameVo.setGmOperatorName(snipplets.get(0));
+                        }else if(fieldName.equals("gmTag")){
+                            gameVo.setGmTag(snipplets.get(0));
+                        }
                     }
                 }
             }
-        }
 
-        PageModel<GameVo> pageModel = new PageModel<GameVo>();
-        PageModel.wrapPageModel(page, pageSize, (int) totalElements, highlightPage.getContent(), pageModel);
-        return pageModel;
+            PageModel<GameVo> pageModel = new PageModel<GameVo>();
+            PageModel.wrapPageModel(page, pageSize, (int) totalElements, highlightPage.getContent(), pageModel);
+            jsonMsg = JsonMsg.makeSuccess("查询成功", pageModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonMsg = JsonMsg.makeFail("查询失败:" + e.getMessage(), null);
+        }
+        return jsonMsg;
     }
 
 }

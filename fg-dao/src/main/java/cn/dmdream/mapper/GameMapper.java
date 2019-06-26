@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface GameMapper extends BaseMapper<Game> {
 
-    List<GameVo> findAllGameVoByPage(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
+    List<GameVo> findAllGameVoByPage(@Param("start") Integer start, @Param("pageSize") Integer pageSize,@Param("game") Game game,@Param("orderField") String orderField);
 
     GameVo findGameVoById(Integer id);
 

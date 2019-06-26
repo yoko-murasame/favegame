@@ -37,6 +37,9 @@ public class GameVo implements Serializable {
     @Field("gmPubdate")
     private Date gmPubdate;// 发行日期，由发行商填写
 
+    private Integer countCollector;//收藏总人数
+    private Integer countAttentrion;//关注总人数
+
     private String gmVersion;//	varchar	游戏版本号,厂商指定,必填
     private Integer gmPlatformIsAndroid;//	int	是否有安卓平台
     private String gmAndroidUrl;//	varchar	安卓版本的下载地址

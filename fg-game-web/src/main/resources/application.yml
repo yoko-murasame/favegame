@@ -12,7 +12,7 @@ spring:
       application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
         name: fg-game-web
       registry:                 #注册中心配置，用于配置连接注册中心相关信息。
-        address: zookeeper://193.112.41.124:2181
+        address: zookeeper://localhost:2181
       consumer:
         check: false
       reference:

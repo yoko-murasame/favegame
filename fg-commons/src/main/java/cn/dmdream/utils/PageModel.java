@@ -20,6 +20,17 @@ public class PageModel<E> implements Serializable {
     private int pageSize;
     //总页数
     private int totalPage;
+    //排序
+    private String sortField;
+
+    public String getSortField() {
+        return sortField;
+    }
+
+    public void setSortField(String sortField) {
+        this.sortField = sortField;
+    }
+
     public List<E> getList() {
         return list;
     }
@@ -62,6 +73,26 @@ public class PageModel<E> implements Serializable {
      * @param currPage 设定默认的page首页/开始页信息
      * @param pageSize 设定默认的pageSize信息
      * @param totalCount 设定总记录数
+     * @param sortField 设定排序字段,如: xxx asc
+     * @param list 数据集
+     * @param pageModel 要包装的PageModel
+     */
+    public static void wrapPageModel(int currPage , int pageSize,int totalCount,String sortField,List list,PageModel<?> pageModel){
+        //计算总页数
+        int totalPage = totalCount%pageSize > 0 ? totalCount/pageSize + 1: totalCount/pageSize;
+        //封装分页参数
+        pageModel.setCurrPage(currPage);
+        pageModel.setPageSize(pageSize);
+        pageModel.setTotalCount(totalCount);
+        pageModel.setTotalPage(totalPage);
+        pageModel.setList(list);
+        pageModel.setSortField(sortField);
+    }
+    /**
+     * 自动包装计算PageModel
+     * @param currPage 设定默认的page首页/开始页信息
+     * @param pageSize 设定默认的pageSize信息
+     * @param totalCount 设定总记录数
      * @param list 数据集
      * @param pageModel 要包装的PageModel
      */
@@ -75,10 +106,16 @@ public class PageModel<E> implements Serializable {
         pageModel.setTotalPage(totalPage);
         pageModel.setList(list);
     }
+
     @Override
     public String toString() {
-        return "PageModel [list=" + list + ", totalCount=" + totalCount + ", currPage=" + currPage + ", pageSize="
-                + pageSize + ", totalPage=" + totalPage + "]";
+        return "PageModel{" +
+                "list=" + list +
+                ", totalCount=" + totalCount +
+                ", currPage=" + currPage +
+                ", pageSize=" + pageSize +
+                ", totalPage=" + totalPage +
+                ", sortField='" + sortField + '\'' +
+                '}';
     }
-
 }
