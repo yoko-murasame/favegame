@@ -20,22 +20,7 @@ public class TypeController {
 
     private JsonMsg jsonMsg = null;
 
-    @RequestMapping("add/{en}/{ch}")
-    public JsonMsg addType(@PathVariable("en") String en,@PathVariable("ch") String ch) {
-        try {
-            Type type = new Type(en, ch);
-            boolean isok = typeService.saveOrUpdate(type);
-            if (isok) {
-                jsonMsg = JsonMsg.makeSuccess("新增成功", null);
-            } else {
-                throw new Exception("新增失败!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            jsonMsg = JsonMsg.makeFail("失败:" + e.getMessage(), null);
-        }
-        return jsonMsg;
-    }
+
 
     @GetMapping("page/{page}/{pageSize}")
     public JsonMsg findAllByPage(@PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {

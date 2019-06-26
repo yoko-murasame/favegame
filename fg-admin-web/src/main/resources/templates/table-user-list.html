@@ -4,6 +4,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--<meta name="_csrf" th:content="${_csrf.token}" />-->
+		<!--<meta name="_csrf_header" th:content="${_csrf.headerName}" />-->
 		<title>Fave Game Admin index Examples</title>
 		<meta name="description" content="这是一个 index 页面">
 		<meta name="keywords" content="index">
@@ -16,19 +18,14 @@
 		<link rel="stylesheet" href="/assets/css/amazeui.min.css" />
 		<link rel="stylesheet" href="/assets/css/admin.css">
 		<link rel="stylesheet" href="/assets/css/app.css">
-
-
-        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<style>
-            .my-modal-info {
-                width: 60px;
-            }
-
-            .am-modal-bd {
-                text-align: center;
-            }
+			.my-modal-info {
+				width: 60px;
+			}
+			
+			.am-modal-bd {
+				text-align: center;
+			}
 		</style>
 	</head>
 
@@ -280,7 +277,7 @@
 
 			<div class="tpl-content-wrapper">
 				<div class="tpl-content-page-title">
-					Fave Game 文字列表
+					Fave Game 用户管理
 				</div>
 				<ol class="am-breadcrumb">
 					<li>
@@ -289,30 +286,29 @@
 					<li>
 						<a href="#">Fave Game CSS</a>
 					</li>
-					<li class="am-active">文字列表</li>
+					<li class="am-active">用户管理</li>
 				</ol>
 				<div class="tpl-portlet-components">
 					<div class="portlet-title">
 						<div class="caption font-green bold">
-							<!-- <span class="am-icon-code"></span>-->列表
+							<!-- <span class="am-icon-code"></span>-->用户列表
 						</div>
-						<div class="tpl-portlet-input tpl-fz-ml">
+						<!--<div class="tpl-portlet-input tpl-fz-ml">
 							<div class="portlet-input input-small input-inline">
 								<div class="input-icon right">
 									<i class="am-icon-search"></i>
 									<input type="text" class="form-control form-control-solid" placeholder="搜索..."></div>
 							</div>
-						</div>
-
+						</div>-->
 					</div>
 					<div class="tpl-block">
 						<div class="am-g">
 							<div class="am-u-sm-12 am-u-md-6">
 								<div class="am-btn-toolbar">
 									<div class="am-btn-group am-btn-group-xs">
-                                        <button type="button" class="am-btn am-btn-default am-btn-success" data-am-modal="{target: '#mymodal', closeViaDimmer: 0,width: 250}"><span
-                                                class="am-icon-plus"></span> 新增
-                                        </button>
+										<button type="button" class="am-btn am-btn-default am-btn-success" data-am-modal="{target: '#my-modal-add', closeViaDimmer: 0,width: 250}"><span
+                                        class="am-icon-plus"></span> 新增
+                                </button>
 										<button type="button" class="am-btn am-btn-default am-btn-secondary"><span
                                         class="am-icon-save"></span> 保存
                                 </button>
@@ -328,29 +324,20 @@
 							<div class="am-u-sm-12 am-u-md-3">
 								<div class="am-form-group">
 									<select data-am-selected="{btnSize: 'sm'}">
-										<option value="option1">所有类别</option>
-										<option value="option2">单机</option>
-										<option value="option3">角色扮演</option>
-										<option value="option3">动作</option>
-										<option value="option3">MOBA</option>
-										<option value="option3">策略</option>
-										<option value="option3">卡牌</option>
-										<option value="option3">生存</option>
-										<option value="option3">模拟</option>
-										<option value="option3">竞速</option>
-										<option value="option3">益智</option>
-										<option value="option3">二次元</option>
+										<option value="option1">查询方式</option>
+										<option value="option2">用户名</option>
+										<option value="option3">联系电话</option>
+										<option value="option4">QQ</option>
+										<option value="option5">微信</option>
 									</select>
 								</div>
 							</div>
 							<div class="am-u-sm-12 am-u-md-3">
 								<div class="am-input-group am-input-group-sm">
-									<input type="text" class="am-form-field">
+									<input type="text" class="am-form-field" id="text-search-user">
 									<span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
-                    type="button"></button>
-          </span>
-
+            							<button type="button"  class="am-btn am-btn-default am-btn-success tpl-am-btn-success am-icon-search"id="btn-search-user"></button>
+          							</span>
 								</div>
 							</div>
 						</div>
@@ -359,122 +346,158 @@
 								<form class="am-form">
 									<table class="am-table am-table-striped am-table-hover table-main">
 										<thead>
-										<tr>
-											<th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
-											<th class="table-id">ID</th>
-											<th class="table-title">中文名</th>
-											<th class="table-type">英文名</th>
-											<th class="table-type">版本号</th>
-											<th class="table-date am-hide-sm-only">修改日期</th>
-											<th class="table-set">操作</th>
-										</tr>
+											<tr>
+												<th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+												<th class="table-id">ID</th>
+												<th class="table-title">用户名</th>
+												<th class="table-type">联系电话</th>
+												<th class="table-author am-hide-sm-only">QQ</th>
+												<th class="table-date am-hide-sm-only">微信</th>
+												<th class="table-set">操作</th>
+											</tr>
 										</thead>
-										<tbody id="msg-list">
-										<tr th:each="type:${list}">
-											<td><input type="checkbox"></td>
-											<td th:text="${type.id}">1</td>
-											<td th:text="${type.gmTypeChName}">模拟战争</td>
-											<td th:text="${type.gmTypeEnName}">RPG</td>
-											<td th:text="${type.isValid}">1.0</td>
-											<td th:text="${type.createTime}">2014年9月4日 7:28:47</td>
-											<td>
-												<div class="am-btn-toolbar">
-													<div class="am-btn-group am-btn-group-xs">
-														<button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary btn-upd" data-am-modal="{target: '#upd', closeViaDimmer: 0,width: 250}">
-															<span class="am-icon-pencil-square-o" ></span>编辑
-														</button>
-														<button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only btn-del">
-															<span class="am-icon-trash-o"></span>删除
-														</button>
+										<tbody>
+											<tr th:each="user : ${users.records}">
+												<td><input type="checkbox"></td>
+												<td th:text="${{user.id}}">15</td>
+												<td th:text="${{user.gmUsername}}"></td>
+												<td th:text="${{user.gmUserPhone}}"></td>
+												<td class="am-hide-sm-only" th:text="${{user.gmUserQQ}}"></td>
+												<td class="am-hide-sm-only" th:text="${{user.gmUserWechat}}"></td>
+												<td>
+													<div class="am-btn-toolbar">
+														<div class="am-btn-group am-btn-group-xs">
+															<button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary btn-edit-user" data-am-modal="{target: '#my-modal-edit', closeViaDimmer: 0,width: 250}">
+																<span class="am-icon-pencil-square-o" ></span> 编辑
+                                                			</button>
+															<button type="button" class="am-btn am-btn-default am-btn-xs am-hide-sm-only">
+																<span class="am-icon-copy"></span> 复制
+                                                			</button>
+															<button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only btn-delete-user" data-am-modal="{target: '#my-modal-delete', closeViaDimmer: 0,width: 250}">
+                                                    			<span class="am-icon-trash-o"></span> 删除
+                                                			</button>
+														</div>
 													</div>
-												</div>
-											</td>
-										</tr>
+												</td>
+											</tr>
 										</tbody>
 									</table>
-									<!--模态框-->
-									<div class="am-modal am-modal-alert" tabindex="-1" id="upd">
-										<div class="am-modal-dialog">
-											<div class="am-modal-bd">
-												<div class="am-input-group">
-													<input type="hidden" class="am-form-field" id="updid" value="">
-												</div>
-												<div class="am-input-group">
-                                                    <label >英文缩写：</label>
-													<input type="text" class="am-form-field" id="updEn" value="">
-												</div>
-												<div class="am-input-group">
-                                                    <label >中文名称：</label>
-													<input type="text" class="am-form-field" id="updCn" value="">
-												</div>
-											</div>
-											<div class="am-modal-footer">
-												<span class="am-modal-btn" id="updbtn">修改</span>
-												<span class="am-modal-btn">关闭</span>
-											</div>
-										</div>
-									</div>
-
-									<!--模态框-->
-									<div class="am-modal am-modal-alert" tabindex="-1" id="mymodal">
-										<div class="am-modal-dialog">
-											<div class="am-modal-bd">
-												<div class="am-input-group">
-													<label >英文缩写：</label>
-													<input type="text" class="am-form-field" placeholder="EnglishName" id="EnglishName">
-												</div>
-												<div class="am-input-group">
-													<label >中文名称：</label>
-													<input type="text" class="am-form-field" placeholder="ChineseName" id="ChineseName">
-												</div>
-											</div>
-											<div class="am-modal-footer">
-												<span class="am-modal-btn" id="addbtn">添加</span>
-												<span class="am-modal-btn">关闭</span>
-											</div>
-										</div>
-									</div>
-
-									<!--end 模态框-->
 									<div class="am-cf">
-
 										<div class="am-fr">
 											<ul class="am-pagination tpl-pagination">
-												<li class="am-disabled">
-													<a href="#">«</a>
+												<li th:class="${users.current==1}?'am-disabled'">
+													<a th:href="@{'/admin/userManage/'+${users.current-1}}">«</a>
 												</li>
-												<li class="am-active">
-													<a href="#">1</a>
+												<li th:class="${users.current==1}?'am-active'">
+													<a href="/admin/userManage/1">1</a>
 												</li>
-												<li>
-													<a href="#">2</a>
+												<li th:class="${users.current==2}?'am-active'">
+													<a href="/admin/userManage/2">2</a>
 												</li>
-												<li>
-													<a href="#">3</a>
+												<li th:class="${users.current==3}?'am-active'">
+													<a href="/admin/userManage/3">3</a>
 												</li>
-												<li>
-													<a href="#">4</a>
+												<li th:class="${users.current==4}?'am-active'">
+													<a href="/admin/userManage/4">4</a>
 												</li>
-												<li>
-													<a href="#">5</a>
+												<li th:class="${users.current==5}?'am-active'">
+													<a href="/admin/userManage/5">5</a>
 												</li>
-												<li>
-													<a href="#">»</a>
+												<li th:class="${users.current==5}?'am-disabled'">
+													<a th:href="@{'/admin/userManage/'+${users.current+1}}">»</a>
 												</li>
 											</ul>
 										</div>
 									</div>
 									<hr>
-
 								</form>
 							</div>
-
 						</div>
 					</div>
 					<div class="tpl-alert"></div>
 				</div>
-
 			</div>
+			<!--新增模态框-->
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-modal-add">
+				<div class="am-modal-dialog">
+					<div class="am-modal-bd">
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i
+                                                    class="am-icon-user"></i></span>
+							<input type="text" class="am-form-field" placeholder="Username" id="user-username-add">
+						</div>
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i
+                                                    class="am-icon-phone"></i></span>
+							<input type="text" class="am-form-field" placeholder="Phone" id="user-phone-add">
+						</div>
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i class="am-icon-qq"></i></span>
+							<input type="text" class="am-form-field" placeholder="QQ" id="user-qq-add">
+						</div>
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i
+                                                    class="am-icon-wechat"></i></span>
+							<input type="text" class="am-form-field" placeholder="Wechat" id="user-wechat-add">
+						</div>
+					</div>
+					<div class="am-modal-footer">
+						<span class="am-modal-btn" id="btn-add-user-confirm">添加</span>
+						<span class="am-modal-btn">关闭</span>
+					</div>
+				</div>
+			</div>
+			<!--end 新增模态框-->
+			<!--编辑模态框-->
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-modal-edit">
+				<div class="am-modal-dialog">
+					<div class="am-modal-bd">
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i
+                                                    class="am-icon-user"></i></span>
+							<input type="text" class="am-form-field" placeholder="Username" id="user-username-edit">
+						</div>
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i
+                                                    class="am-icon-phone"></i></span>
+							<input type="text" class="am-form-field" placeholder="Phone" id="user-phone-edit">
+						</div>
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i class="am-icon-qq"></i></span>
+							<input type="text" class="am-form-field" placeholder="QQ" id="user-qq-edit">
+						</div>
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i
+                                                    class="am-icon-wechat"></i></span>
+							<input type="text" class="am-form-field" placeholder="Wechat" id="user-wechat-edit">
+						</div>
+					</div>
+					<input type="text" id="user-id-edit" style="display: none;" />
+					<div class="am-modal-footer">
+						<span class="am-modal-btn" id="btn-edit-user-confirm">修改</span>
+						<span class="am-modal-btn">关闭</span>
+					</div>
+				</div>
+			</div>
+			<!--end 删除模态框-->
+			<div class="am-modal am-modal-alert" tabindex="-1" id="my-modal-delete">
+				<div class="am-modal-dialog">
+					<div class="am-modal-bd">
+						<div class="am-input-group">
+							<span class="am-input-group-label my-modal-info"><i
+                                                    class="am-icon-user"></i></span>
+							<input type="text" class="am-form-field" placeholder="输入用户名确认删除" id="user-reusername-delete">
+						</div>
+					</div>
+					<input type="text" id="user-username-delete" style="display: none;" />
+					<input type="text" id="user-id-delete" style="display: none;" />
+					<div class="am-modal-footer">
+						<span class="am-modal-btn" id="btn-delete-user-confirm">删除</span>
+						<span class="am-modal-btn">关闭</span>
+					</div>
+				</div>
+			</div>
+			<!--end 删除模态框-->
 
 		</div>
 
@@ -482,39 +505,40 @@
 		<script src="/assets/js/amazeui.min.js"></script>
 		<script src="/assets/js/app.js"></script>
 		<script type="text/javascript">
-			$(function () {
-               $("#addbtn").click(function () {
-                   var en = $("#EnglishName").val();
-                   var cn = $("#ChineseName").val();
-                   var type = {};
-                   type.gmTypeEnName = en;
-                   type.gmTypeChName = cn;
-				   // type = JSON.stringify(type);
-                   console.log(type);
-                   $.ajax({
-                       url:"add", //要处理的页面
-                       data:type,  //要传过去的数据
-                       type:"POST",  //提交方式
-                       cache: false,
-                       success: function(back) {
-						   alert("添加成功");
-						   location.reload();
-                       },
-                       error: function(XMLHttpRequest, textStatus, errorThrown) {
-                           console.log("error");
-                       }
-                   });
-               });
-
-				$("#updbtn").click(function() {
-					var type = {};
-					type.id = $("#updid").val();
-					type.gmTypeChName = $("#updCn").val();
-					type.gmTypeEnName = $("#updEn").val();
+			$(function() {
+				console.log();
+				$("#btn-add-user-confirm").click(function() {
+					var user = {};
+					user.gmUsername = $("#user-username-add").val();
+					user.gmUserPhone = $("#user-phone-add").val();
+					user.gmUserQQ = $("#user-qq-add").val();
+					user.gmUserWechat = $("#user-wechat-add").val();
+					console.log(user);
 					$.ajax({
 						type: "post",
-						url: "upd",
-						data: type,
+						url: "userManage/add",
+						data: user,
+						success: function(back) {
+							alert("添加成功");
+							location.reload();
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							console.log("error");
+						}
+					});
+				});
+				$("#btn-edit-user-confirm").click(function() {
+					var user = {};
+					user.id = $("#user-id-edit").val();
+					user.gmUsername = $("#user-username-edit").val();
+					user.gmUserPhone = $("#user-phone-edit").val();
+					user.gmUserQQ = $("#user-qq-edit").val();
+					user.gmUserWechat = $("#user-wechat-edit").val();
+					console.log(user);
+					$.ajax({
+						type: "post",
+						url: "userManage/edit",
+						data: user,
 						success: function(back) {
 							alert("修改成功");
 							location.reload();
@@ -524,36 +548,69 @@
 						}
 					});
 				});
-
-
-				$(".btn-del").click(function() {
-						var type = {};
-						var info = $(this).parent().parent().parent().parent();
-						type.id = info.children()[1].innerText;
-						console.log(type.id);
+				$("#btn-delete-user-confirm").click(function() {
+					var reusername = $("#user-reusername-delete").val();
+					var username = $("#user-username-delete").val();
+					var id = $("#user-id-delete").val();
+					var user = {};
+					user.id = id;
+					if(username == reusername) {
 						$.ajax({
 							type: "post",
-							url: "del",
-							data: type,
+							url: "delete",
+							data: user,
 							success: function(back) {
 								alert("删除成功")
-								/*location.reload();*/
-								info.remove();
+								location.reload();
 							},
 							error: function(XMLHttpRequest, textStatus, errorThrown) {
 								console.log("error");
 							}
 						});
+					} else {
+						alert("用户名不一致");
+					}
 				});
 
-				$(".btn-upd").click(function() {
+				$(".btn-edit-user").click(function() {
 					var info = $(this).parent().parent().parent().parent();
-					$("#updid").val(info.children()[1].innerText);
-					$("#updCn").val(info.children()[2].innerText);
-					$("#updEn").val(info.children()[3].innerText);
-					$("#version").val(info.children()[4].innerText);
+					$("#user-id-edit").val(info.children()[1].innerText);
+					$("#user-username-edit").val(info.children()[2].innerText);
+					$("#user-phone-edit").val(info.children()[3].innerText);
+					$("#user-qq-edit").val(info.children()[4].innerText);
+					$("#user-wechat-edit").val(info.children()[5].innerText);
 				});
 
+				$(".btn-delete-user").click(function() {
+					var info = $(this).parent().parent().parent().parent();
+					$("#user-id-delete").val(info.children()[1].innerText);
+					$("#user-username-delete").val(info.children()[2].innerText);
+				});
+
+				$("#btn-search-user").click(function() {
+					var index = $(".am-checked").index();
+					var condition = $("#text-search-user").val();
+					console.log(condition);
+					var user = {};
+					switch(index) {
+						case 1: //用户名
+							user.gmUsername = condition;
+							window.href="/admin/search/";
+							break;
+						case 2: //联系电话
+							user.gmUserPhone = condition;
+							break;
+						case 3: //QQ
+							user.gmUserQQ = condition;
+							break;
+						case 4: //微信
+							user.gmUserWechat = condition;
+							break;
+						default:
+							break;
+					}
+					console.log(user);
+				});
 			});
 		</script>
 	</body>

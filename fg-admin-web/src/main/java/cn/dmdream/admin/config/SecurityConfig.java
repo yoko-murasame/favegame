@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -12,15 +13,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 自定义页面参考 https://woodwhales.github.io/2019/04/12/026/
-     *
      * @param http
      * @throws Exception
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()                                // 定义当需要用户登录时候，转到的登录页面。
-                .loginPage("/admin/toLogin")                        // 设置登录页面,用于跳转自定义登录页面,覆盖自带的登录页
-                .loginProcessingUrl("/admin/login")            // 自定义的登录接口,用于自定义登录页中表单的post请求路径,无需写controller
+                .loginPage("/admin/toLogin")                        // 设置登录页面
+                .loginProcessingUrl("/admin/login")            // 自定义的登录接口,用于自定义表单的post请求路径
                 .defaultSuccessUrl("/admin/index").permitAll()        // 登录成功之后，默认跳转的页面
                 .and().authorizeRequests()                    // 定义哪些URL需要被保护、哪些不需要被保护
                 .antMatchers("/admin/login", "/admin/toLogin").permitAll()        // 设置所有人都可以访问登录页面
@@ -30,7 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 加密错误错误参考 https://blog.csdn.net/canon_in_d_major/article/details/79675033
-     *
      * @param auth
      * @throws Exception
      */
@@ -39,15 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("yoko").password(new BCryptPasswordEncoder().encode("123")).roles("USER");
     }
 
-    /**
-     * 放行所有静态资源
-     *
-     * @param web
-     * @throws Exception
-     */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        //web.ignoring().antMatchers("/assets/**/*.*", "/**/*.css", "/**/*.js","/**/*.png","/**/*.jpg");
-        web.ignoring().antMatchers("/assets/**/*.*", "/css/**/*.*", "/js/**/*.*", "/img/**/*.*");
+        web.ignoring().antMatchers("/assets/**", "/**/*.css", "/**/*.js");
     }
 }
