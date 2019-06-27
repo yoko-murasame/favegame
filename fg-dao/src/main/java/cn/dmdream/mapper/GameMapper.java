@@ -14,4 +14,6 @@ public interface GameMapper extends BaseMapper<Game> {
     GameVo findGameVoById(Integer id);
 
     int save(Game game);
+
+    int updateIsValid(@Param("id") Integer id, @Param("status") Integer status);
 }

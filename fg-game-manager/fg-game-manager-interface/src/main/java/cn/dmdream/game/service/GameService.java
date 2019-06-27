@@ -15,4 +15,6 @@ public interface GameService {
     JsonMsg findAllGameVoByPage(Integer page, Integer pageSize, Game game, String orderField);
 
     JsonMsg findGameVoById(Integer id);
+
+    JsonMsg checkPass(Integer id,Integer status);
 }

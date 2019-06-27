@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>发布微生活</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" href="css/mui.css" />
+	<link rel="stylesheet" href="css/news.css" />
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/localResizeIMG.js"></script>
+	<script type="text/javascript" src="js/patch/mobileBUGFix.mini.js"></script>
+</head>
+<body>
+	<h3>点击下方添加图片</h3>
+	<div class="release_up_pic">		
+		<div class="up_pic">
+			<span id="chose_pic_btn" style="">
+				<input type="file" accept="image/*,video/mp4" />
+			</span>	
+		</div>
+	</div>
+</body>
+<script>
+	var picArr = new Array();// 存储图片
+	$('input:file').localResizeIMG({
+		width:400,// 宽度
+		quality: 1, // 压缩参数 1 不压缩 越小清晰度越低
+		success: function (result) {
+			console.log(result);
+			if(result.type == "video"){
+				result.videoUrl = "http://pspq953ox.bkt.clouddn.com/06_ActiveMQ%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E7%89%B9%E7%82%B9.mp4";
+				var _str = "<span class='pic_look'><video width='100%' height='100%' src='"+result.videoUrl+"'></video><em id='delete_pic'>-</em></span>"
+				$('#chose_pic_btn').before(_str);
+			}else{
+				var img = new Image();
+				img.src = result.base64;
+				var _str = "<span class='pic_look' style='background-image: url("+ img.src + ")'><em id='delete_pic'>-</em></span>"
+				$('#chose_pic_btn').before(_str);
+				var _i =  picArr.length
+				picArr[_i] = result.base64;
+				// picArr[_i] = _i;
+				console.log(picArr)
+			}
+		}
+	});
+	// 删除
+	$(document).on('click', '#delete_pic', function(event) {
+		var aa = $(this).parents(".pic_look").index();
+		picArr.splice(aa,1);
+		$(this).parents(".pic_look").remove();
+		console.log(picArr);
+	});	
+</script>
+</html>

@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/assets/css/app.css">
     <link rel="stylesheet" href="/assets/css/amazeui.page.css">
+    <link rel="stylesheet" type="text/css" href="/js/gritter/css/jquery.gritter.css"/>
+    <link rel="stylesheet" href="/js/multifile/css/mui.css"/>
+    <link rel="stylesheet" href="/js/multifile/css/news.css"/>
 
 </head>
 
@@ -163,7 +166,7 @@
 </header>
 
 
-<div class="tpl-page-container tpl-page-header-fixed">
+<div class="tpl-page-container tpl-page-header-fixed" style="margin-top: 0;">
 
     <div class="tpl-left-nav tpl-left-nav-hover">
         <div class="tpl-left-nav-title">
@@ -273,15 +276,9 @@
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="caption font-green bold">
-                    <!--<span class="am-icon-code"></span>--> 列表
+                    游戏列表
                 </div>
-                <div class="tpl-portlet-input tpl-fz-ml">
-                    <div class="portlet-input input-small input-inline">
-                        <div class="input-icon right">
-                            <i class="am-icon-search"></i>
-                            <input type="text" class="form-control form-control-solid" placeholder="搜索..."></div>
-                    </div>
-                </div>
+
 
 
             </div>
@@ -338,7 +335,7 @@
                                 <a href="javascript:;" class="tpl-table-images-content-i">
                                     <div class="tpl-table-images-content-i-info">
                                             <span class="ico">
-                                    <img th:src="@{${game.gmIcon}}" src="/assets/img/user02.png" alt="开发商icon">
+                                    <img th:src="@{${game.gmIcon}}" src="/assets/img/user02.png" alt="第一张介绍图片icon">
                                  </span>
 
                                     </div>
@@ -368,12 +365,14 @@
                                                     th:value="${game.id}"><span
                                                     class="am-icon-edit"></span> 编辑
                                             </button>
-                                            <button type="button"
+                                            <button th:if="${game.isValid != 1}" type="button"
                                                     class="am-btn am-btn-default am-btn-warning js-modal-check"
                                                     th:value="${game.id}"><span
                                                     class="am-icon-archive"></span> 审核
                                             </button>
-                                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span
+                                            <button type="button"
+                                                    class="am-btn am-btn-default am-btn-danger js-modal-delete"
+                                                    th:value="${game.id}"><span
                                                     class="am-icon-trash-o"></span> 删除
                                             </button>
                                         </div>
@@ -421,8 +420,9 @@
 
                         <div class="am-g">
                             <div class="tpl-form-body tpl-form-line">
-                                <form class="am-form tpl-form-line-form">
+                                <form class="am-form tpl-form-line-form" id="id-form-saveOrUpdate" action="/admin/game/saveOrUpdate" method="post">
                                     <input th:type="hidden" th:id="id-id" th:name="id"/><!--隐藏域用于更新操作-->
+                                    <input th:type="hidden" th:id="id-isValid" th:value="0" th:name="isValid"/><!--隐藏域用于更新操作-->
                                     <!--游戏名-->
                                     <div class="am-form-group">
                                         <label for="id-gmName" class="am-u-sm-3 am-form-label">游戏名 <span
@@ -499,7 +499,7 @@
                                                 class="tpl-form-line-small-title">Fee</span></label>
                                         <div class="am-u-sm-9">
                                             <div class="tpl-switch">
-                                                <input th:name="gmFree" id="id-gmFree" type="checkbox"
+                                                <input th:name="gmFree" th:value="0" id="id-gmFree" type="checkbox"
                                                        class="ios-switch bigswitch tpl-switch-btn"
                                                        style="width: 100%;height: 100%;"/>
                                                 <div class="tpl-switch-btn-view">
@@ -529,7 +529,7 @@
                                                 class="tpl-form-line-small-title">Android</span></label>
                                         <div class="am-u-sm-9" style="display: flex;">
                                             <div class="tpl-switch">
-                                                <input th:name="gmPlatformIsAndroid" id="id-gmPlatformIsAndroid"
+                                                <input th:name="gmPlatformIsAndroid" th:value="0" id="id-gmPlatformIsAndroid"
                                                        type="checkbox" class="ios-switch bigswitch tpl-switch-btn"
                                                        style="width: 100%;height: 100%;"/>
                                                 <div class="tpl-switch-btn-view">
@@ -556,7 +556,7 @@
                                                 class="tpl-form-line-small-title">IOS</span></label>
                                         <div class="am-u-sm-9">
                                             <div class="tpl-switch">
-                                                <input th:name="gmPlatformIsIOS" id="id-gmPlatformIsIOS" type="checkbox"
+                                                <input th:name="gmPlatformIsIOS" th:value="0" id="id-gmPlatformIsIOS" type="checkbox"
                                                        class="ios-switch bigswitch tpl-switch-btn"
                                                        style="width: 100%;height: 100%;"/>
                                                 <div class="tpl-switch-btn-view">
@@ -598,23 +598,34 @@
                                         <div class="am-u-sm-9">
                                             <div class="am-form-group am-form-file">
                                                 <div class="tpl-form-file-img">
-                                                    <img id="id-reShow-img" src="http://pspq953ox.bkt.clouddn.com/214.jpg" alt="">
+                                                    <img id="id-reShow-img"
+                                                         src="http://pspq953ox.bkt.clouddn.com/214.jpg" alt="">
                                                 </div>
-                                                <button type="button" class="am-btn am-btn-danger am-btn-sm" id="id-btn-addIcon">
+                                                <button type="button" class="am-btn am-btn-danger am-btn-sm"
+                                                        id="id-btn-addIcon">
                                                     <i class="am-icon-cloud-upload"></i> 添加封面图片
                                                 </button>
-                                                <input id="id-upload-icon" type="file">
+                                                <input id="id-upload-icon" type="file" accept="image/*">
                                             </div>
                                         </div>
                                     </div>
                                     <!--介绍视频和图片-->
                                     <div class="am-form-group">
-                                        <label for="id-gmIntroMedia" class="am-u-sm-3 am-form-label">封面图 <span
-                                                class="tpl-form-line-small-title">Icon</span></label>
-                                        <input th:name="gmIntroMedia" id="id-gmIntroMedia" type="hidden"><!--隐藏表单,存放gmIntroMedia地址-->
+                                        <label for="id-gmIntroMedia" class="am-u-sm-3 am-form-label">游戏视频和图片 <span
+                                                class="tpl-form-line-small-title">IntroMedia</span></label>
+                                        <input th:name="gmIntroMedia" id="id-gmIntroMedia" type="hidden">
+                                        <!--隐藏表单,存放gmIntroMedia地址-->
                                         <div class="am-u-sm-9">
                                             <div class="am-form-group am-form-file">
-                                                <input id="id-upload-icon" type="file">
+                                                <!--多文件上传插件显示-->
+                                                <div class="release_up_pic">
+                                                    <div class="up_pic">
+                                                        <span id="chose_pic_btn" style="">
+                                                            <input id="id-upload-multifile" type="file" accept="image/*,video/mp4"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!--多文件上传插件显示/-->
                                             </div>
                                         </div>
                                     </div>
@@ -628,10 +639,11 @@
                                                       placeholder="请输入游戏内容"></textarea>
                                         </div>
                                     </div>
+
                                     <!--提交按钮-->
                                     <div class="am-form-group">
                                         <div class="am-u-sm-9 am-u-sm-push-3">
-                                            <button type="submit"
+                                            <button type="button" id="id-form-btn-saveOrUpdate"
                                                     class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交
                                             </button>
                                         </div>
@@ -641,10 +653,38 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!--审核模态框-->
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="id-game-check">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">这里是审核</div>
+            <div class="am-modal-bd">
+                你确定通过该游戏的审核吗？请输入“确定”通过审核
+                <input type="text" class="am-modal-prompt-input">
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>残忍拒绝oVo</span>
+                <span class="am-modal-btn" data-am-modal-confirm>过了过了=v=</span>
+            </div>
+        </div>
+    </div>
+
+    <!--删除模态框-->
+    <div class="am-modal am-modal-prompt" tabindex="1" id="id-game-delete">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">这里是删除</div>
+            <div class="am-modal-bd">
+                你真的真的要删除我=-=吗？请输入“确定”删除
+                <input type="text" class="am-modal-prompt-input">
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>留你一命</span>
+                <span class="am-modal-btn" data-am-modal-confirm>干掉你！</span>
             </div>
         </div>
     </div>
@@ -653,15 +693,21 @@
 
 
 <script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/amazeui.min.js"></script>
-<script src="/assets/js/app.js"></script>
 <!--我自己引用的js插件-->
+<script src="/js/jquery.form.min.js"></script>
+<script src="/assets/js/amazeui.min.js"></script>
 <script type="text/javascript" src="/assets/js/amazeui.page.js"></script>
-<link rel="stylesheet" type="text/css" href="/js/gritter/css/jquery.gritter.css"/>
+<script src="/assets/js/app.js"></script>
 <script type="text/javascript" src="/js/gritter/js/jquery.gritter.js"></script>
 <script src="https://unpkg.com/qiniu-js@2.5.4/dist/qiniu.min.js"></script>
 <script src="/js/common.js"></script>
+<!--多文件上传,yoko修改版,依赖了common.js-->
+<script type="text/javascript" src="/js/multifile/js/localResizeIMG.js"></script>
+<script type="text/javascript" src="/js/multifile/js/patch/mobileBUGFix.mini.js"></script>
+
+<!--分页控件和监听函数,用到了thymeleaf,因此最好放在body标签中-->
 <script th:inline="javascript">
+
     //初始化跳转路径,处理分页多条件组合逻辑
     var url = "/admin/game?page=%page%";
     //处理跳转逻辑,组合查询条件
@@ -699,6 +745,7 @@
         theme: "am-pagination tpl-pagination",
     });
 
+    <!--当前页的所有监听函数,需要依赖以上全部js-->
     $(function () {
         // 搜索触发事件
         //搜索已审核
@@ -728,8 +775,12 @@
             window.location.href = innerUrl;
         });
 
+        //预先查询发布者列表和运营商列表
+        handlePublisher();
+        handleOperator();
         //模态窗口按钮监听处理
         var $modal = $('#saveOrUpdate');
+
         //siblings用于选择样式绑定的事件处理
         $(".am-btn").siblings().on("click", function (e) {
             var $target = $(e.target);
@@ -740,7 +791,7 @@
                 $modal.modal({
                     closeOnConfirm: false,
                     closeOnCancel: false,
-                    closeViaDimmer:false,
+                    closeViaDimmer: false,
                 });
                 handlePublisher();
                 handleOperator();
@@ -748,11 +799,126 @@
             //处理编辑操作
             else if (($target).hasClass('js-modal-edit')) {
                 console.log("编辑触发,id:" + $target.context.value);
+                //handlePublisher();
+                //handleOperator();
+                //回填数据
+                getAjaxPromise("/admin/game/one/"+$target.context.value, null, "get").then(function (value) {
+                    if (value.status == 200) {
+                        var g = value.data;
+                        console.log(g);
+                        $("#id-id").val(g.id);
+                        $("#id-isValid").val(g.isValid);
+                        $("#id-gmName").val(g.gmName);
+                        $("#id-gmVersion").val(g.gmVersion);
+                        //游戏类型回选
+                        $("#id-gmTypeId").val(g.gmTypeId);
+                        var option = $("#id-gmTypeId").find('option[value="+g.gmTypeId+"]')[0];
+                        $(option).attr('selected', true);
+                        $("#id-gmTypeId").trigger('changed.selected.amui');
+                        //发布者回选
+                        $("#id-gmPublisherId").val(g.gmPublisherId);
+                        option = $("#id-gmPublisherId").find('option[value="+g.gmPublisherId+"]')[0];
+                        $(option).attr('selected', true);
+                        $("#id-gmPublisherId").trigger('changed.selected.amui');
+                        //发布日期回填
+                        $("#id-gmPubdate").val(g.gmPubdate);
+                        //运营商回选
+                        $("#id-gmOperatorId").val(g.gmOperatorId);
+                        option = $("#id-gmOperatorId").find('option[value="+g.gmOperatorId+"]')[0];
+                        $(option).attr('selected', true);
+                        $("#id-gmOperatorId").trigger('changed.selected.amui');
+                        //免费付费回选
+                        $("#id-gmFree").val(g.gmFree);
+                        var flag = g.gmFree == 1 ? true:false;
+                        $("#id-gmFree").prop("checked",flag);
+                        $("#id-gmPrice").val(g.gmPrice);
+                        //安卓按钮回选
+                        $("#id-gmPlatformIsAndroid").val(g.gmPlatformIsAndroid);
+                        var flag = g.gmPlatformIsAndroid == 1 ? true:false;
+                        $("#id-gmPlatformIsAndroid").prop("checked",flag);
+                        $("#id-gmAndroidUrl").val(g.gmAndroidUrl);
+                        //IOS按钮回选
+                        $("#id-gmPlatformIsIOS").val(g.gmPlatformIsIOS);
+                        var flag = g.gmPlatformIsIOS == 1 ? true:false;
+                        $("#id-gmPlatformIsIOS").prop("checked",flag);
+                        $("#id-gmIOSUrl").val(g.gmIOSUrl);
+                        //运行环境
+                        $("#id-gmRunenv").val(g.gmRunenv);
+                        //图片回显
+                        $("#id-gmIcon").val(g.gmIcon);
+                        $("#id-reShow-img").attr("src",g.gmIcon);
+                        //介绍视频和图片回填
+                        $("#id-gmIntroMedia").val(g.gmIntroMedia);
+                        //picArr = g.gmIntroMedia.split(",");//每次修改需要重新上传，不需要回选，要不无法进行删除
+                        $("#id-gmDetail").val(g.gmDetail);
+                        //取消父modal关闭监听,用于子modal的打开关闭操作
+                        $modal.modal({
+                            closeOnConfirm: false,
+                            closeOnCancel: false,
+                            closeViaDimmer: false,
+                        });
+
+                    }else{
+                        showGritter("消息", value.msg);
+                    }
+                })
             }
             //处理审核操作
             else if (($target).hasClass('js-modal-check')) {
                 console.log("审核触发,id:" + $target.context.value);
+                var id = $target.context.value;
+                var $checkModal =  $("#id-game-check");
+                $checkModal.modal({
+                    relatedTarget: this,
+                    onConfirm:function (e) {
+                        console.log(e);
+                        if(e.data == "确定"){
+                            getAjaxPromise("/admin/game/checkPass/" + id, null, "post").then(function (value) {
+                                if (value.status == 200) {
+                                    showGritter("消息", "成功通过审核~");
+                                    setTimeout(function(){window.location.reload();},1000);
+                                } else {
+                                    showGritter("消息", value.msg);
+                                }
+                            });
+                        }else{
+                            showGritter("消息", "没输入‘确定'哦~");
+                        }
+                    },
+                    onCancel:function (e) {
+                        showGritter("消息", "你取消了~");
+                    },
+                });
+
             }
+            //处理删除
+            else if (($target).hasClass('js-modal-delete')) {
+                console.log("删除触发,id:" + $target.context.value);
+                var id = $target.context.value;
+                var $deleteModal =  $("#id-game-delete");
+                $deleteModal.modal({
+                    relatedTarget: this,
+                    onConfirm:function (e) {
+                        console.log(e);
+                        if(e.data == "确定"){
+                            getAjaxPromise("/admin/game/delete/" + id, null, "post").then(function (value) {
+                                if (value.status == 200) {
+                                    showGritter("消息", "删除成功~");
+                                    setTimeout(function(){window.location.reload();},1000);
+                                } else {
+                                    showGritter("消息", value.msg);
+                                }
+                            });
+                        }else{
+                            showGritter("消息", "没输入‘确定'哦~");
+                        }
+                    },
+                    onCancel:function (e) {
+                        showGritter("消息", "不删了不删了=v=");
+                    },
+                });
+            }
+
         });
 
         //处理游戏发行商列表
@@ -812,6 +978,7 @@
             } else {
                 console.log("免费了");
                 $("#id-gmPrice").val("");//将价格置空
+                $switchBtn.val(0);//表示免费状态
                 $switchBtn.parent().parent().children("span").remove();
             }
         });
@@ -824,7 +991,7 @@
                 console.log("无安卓版本");
                 $("#id-gmAndroidUrl").val("");//将下载地址置空
                 $switchBtn.val(0);//表示不存在安卓版本
-            }else{
+            } else {
                 $switchBtn.val(1);//表示存在安卓版本
             }
         });
@@ -835,7 +1002,7 @@
             var promiseObj = handleUploadUrl("/admin/game/QiniuUpToken", this, $("#id-fileupload-rename"), null, $("#id-gmAndroidUrl"));
             promiseObj.then(function (value) {
                 console.log(value);
-                console.log("安卓地址已设置:"+$("#id-gmAndroidUrl").val());
+                console.log("安卓地址已设置:" + $("#id-gmAndroidUrl").val());
             })
         });
         //IOS开关
@@ -856,26 +1023,157 @@
                 });
             } else {
                 console.log("无IOS版本");
+                $switchBtn.val(0);//表示不存在IOS版本
                 $("#id-gmIOSUrl").val("");//将IOS地址置空
                 $switchBtn.parent().parent().children("span").remove();
             }
         });
 
         //监听Icon图片上传
-        $("#id-upload-icon").on("change",function () {
+        $("#id-upload-icon").on("change", function () {
             var fileName = $(this).val();
             if (fileName == null || fileName == "") return;
             var promiseObj = handleUploadUrl("/admin/game/QiniuUpToken", this, null, $("#id-reShow-img"), $("#id-gmIcon"));
             promiseObj.then(function (value) {
                 //隐藏上传按钮
                 $("#id-btn-addIcon").addClass("my-hidden");
+                //$("#id-btn-addIcon").attr("disabled", true);
+                $("#id-upload-icon").attr("disabled", true);
                 console.log(value);
-                console.log("游戏Icon地址已设置:"+$("#id-gmIcon").val());
+                console.log("游戏Icon地址已设置:" + $("#id-gmIcon").val());
             })
-        })
+        });
 
+        //监听多文件(图片/视频)上传
+        var picArr = new Array();// 存储图片
+        $('#id-upload-multifile').localResizeIMG({
+            width:400,// 宽度
+            quality: 1, // 压缩参数 1 不压缩 越小清晰度越低
+            success: function (result) {
+                console.log(result);
+                if(result.type == "video"){
+                    //result.videoUrl = "http://pspq953ox.bkt.clouddn.com/06_ActiveMQ%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E7%89%B9%E7%82%B9.mp4";
+                    var _str = "<span class='pic_look'><video width='100%' height='100%' src='"+result.videoUrl+"'></video><em id='delete_pic'>-</em></span>"
+                    $('#chose_pic_btn').before(_str);
+                    var _i =  picArr.length
+                    picArr[_i] = result.videoUrl;
+                    console.log(picArr)
+                }else{
+                    var img = new Image();
+                    img.src = result.base64;
+                    var _str = "<span class='pic_look' style='background-image: url("+ img.src + ")'><em id='delete_pic'>-</em></span>"
+                    $('#chose_pic_btn').before(_str);
+                    var _i =  picArr.length
+                    picArr[_i] = result.imgUrl;
+                    console.log(picArr)
+                }
+                //同步处理input标签的value
+                handleUrlListSyncToIntroMedia(picArr,$("#id-gmIntroMedia"));
+            }
+        });
+        // 监听多文件上传的删除
+        $(document).on('click', '#delete_pic', function(event) {
+            var aa = $(this).parents(".pic_look").index();
+            picArr.splice(aa,1);
+            $(this).parents(".pic_look").remove();
+            console.log(picArr);
+            //同步处理input标签的value
+            handleUrlListSyncToIntroMedia(picArr,$("#id-gmIntroMedia"));
+        });
+        //文件地址列表和gmIntroMedia隐藏表单标签的同步方法
+        function handleUrlListSyncToIntroMedia(list, IntroMediaObj) {
+            var listStr = "";
+            if (list.length == 1) {
+                listStr = list[0];
+            }
+            if (list.length > 1) {
+                listStr = list[0];
+                for(var i=1;i<list.length;i++){
+                    listStr = listStr + "," + list[i];
+                }
+            }
+            $(IntroMediaObj).val(listStr);
+            console.log("当前处理过后的url字符串-已同步到input:" + $(IntroMediaObj).val());
+        }
+
+        //监听form表单提交
+        $("#id-form-btn-saveOrUpdate").on("click",function () {
+            $("#id-form-saveOrUpdate").ajaxSubmit({
+                //提交前的回调函数
+                beforeSubmit: function (formData, jqForm, options) {
+                    //formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]
+                    //jqForm:   jQuery对象，封装了表单的元素
+                    //options:  options对象
+                    var queryString = $.param(formData);   //name=1&address=2
+                    var formElement = jqForm[0];              //将jqForm转换为DOM对象
+                    console.log(formElement);//输出表单对象,可以用于获取表单值
+                    console.log(queryString);//输出拼接的字符串id=&gmName=&gmVersion=&gmTypeId=-1...
+
+                    //处理所有的必填参数
+                    var gmName = formElement.gmName.value;
+                    var gmVersion = formElement.gmVersion.value;
+                    var gmType = formElement.gmTypeId.value;
+                    var gmPublisher = formElement.gmPublisherId.value;
+                    var gmPubdate = formElement.gmPubdate.value;
+                    var gmIcon = formElement.gmIcon.value;
+                    var gmIntroMedia = formElement.gmIntroMedia.value;
+                    var gmDetail = formElement.gmDetail.value;
+                    if(gmName == null || gmName == ""){
+                        showGritter("消息","游戏名不能为空!");
+                        return false;
+                    }
+                    if(gmVersion == null || gmVersion == ""){
+                        showGritter("消息","游戏版本号不能为空!");
+                        return false;
+                    }
+                    if(gmType == -1 || gmType == null){
+                        showGritter("消息","请选择游戏类型!");
+                        return false;
+                    }
+                    if(gmPublisher == -1 || gmPublisher == null){
+                        showGritter("消息","请选择游戏发布商!");
+                        return false;
+                    }
+                    if(gmPubdate == null || gmPubdate == ""){
+                        showGritter("消息","请选择发布时间!");
+                        return false;
+                    }
+                    if(gmIcon == null || gmIcon == ""){
+                        showGritter("消息","请上传游戏Icon!");
+                        return false;
+                    }
+                    if(gmIntroMedia == null || gmIntroMedia == ""){
+                        showGritter("消息","请上传游戏简介视频或图片!");
+                        return false;
+                    }
+                    if(gmDetail == null || gmDetail == ""){
+                        showGritter("消息","请完善游戏详情介绍!");
+                        return false;
+                    }
+                    //console.log(gmName,gmVersion,gmType,gmPublisher,gmPubdate,gmIcon,gmIntroMedia,gmDetail);
+                    return true;  //只要不返回false，表单都会提交,在这里可以对表单元素进行验证
+                },
+                //成功后的回调函数
+                success:function (res) {
+                    console.log("inner");
+                    console.log(res);
+                    if (res.status == 200) {
+                        showGritter("消息",res.msg);
+                        setTimeout(function(){window.location.reload();},1000);
+                    }else{
+                        showGritter("消息",res.msg);
+                    }
+                },
+                //这里要是json,要不无success回调
+                dataType: 'json',           //html(默认), xml, script, json...接受服务端返回的类型
+                //clearForm: true,          //成功提交后，清除所有表单元素的值
+                //resetForm: true,          //成功提交后，重置所有表单元素的值
+                timeout: 3000,               //限制请求的时间，当请求大于3秒后，跳出请求
+            })
+        });
 
     });
+
 </script>
 
 </body>

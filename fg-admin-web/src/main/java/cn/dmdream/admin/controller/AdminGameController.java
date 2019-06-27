@@ -56,9 +56,29 @@ public class AdminGameController {
         return mav;
     }
 
-    @GetMapping("one/id")
-    public JsonMsg findGameVoById(Integer id) {
+    @PostMapping("saveOrUpdate")
+    public JsonMsg saveOrUpdate(Game game) {
+        return gameService.saveOrUpdate(game);
+    }
+
+    @PostMapping("checkPass/{id}")
+    public JsonMsg checkPass(@PathVariable("id") Integer id) {
+        return gameService.checkPass(id,1);
+    }
+
+    @PostMapping("delete/{id}")
+    public JsonMsg deleteById(@PathVariable("id") Integer id) {
+        return gameService.deleteById(id);
+    }
+
+    @GetMapping("oneVo/{id}")
+    public JsonMsg findGameVoById(@PathVariable("id") Integer id) {
         return gameService.findGameVoById(id);
+    }
+
+    @GetMapping("one/{id}")
+    public JsonMsg findGameById(@PathVariable("id") Integer id) {
+        return gameService.findById(id);
     }
 
     @GetMapping("publisher")
@@ -103,19 +123,6 @@ public class AdminGameController {
             result.put("token", upToken);
             //存入外链默认域名，用于拼接完整的资源外链路径
             result.put("domain", domain);
-
-            // 是否可以上传的图片格式
-            /*boolean flag = false;
-            String[] imgTypes = new String[]{"jpg","jpeg","bmp","gif","png"};
-            for(String fileSuffix : imgTypes) {
-                if(suffix.substring(suffix.lastIndexOf(".") + 1).equalsIgnoreCase(fileSuffix)) {
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag) {
-                throw new Exception("图片：" + suffix + " 上传格式不对！");
-            }*/
 
             //生成实际路径名
             String randomFileName ="game/" + UUID.randomUUID().toString() + suffix;

@@ -63,10 +63,10 @@ public class GameServiceImpl implements GameService {
             } else {
                 i = gameMapper.updateById(game);
             }
-            //发送消息给ActiveMQ服务器,更新solr
-            jmsTemplate.convertAndSend("fg-game-search-update", game.getId());
             boolean isok =  i > 0 ? true : false;
             if (isok) {
+                //发送消息给ActiveMQ服务器,更新solr
+                jmsTemplate.convertAndSend("fg-game-search-update", game.getId());
                 jsonMsg = JsonMsg.makeSuccess("保存成功", null);
             } else {
                 throw new Exception("保存失败!");
@@ -82,10 +82,10 @@ public class GameServiceImpl implements GameService {
     public JsonMsg deleteById(Integer id) {
         try {
             int i = gameMapper.deleteById(id);
-            //发送消息给ActiveMQ服务器,更新solr
-            jmsTemplate.convertAndSend("fg-game-search-update", id);
             boolean isok = i > 0 ? true : false;
             if (isok) {
+                //发送消息给ActiveMQ服务器,更新solr
+                jmsTemplate.convertAndSend("fg-game-search-update", id);
                 jsonMsg = JsonMsg.makeSuccess("成功", null);
             } else {
                 throw new Exception("数据库保存失败");
@@ -128,6 +128,24 @@ public class GameServiceImpl implements GameService {
         } catch (Exception e) {
             e.printStackTrace();
             jsonMsg = JsonMsg.makeFail("失败:" + e.getMessage(), null);
+        }
+        return jsonMsg;
+    }
+
+    @Override
+    public JsonMsg checkPass(Integer id,Integer status) {
+        try{
+            int i = gameMapper.updateIsValid(id, status);
+            if (i > 0) {
+                //发送消息给ActiveMQ服务器,更新solr
+                jmsTemplate.convertAndSend("fg-game-search-update", id);
+                jsonMsg = JsonMsg.makeSuccess("更新成功！", null);
+            } else {
+                throw new Exception("更新失败！");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonMsg = JsonMsg.makeFail(e.getMessage(), null);
         }
         return jsonMsg;
     }

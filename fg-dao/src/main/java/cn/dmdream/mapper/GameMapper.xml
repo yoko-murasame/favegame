@@ -52,6 +52,9 @@
         #{gmPubdate}
         );
     </insert>
+    <update id="updateIsValid">
+        update tab_game set isValid=#{status} where id=#{id};
+    </update>
 
     <select id="findAllGameVoByPage" parameterType="cn.dmdream.entity.Game" resultType="cn.dmdream.entity.vo.GameVo">
         select g.*,t.id as gmTypeId,t.gmTypeEnName as gmTypeName,p.id as gmPublisherId,p.gmPublisherName as
