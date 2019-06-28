@@ -5,13 +5,11 @@ import cn.dmdream.entity.Publisher;
 import cn.dmdream.game.service.PublisherService;
 import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
-import org.springframework.stereotype.Controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import net.sf.json.JSONArray;
 
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +44,12 @@ public class PublisherController {
             e.printStackTrace();
             jsonMsg = JsonMsg.makeFail("查询失败!" + e.getMessage(), null);
         }
-        json=JSONArray.fromObject(publisher).toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            json = objectMapper.writeValueAsString(publisher);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("publisher");
         modelAndView.addObject("jsonMsg",publisher);
