@@ -3,6 +3,7 @@ package cn.dmdream.game.service.impl;
 import cn.dmdream.entity.Publisher;
 import cn.dmdream.game.service.PublisherService;
 import cn.dmdream.mapper.PublisherMapper;
+import cn.dmdream.utils.EmptyUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,14 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+@Transactional
 @Component
 @Service(interfaceClass = PublisherService.class)
-@Transactional
 public class PublisherServiceImpl implements PublisherService {
-
     @Autowired
     private PublisherMapper publisherMapper;
-
     @Override
     public IPage<Publisher> findAllByPage(Integer page, Integer pageSize) {
         return null;
@@ -34,16 +34,34 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public Publisher findById(Integer id) {
-        return null;
+        return publisherMapper.selectById(id);
     }
+
+
 
     @Override
     public boolean saveOrUpdate(Publisher publisher) {
-        return false;
+        int i = 0;
+        if (EmptyUtils.isEmpty(publisher.getId())) {
+            i = publisherMapper.insert(publisher);
+        } else {
+            i = publisherMapper.updateById(publisher);
+        }
+        return i > 0 ? true : false;
     }
 
     @Override
     public boolean deleteById(Integer id) {
-        return false;
+        int i = 0;
+        i = publisherMapper.deleteById(id);
+        return i > 0 ? true : false;
     }
+
+    @Override
+    public boolean deletdByBatch(List<Integer> id) {
+        int i=0;
+        i=publisherMapper.deleteBatchIds(id);
+        return i > 0 ? true : false;
+    }
+
 }

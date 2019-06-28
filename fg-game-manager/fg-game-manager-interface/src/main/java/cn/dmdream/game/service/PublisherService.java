@@ -17,4 +17,6 @@ public interface PublisherService {
 
     boolean deleteById(Integer id);
 
+    boolean deletdByBatch(List<Integer>id);
+
 }
