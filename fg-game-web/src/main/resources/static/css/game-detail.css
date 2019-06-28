@@ -1,0 +1,308 @@
+body {
+	background-color: #f2f2f2;
+}
+
+a {
+	text-decoration: none;
+}
+
+#main-container {
+	width: 1200px;
+	min-width: 1200px;
+	margin: 20px auto;
+	overflow: hidden;
+}
+
+#main-left {
+	width: calc(70% - 20px);
+	float: left;
+	box-sizing: border-box;
+}
+
+#main-right {
+	width: 30%;
+	float: right;
+}
+
+.show-main-header {
+	position: relative;
+	margin: 0 0 16px;
+	padding: 30px 30px 0;
+	background: #fff;
+	border-radius: 3px;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+	overflow: hidden;
+}
+
+.main-header-icon {
+	text-align: center;
+	float: left;
+	position: relative;
+	width: 180px;
+}
+
+.header-icon-body,
+.header-icon-body img {
+	width: 100%;
+}
+
+.main-header-rec {
+	display: inline-block;
+	padding: 15px 0;
+	text-align: center;
+}
+
+.main-header-rec span {
+	padding: 3px 14px;
+	background-color: #b4ebfa;
+	border-radius: 15px;
+	font-size: 12px;
+	color: #14B9C8;
+}
+
+.main-header-text {
+	float: left;
+	margin-left: 40px;
+	position: relative;
+	right: 0px;
+	min-height: 180px;
+	margin-bottom: 30px;
+	width: calc(100% - 220px);
+}
+
+.base-info-wrap {
+	width: 384px;
+	min-height: 100px;
+}
+
+.app-rating-block {
+	display: inline-block;
+	height: 70px;
+	width: 70px;
+	background: url(/images/iconfont/rating.png) no-repeat;
+	background-size: 100%;
+	color: #fff;
+	font-size: 14px;
+	position: absolute;
+	top: 0;
+	right: -10px;
+}
+
+.app-rating-container {
+	width: inherit;
+	height: inherit;
+	position: relative;
+	display: inline-block;
+}
+
+.main-header-game-name {
+	display: inline-block;
+	margin: 0;
+	line-height: 30px;
+	max-height: 60px;
+	vertical-align: top;
+	font-size: 24px;
+	overflow: hidden;
+	max-width: 90%;
+}
+
+.main-header-game-name small {
+	line-height: 16px!important;
+	margin-left: 4px;
+}
+
+.taptap-app-area {
+	line-height: 16px;
+	vertical-align: text-top;
+	margin-left: 4px;
+}
+
+.text-download-text {
+	margin: 0;
+	color: #666;
+	overflow: hidden;
+	padding-bottom: 5px;
+}
+
+.js-taptap-button-friendship {
+	background: 0 0;
+	border-color: transparent;
+	float: left;
+	padding-left: 0;
+	padding-right: 8px;
+	min-width: 64px;
+	font-family: "Microsoft YaHei", Tahoma, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+}
+
+.app {
+	height: 20px;
+	width: 20px;
+	float: left;
+	margin-right: 5px;
+}
+
+.app-data-wrap {
+	float: left;
+	margin-right: 10px;
+	display: block;
+	line-height: 20px;
+}
+
+.taptap-button-download {
+	float: left;
+	position: relative;
+	box-sizing: border-box;
+	display: block;
+}
+
+.taptap-button-download button {
+	padding: 7px 15px;
+	min-width: 125px;
+	line-height: 24px;
+	font-size: 14px;
+	font-family: "Microsoft YaHei", Tahoma, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif!important;
+	border-color: #12A7B4;
+	background: #12A7B4;
+	border-radius: 3px;
+	box-shadow: none;
+	margin-right: 10px;
+}
+
+.taptap-button-download button span {
+	font-size: 14px;
+	font-family: "Microsoft YaHei", Tahoma, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif!important;
+	color: #fff;
+}
+
+.main-header-tab {
+	margin: 0 -30px;
+	clear: both;
+	border-top: 1px solid #eee;
+	box-sizing: border-box;
+	background: #fff;
+}
+
+.nav-justified {
+	width: 100%;
+	margin-top: 0;
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
+	display: block;
+	padding: 0;
+}
+
+.nav-justified li {
+	display: table-cell;
+	width: 1%;
+	float: none;
+	position: relative;
+	list-style: none;
+	box-sizing: border-box;
+	text-align: center;
+	border-right: 1px solid #eeeeee;
+}
+
+.nav-justified li:last-child {
+	border-right: 0px;
+}
+
+.nav-justified li a {
+	color: #14B9C8;
+	position: relative;
+	padding: 12px 11px;
+	line-height: 25px;
+	max-height: 49px;
+	font-size: 18px;
+	border-radius: 0;
+	background: 0 0;
+}
+
+.follow {
+	color: #12A7B4;
+}
+
+.description {
+	float: left;
+}
+
+.text-download-text {
+	height: 32px!important;
+}
+
+.text-hints {
+	float: right;
+}
+
+.header-text-author,
+.header-text-author:hover {
+	text-decoration: none;
+}
+
+.header-text-author span {
+	font-size: 12px;
+	color: #14B9C8;
+	line-height: 18px;
+}
+
+.app-rating-score {
+	position: absolute;
+	width: inherit;
+	display: inline-block;
+	top: 62%;
+	-webkit-transform: translate3d(0, -50%, 0);
+	transform: translate3d(0, -50%, 0);
+	left: 0;
+	margin-top: -4px;
+	text-align: center;
+	font-size: 30px;
+	letter-spacing: -.73px;
+	font-family: PingFangSC-Medium, "MicroSoft YaHei", sans-serif;
+	font-weight: 500;
+	text-shadow: 0 1px 1px rgba(0, 140, 160, .66);
+	-webkit-font-smoothing: antialiased;
+}
+
+.social-spread-wechat {
+	padding: 10px;
+	background: #fff;
+	border-radius: 3px;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+	overflow: visible;
+}
+
+#side-code {
+	display: inline-block;
+	width: 100px;
+	margin-right: 20px;
+}
+
+.spread-logo-wrap {
+	width: 100%;
+}
+
+.social-spread-wechat div {
+	display: inline-block;
+	padding: 5px 0 0;
+}
+
+#side-icon-title {
+	color: #14B9C8;
+	font-size: 22px;
+	font-weight: 700;
+	display: block;
+	padding-top: 0!important;
+}
+
+.spread-wechat-divide {
+	font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	color: #333;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+.list-inline li {
+	float: left;
+}
