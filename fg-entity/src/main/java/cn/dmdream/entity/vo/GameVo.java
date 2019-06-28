@@ -54,11 +54,16 @@ public class GameVo implements Serializable {
     @Getter @Setter
     private Date gmPubdate;// 发行日期，由发行商填写
 
+    @Field("countCollector")
     @Getter @Setter
     private Integer countCollector;//收藏总人数
+    @Field("countAttentrion")
     @Getter @Setter
     private Integer countAttentrion;//关注总人数
 
+
+    @Getter @Setter
+    private BigDecimal gmPrice;//	decimal	付费金额
     @Getter @Setter
     private String gmVersion;//	varchar	游戏版本号,厂商指定,必填
     @Getter @Setter
@@ -71,6 +76,7 @@ public class GameVo implements Serializable {
     private String gmIOSUrl;//	varchar	IOS版本的地址
     @Getter @Setter
     private String gmRunenv;//	varchar	游戏运行配置
+
     @Getter @Setter
     private String gmDetail;//	varchar	游戏详情
 
@@ -87,8 +93,7 @@ public class GameVo implements Serializable {
         }
     }
 
-    @Getter @Setter
-    private BigDecimal gmPrice;//	decimal	付费金额
+
 
     @Getter @Setter
     private Date createTime;

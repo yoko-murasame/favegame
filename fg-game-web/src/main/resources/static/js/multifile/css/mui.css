@@ -1,0 +1,25 @@
+
+html { font-size: 62.5%; }
+body, p, input, h1, h2, h3, h4, h5, h6, ul, li, dl, dt, dd, form
+{ margin: 0; padding: 0; list-style: none; vertical-align: middle; font-weight:normal; }
+img { border:0; margin: 0; padding: 0;   }
+body { -webkit-user-select: none; -webkit-text-size-adjust: none; font:normal 16px/200% "微软雅黑", helvetica, arial;
+    overflow-x:hidden; width:100%; text-align:left;color:#000;}
+header, section, footer { display: block; margin: 0; padding: 0;}
+a{text-decoration:none;color:#000;}
+
+.c{height: 0;clear: both;overflow: hidden;}
+ .h{clear:both; height:10px; overflow:hidden;}
+ .h20{clear: both;height: 20px;overflow: hidden;}
+ .h50{clear: both;height: 50px;overflow: hidden;}
+ .p5{padding:5px;}
+ .p10{padding:10px;}
+ .l{float: left;clear: left;}
+ .r{float: right;clear: right;}
+ .center{text-align: center;}
+
+ .mom{
+ -webkit-transition:ease all .5s;
+ -moz-transition:ease all .5s;
+ transition:ease all .5s;
+ }

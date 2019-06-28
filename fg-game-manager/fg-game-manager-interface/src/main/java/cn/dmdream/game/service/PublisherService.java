@@ -19,4 +19,5 @@ public interface PublisherService {
 
     boolean deletdByBatch(List<Integer>id);
 
+    int totalCount();
 }

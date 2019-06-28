@@ -5,23 +5,24 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="_csrf" th:content="${_csrf.token}" />
-		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 		<title>Fave Game Admin index Examples</title>
 		<meta name="description" content="这是一个 index 页面">
 		<meta name="keywords" content="index">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
-		<link rel="icon" type="image/png" href="../assets/i/favicon.png">
-		<link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+		<link rel="icon" type="image/png" href="/assets/i/favicon.png">
+		<link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
 		<meta name="apple-mobile-web-app-title" content="Fave Game" />
-		<link rel="stylesheet" href="../assets/css/amazeui.min.css" />
-		<link rel="stylesheet" href="../assets/css/admin.css">
-		<link rel="stylesheet" href="../assets/css/app.css">
-		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="/assets/css/amazeui.min.css" />
+		<link rel="stylesheet" href="/assets/css/admin.css">
+		<link rel="stylesheet" href="/assets/css/app.css">
+		<script src="/assets/js/amazeui.page.js"></script>
+		<link rel="stylesheet" href="/assets/css/amazeui.page.css">
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 	</head>
 
 	<body data-type="generalComponents">
@@ -29,7 +30,7 @@
 		<header class="am-topbar am-topbar-inverse admin-header">
 			<div class="am-topbar-brand">
 				<a href="javascript:;" class="tpl-logo">
-					<img src="../assets/img/logo.png" alt="">
+					<img src="/assets/img/logo.png" alt="">
 				</a>
 			</div>
 			<div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
@@ -79,7 +80,7 @@
 							<li>
 								<a href="#" class="tpl-dropdown-content-message">
 									<span class="tpl-dropdown-content-photo">
-                      <img src="../assets/img/user02.png" alt=""> </span>
+                      <img src="/assets/img/user02.png" alt=""> </span>
 									<span class="tpl-dropdown-content-subject">
                       <span class="tpl-dropdown-content-from"> 禁言小张 </span>
 									<span class="tpl-dropdown-content-time">10分钟前 </span>
@@ -88,7 +89,7 @@
 								</a>
 								<a href="#" class="tpl-dropdown-content-message">
 									<span class="tpl-dropdown-content-photo">
-                      <img src="../assets/img/user03.png" alt=""> </span>
+                      <img src="/assets/img/user03.png" alt=""> </span>
 									<span class="tpl-dropdown-content-subject">
                       <span class="tpl-dropdown-content-from"> Steam </span>
 									<span class="tpl-dropdown-content-time">18分钟前</span>
@@ -154,7 +155,7 @@
 					<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
 						<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
 							<span class="tpl-header-list-user-nick">禁言小张</span><span class="tpl-header-list-user-ico"> <img
-                        src="../assets/img/user01.png"></span>
+                        src="/assets/img/user01.png"></span>
 						</a>
 						<ul class="am-dropdown-content">
 							<li>
@@ -339,7 +340,7 @@
 										<tbody>
 											<div>
 
-												<tr th:each="list : ${jsonMsg}">
+												<tr th:each="list : ${pageInfo.getRecords()}">
 
 													<td><input type="checkbox"></td>
 													<td th:text="${list.id}"></td>
@@ -362,7 +363,7 @@
 
 										</tbody>
 									</table>
-									<div class="am-cf">
+									<!--<div class="am-cf">
 
 										<div class="am-fr">
 											<ul class="am-pagination tpl-pagination">
@@ -389,7 +390,8 @@
 												</li>
 											</ul>
 										</div>
-									</div>
+									</div>-->
+									<div id="Page" style="margin:0 auto;display:table;"></div>
 									<hr>
 
 								</form>
@@ -450,38 +452,100 @@
 			<!-- /.modal -->
 		</div>
 
-		<!--<script src="../assets/js/jquery.min.js"></script>-->
-		<script src="../assets/js/amazeui.min.js"></script>
-		<script src="../assets/js/app.js"></script>
-		<script>
+		<!--<script src="/assets/js/jquery.min.js"></script>-->
+		<script src="/assets/js/amazeui.min.js"></script>
+		<script src="/assets/js/app.js"></script>
+		<script th:inline="javascript">
+			$(function() {
+
+				var flag = false;
+				//				$(".am-page-default").click(function() {
+				//					alert(flag);
+				//					flag = true;
+				//				})
+				//              $("#Page").on("click",".am-page-default",function(){
+				//              	flag=true;
+				//              	alert(flag);
+				//              })
+
+				//初始化分页插件
+				$("#Page").page({
+					pages: [[${pageInfo.pages}]], //总页码数(后台返回字段可以给出)
+					first: "首页", //设置false则不显示，默认为false
+					last: "尾页", //设置false则不显示，默认为false
+					prev: '<', //若不显示，设置false即可，默认为上一页
+					next: '>', //若不显示，设置false即可，默认为下一页
+					groups: 4, //连续显示分页数
+					curr: [[${pageInfo.current}]], //当前页(后台返回当前页码数)
+					jump: function(context, first) {
+						if(flag) {
+							var pageNum = String(context.option.curr);
+							window.location.href = "http://localhost:8080/publisher/all/" + pageNum;
+						}
+						flag=true;
+					}
+
+					//					jump: function(context, first) {
+					//						
+					//						var pageNum = String(context.option.curr); //分页点击回传的页码数
+					//						if(flag) {
+					//							alert(100);
+					//							$.ajax({
+					//								type: "GET",
+					//								url: "all/" + pageNum,
+					//								async: true,
+					//								success: function(data) {
+					//									alert();
+					//									location.reload();
+					//									
+					//
+					//								},
+					//								error: function(XMLHttpRequest, textStatus, errorThrown) {
+					//									console.log(XMLHttpRequest, textStatus, errorThrown);
+					//
+					//								}
+					//							})
+					//						}
+					//						flag=true;
+					//						alert(flag);
+					//						// console.log('当前第：' + context.option.curr + "页" +",first="+first);
+					//						//do something(AJAX请求下一页的函数)
+					//					}
+				});
+
+			})
 			$(".am-btn-danger").click(function() {
-				var token = $("meta[name='_csrf']").attr("content");
-				var header = $("meta[name='_csrf_header']").attr("content");
+				//				var token = $("meta[name='_csrf']").attr("content");
+				//				var header = $("meta[name='_csrf_header']").attr("content");
 				var id = new Array();
+				var url = window.location.href;
+				var paramArray=url.split("/");
+				var length=paramArray.length;
+				var current=paramArray[length-1];
+				if(current.indexOf("all")!=-1){
+					current=1;
+				}
 				var e = $("tbody").children("tr");
 				for(var i = 0; i <= e.length - 1; i++) {
 					if($($(e[i]).children().get(0)).children(":first").is(":checked")) {
 						id.push($($(e[i]).children().get(1)).text());
-						alert($($(e[i]).children().get(1)).text());
 					}
 
 				}
 
 				$.ajax({
 					type: "Post",
-					url: "deleteBatch",
+					url: "http://localhost:8080/publisher/deleteBatch",
 					data: JSON.stringify(id),
 					async: true,
 					dataType: "application/json",
-					beforeSend: function(xhr) {
-						xhr.setRequestHeader(header, token);
-					},
 					cache: false,
 					contentType: "application/json; charset=utf-8", // 不可缺
 					processData: false, // 不可缺
 					success: function(data) {
 						if(data.status == 200) {
-							location.reload();
+							window.location.href="http://localhost:8080/publisher/all/"+current;
+							
 						} else if(data.status == 400) {
 							alert("删除失敗");
 						} else {
@@ -497,6 +561,13 @@
 
 			})
 			$(".am-text-secondary").click(function() {
+				var url = window.location.href;
+				var paramArray=url.split("/");
+				var length=paramArray.length;
+				var current=paramArray[length-1];
+				if(current.indexOf("all")!=-1){
+					current=1;
+				}
 				var e = $(this).parent().parent().parent().parent();
 				var son = e.children("td");
 				$("#gmPublisherName1").val($(son[3]).text());
@@ -507,6 +578,13 @@
 
 			});
 			$(".btn-primary1").click(function() {
+				var url = window.location.href;
+				var paramArray=url.split("/");
+				var length=paramArray.length;
+				var current=paramArray[length-1];
+				if(current.indexOf("all")!=-1){
+					current=1;
+				}
 				var publisher = {};
 				publisher.gmPublisherName = $("#gmPublisherName1").val();
 				publisher.gmPublisherLinkman = $("#gmPublisherLinkman1").val();
@@ -516,13 +594,14 @@
 				console.log(publisher);
 				$.ajax({
 					type: "GET",
-					url: "update",
+					url: "http://localhost:8080/publisher/update",
 					data: publisher,
 					async: true,
 					dataType: "json",
 					success: function(data) {
 						if(data.status == 200) {
-							location.reload();
+							window.location.href="http://localhost:8080/publisher/all/"+current;
+					
 						} else if(data.status == 400) {
 							alert("更新失敗");
 						} else {
@@ -537,21 +616,32 @@
 				});
 			})
 			$(".am-hide-sm-only").click(function() {
-				var info = $(this).parent().parent().parent().parent();
+//				var info = $(this).parent().parent().parent().parent();
 				//				var button = document.getElementsByClassName("am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only");
-				alert($(this).val());
 				var id = $(this).val();
+				var url = window.location.href;
+				var paramArray=url.split("/");
+				var length=paramArray.length;
+				var current=paramArray[length-1];
+				if(current.indexOf("all")!=-1){
+					current=1;
+				}
+				
+//				window.location.href="http://localhost:8080/publisher/delete/"+id;
 				$.ajax({
 					type: "GET",
-					url: "delete",
+					url: "http://localhost:8080/publisher/delete",
 					data: {
-						id: id
+						id: id,
+						current:current
 					},
 					dataType: "json",
 					async: true,
 					success: function(data) {
 						if(data.status == 200) {
-							info.remove();
+							window.location.href="http://localhost:8080/publisher/all/"+current;
+//							info.remove();
+							
 						} else if(data.status == 400) {
 
 							alert("刪除失敗");
@@ -567,6 +657,14 @@
 			})
 
 			$(".btn-primary").click(function() {
+				
+				var url = window.location.href;
+				var paramArray=url.split("/");
+				var length=paramArray.length;
+				var current=paramArray[length-1];
+				if(current.indexOf("all")!=-1){
+					current=1;
+				}
 				var publisher = {};
 				publisher.gmPublisherName = $("#gmPublisherName").val();
 				publisher.gmPublisherLinkman = $("#gmPublisherLinkman").val();
@@ -582,7 +680,7 @@
 					alert("厂商名称不能为空");
 				} else if(publisher.gmPublisherLinkman == "") {
 					alert("联系人姓名不能为空");
-				} else if(!(/^1[34578]\d{9}$/.test(tel.value))) {
+				} else if(!(/^1[34578]\d{9}$/.test(publisher.gmPublisherPhone))) {
 					alert("手机号格式不正确");
 				} else if(publisher.gmPublisherAddress == "") {
 					alert("发行商地址不能为空");
@@ -594,13 +692,14 @@
 
 					$.ajax({
 						type: "GET",
-						url: "add",
+						url: "http://localhost:8080/publisher/add",
 						data: publisher,
 						async: true,
 						dataType: "json",
 						success: function(data) {
 							if(data.status == 200) {
-								location.reload();
+									window.location.href="http://localhost:8080/publisher/all/"+current;
+								
 							} else if(data.status == 400) {
 								alert("添加失敗");
 							} else {

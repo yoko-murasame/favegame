@@ -7,6 +7,7 @@ import cn.dmdream.utils.EmptyUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,10 @@ public class PublisherServiceImpl implements PublisherService {
     private PublisherMapper publisherMapper;
     @Override
     public IPage<Publisher> findAllByPage(Integer page, Integer pageSize) {
-        return null;
+        QueryWrapper<Publisher> queryWrapper = new QueryWrapper<Publisher>();
+        queryWrapper.eq("isValid", 1);
+        IPage<Publisher> publisherIPage = publisherMapper.selectPage(new Page<Publisher>(page, pageSize), queryWrapper);
+        return publisherIPage;
     }
 
     @Override
@@ -64,4 +68,8 @@ public class PublisherServiceImpl implements PublisherService {
         return i > 0 ? true : false;
     }
 
+    @Override
+    public int totalCount() {
+        return publisherMapper.selectCount(null);
+    }
 }
