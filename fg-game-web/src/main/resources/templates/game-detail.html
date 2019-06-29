@@ -1,643 +1,929 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>Demo</title>
-		<link rel="stylesheet" href="/css/reset.css">
-		<link rel="stylesheet" href="/css/recommend.css">
-		<link rel="stylesheet" type="text/css" href="/css/game-detail.css" />
-		<link rel="stylesheet" type="text/css" href="/css/game-comments.css" />
-		<style type="text/css">
-			.social-spread-wechat {
-				margin-bottom: 15px;
-			}
-			
-			.section-title {
-				margin: 0 0 15px;
-				border-bottom: 1px solid #ddd;
-				height: 30px;
-				box-sizing: border-box;
-				display: block;
-				line-height: 20px;
-				font-size: 14px;
-			}
-			
-			.section-title h3 {
-				float: left;
-				margin: 0 0 10px;
-				padding: 0 0 0 8px;
-				line-height: 20px;
-				font-size: 18px;
-				border-left: 4px solid #14B9C8;
-				font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
-				font-weight: 400;
-			}
-			
-			.pull-right {
-				line-height: 20px;
-				color: #14B9C8;
-				float: right!important;
-			}
-			
-			.show-side-body {
-				margin: 0 0 20px;
-				padding: 15px 20px;
-				background: #fff;
-				border-radius: 3px;
-				box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
-			}
-			
-			.game-detail-side-item {
-				box-sizing: border-box;
-				float: none;
-				margin: 0 0 10px;
-				padding: 0 0 10px;
-				width: 300px;
-				border-bottom: 1px solid #eee;
-			}
-			
-			.side-item-left {
-				float: left;
-				display: block;
-				max-width: 90px;
-				max-height: 90px;
-				color: #333;
-			}
-			
-			.side-item-left img {
-				height: 90px;
-				width: 90px;
-			}
-			
-			.item-right-title {
-				margin-bottom: 10px;
-			}
-			
-			.side-item-right {
-				margin-left: 105px;
-				padding: 10px 0 0;
-				height: 90px;
-			}
-			
-			.flex-text {
-				-webkit-box-flex: 1;
-				flex: auto;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				line-height: 22px;
-				font-size: 18px;
-				margin-bottom: 10px;
-			}
-			
-			.item-right-label a {
-				float: left;
-			}
-			
-			.right-label-rating {
-				display: block;
-				margin: 2px 0 0;
-				line-height: 15px;
-				color: #999;
-				float: right!important;
-			}
-		</style>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/recommend.css">
+    <link rel="stylesheet" type="text/css" href="/css/game-detail.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/game-comments.css"/>
+    <style type="text/css">
+        .review-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+            width: 688px;
+        }
 
-	<body>
-		<header class="header">
-			<div class="header-inner body-width">
-				<a href="#" class="logo"></a>
-				<div class="recommend-search">
-					<input type="text" class="recommend-search-text" placeholder="Seach here...">
-					<button class="recommend-search-btn"><i class="recommend-icon-search"></i></button>
-				</div>
-				<nav class="header-nav">
-					<ul>
-						<li>
-							<span class="line"></span>
-							<a href="#" class="dreamer">tang生活家</a>
-							<i class="icon-text__pink icon-new">new</i>
-						</li>
-						<li style="display: none;">
-							<span class="line"></span>
-							<a href="login.html">登录</a>
-						</li>
-						<li class="dropdown open">
-							<span class="line"></span>
-							<span class="user-pic"></span>
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="recommend-dropdown-menu-switch">
-								<img alt="" class="img-circle" src="/images/avtar.png" width="38px" height="38px" />
-								<span style="color: #000;font-size: 15px">
-                                <i>username</i>
+        .review-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+            width: 688px;
+        }
+
+        .review-item {
+            padding: 15px 30px;
+            border-bottom: 1px solid #eee;
+            list-style: none;
+        }
+
+        .review-avatar {
+            float: left;
+            display: block;
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            border-radius: 50%;
+            color: #333;
+            background-color: transparent;
+        }
+
+        .review-avatar img {
+            width: 100%;
+            vertical-align: middle;
+            border: 0;
+        }
+
+        .review-text {
+            margin-left: 65px;
+            padding-top: 5px;
+            display: block;
+        }
+
+        .text-header {
+            margin-bottom: 3px;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .text-score {
+            position: relative;
+            margin-bottom: 10px;
+            height: 14px;
+            line-height: 14px;
+        }
+
+        .text-body {
+            word-wrap: break-word;
+            line-height: 22px;
+        }
+
+        .in-comments {
+            position: relative;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .fave-user {
+            float: left;
+            display: block;
+            white-space: nowrap;
+            font-size: 0 !important;
+            vertical-align: middle;
+        }
+
+        .user-name {
+            font-weight: 700;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 14px;
+            margin-right: 3px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .fave-user a:hover {
+            text-decoration: underline;
+        }
+
+        .icon-verified {
+            position: relative;
+            width: 14px;
+            height: 14px;
+            box-sizing: content-box;
+            background: 0 0;
+            margin-right: 3px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .icon-verified img {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            vertical-align: middle;
+            border: 0;
+        }
+
+        .text-header-time {
+            float: right;
+            line-height: 20px;
+            font-size: 12px;
+            color: #999;
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        .text-header-time span {
+            color: #FFAC48;
+        }
+
+        .button-jubao {
+            float: right;
+            margin-right: 15px;
+            padding: 0;
+            line-height: 20px;
+            color: #999;
+            border: none;
+            background: 0 0;
+            box-shadow: none;
+            font-size: 12px;
+            border-radius: 3px;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            margin-bottom: 0;
+            display: inline-block;
+            outline: none;
+        }
+
+        .button-jubao span:hover {
+            text-decoration: underline;
+            color: #14B9C8;
+        }
+
+        .colored {
+            width: 56px;
+            position: absolute;
+            top: 0;
+            left: -2px;
+            display: block;
+            height: 14px;
+            background: url(/images/iconfont/score.png) repeat-x;
+            background-size: 14px;
+        }
+
+        .background {
+            float: left;
+            margin-left: -2px;
+            opacity: .32;
+            display: block;
+            width: 70px;
+            height: 14px;
+            background: url(/images/iconfont/background.png) repeat-x;
+            background-size: 14px;
+        }
+
+        .text-score-time {
+            float: left;
+            display: block;
+            margin-left: 5px;
+            padding: 0 5px 0 0;
+            line-height: 14px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .text-body {
+            margin-bottom: 15px;
+            line-height: 22px;
+            min-height: 14px;
+            margin: 0 0 10px;
+        }
+
+        .text-footer {
+            width: 563px;
+            height: 25px;
+        }
+
+        .text-footer ul {
+            float: right;
+            margin: 0 -10px 0 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .text-footer li {
+            float: left;
+            margin-right: 5px;
+        }
+
+        .vote {
+            padding: 0 7.5px;
+            line-height: 24px;
+            color: #999;
+            border: none;
+            background: 0 0;
+            box-shadow: none;
+            font-size: 12px;
+            text-decoration: none;
+            border-radius: 6px !important;
+            outline: none;
+        }
+
+        .vote-noh {
+            padding: 0 7.5px;
+            line-height: 24px;
+            color: #999;
+            border: none;
+            background: 0 0;
+            box-shadow: none;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .comment-item {
+            padding: 7.5px 0;
+        }
+
+        .comment-item-avatar {
+            float: left;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+
+        .comment-item-avatar img {
+            width: 100%;
+            vertical-align: middle;
+            border: 0;
+        }
+
+        .comment-item-text {
+            position: relative;
+            padding-top: 5px;
+            margin-left: 55px;
+        }
+
+        .text-header-in {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .fave-user-name {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 14px;
+            margin-right: 3px;
+            font-weight: 700;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .fave-user-name:hover {
+            text-decoration: underline;
+        }
+
+        .text-body-in p {
+            margin-bottom: 15px;
+            line-height: 22px;
+            min-height: 14px;
+            margin: 0 0 10px;
+        }
+
+        .foot-btn {
+            width: 518px;
+            height: 25px;
+            padding-left: 0;
+            float: none;
+            border: none;
+            float: none;
+            margin: 0 -10px 0 0;
+        }
+
+        .foot-btn li {
+            float: left;
+            margin-right: 5px;
+            box-sizing: border-box;
+            list-style: none;
+            line-height: 22px;
+        }
+
+        .icon {
+            font-size: 14px;
+            width: 15px;
+            height: auto;
+            margin: 0;
+        }
+
+        .vote:hover {
+            color: #999;
+            background: #f2f2f2;
+        }
+
+        #review-list-div {
+            background-color: #ffffff;
+        }
+
+        .review-title{
+            background-color: #ffffff;
+            margin-bottom: 0px;
+        }
+        .vote i img{
+            position: relative;
+            top:5px;
+        }
+
+        .vote{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner body-width">
+        <a href="#" class="logo"></a>
+        <div class="recommend-search">
+            <input type="text" class="recommend-search-text" placeholder="Seach here...">
+            <button class="recommend-search-btn"><i class="recommend-icon-search"></i></button>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <li>
+                    <span class="line"></span>
+                    <a href="#" class="dreamer">tang生活家</a>
+                    <i class="icon-text__pink icon-new">new</i>
+                </li>
+                <li style="display: none;">
+                    <span class="line"></span>
+                    <a href="login.html">登录</a>
+                </li>
+                <li class="dropdown open">
+                    <span class="line"></span>
+                    <span class="user-pic"></span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="recommend-dropdown-menu-switch">
+                        <img alt="" class="img-circle" src="/images/avtar.png" width="38px" height="38px"/>
+                        <span style="color: #000;font-size: 15px">
+                                <i th:text="${user.data.gmUsername}">username</i>
                             </span>
-							</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<div id="recommend-dropdown-menu" class="recommend-dropdown-hide">
-			<div id="recommend-dropdown-img-container">
-				<div id="recommend-dropdown-img">
-					<img class="img-circle" src="/images/avtar.png" />
-				</div>
-				<div id="recommend-dropdown-img-username">
-					<span>username</span>
-				</div>
-				<div class="recommend-dropdown-row">
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-user-center.png" /></a>
-						<p>个人中心</p>
-					</div>
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-user-account.png" /></a>
-						<p>账号管理</p>
-					</div>
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-change-password.png" /></a>
-						<p>密码修改</p>
-					</div>
-				</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div id="recommend-dropdown-menu" class="recommend-dropdown-hide">
+    <div id="recommend-dropdown-img-container">
+        <div id="recommend-dropdown-img">
+            <img class="img-circle" src="/images/avtar.png"/>
+        </div>
+        <div id="recommend-dropdown-img-username">
+            <span th:text="${user.data.gmUsername}">username</span>
+        </div>
+        <div class="recommend-dropdown-row">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-user-center.png"/></a>
+                <p>个人中心</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-user-account.png"/></a>
+                <p>账号管理</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-change-password.png"/></a>
+                <p>密码修改</p>
+            </div>
+        </div>
 
-				<div class="recommend-dropdown-row">
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-nic-pic-change.png" /></a>
-						<p>修改头像</p>
-					</div>
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-message.png" /></a>
-						<p>消息</p>
-					</div>
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-help.png" /></a>
-						<p>帮助中心</p>
-					</div>
-				</div>
-				<div id="recommend-dropdown-quit">
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img" />退出登录</a>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div class="recommend-dropdown-row">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-nic-pic-change.png"/></a>
+                <p>修改头像</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-message.png"/></a>
+                <p>消息</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-help.png"/></a>
+                <p>帮助中心</p>
+            </div>
+        </div>
+        <div id="recommend-dropdown-quit">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img"/>退出登录</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<div id="main-container">
-			<div id="main-left">
-				<div class="show-main-header">
-					<div class="main-header-icon">
-						<div class="header-icon-body">
-							<img itemprop="image" th:src="${game.data.gmIcon}" data-taptap-weixin-sharing="image">
-						</div>
-						<div class="main-header-rec">
-							<span>编辑推荐</span>
-						</div>
-					</div>
-					<button type="button" class="app-qrcode-download icon-font icon-qrcode" data-toggle="modal" data-target="#AppQrCodeDownload"></button>
-					<div class="main-header-text">
-						<div class="base-info-wrap">
+<div id="main-container">
+    <div id="main-left">
+        <div class="show-main-header">
+            <div class="main-header-icon">
+                <div class="header-icon-body">
+                    <img itemprop="image" th:src="${game.data.gmIcon}" data-taptap-weixin-sharing="image">
+                </div>
+                <div class="main-header-rec">
+                    <span>编辑推荐</span>
+                </div>
+            </div>
+            <button type="button" class="app-qrcode-download icon-font icon-qrcode" data-toggle="modal"
+                    data-target="#AppQrCodeDownload"></button>
+            <div class="main-header-text">
+                <div class="base-info-wrap">
 							<span itemprop="aggregateRating" itemscope="" itemtype="" class="app-rating-block">
         					<span class="app-rating-container">
-            					<span itemprop="ratingValue" class="app-rating-score"th:text="${game.data.gmMark}">7.2</span>
+            					<span itemprop="ratingValue" class="app-rating-score"
+                                      th:text="${game.data.gmMark==null?0:game.data.gmMark}">7.2</span>
 							</span>
 							</span>
-							<h1 itemprop="name" class="main-header-game-name" th:text="${game.data.gmName}">楚留香</h1>
-							<div class="header-text-author">
-								<a href="#" itemprop="publisher">
-									<span>厂商: </span>
-									<span itemprop="name"th:text="${game.data.gmPublisherName}">网易游戏</span>
-								</a>
-							</div>
-						</div>
-						<div class="header-text-download">
-							<div class="text-download-text">
-								<div class="app-data-wrap">
-									<button class="btn taptap-button-friendship btn-default taptap-button-friendship-simple js-taptap-button-friendship" data-taptap-ajax="follow" type="button">
-          								<i class="app"><img src="/images/iconfont/notice.png"/></i>
-        								<span class="follow">关注</span></button>
-									<p class="description">
-										<span class="count-stats" th:text="${game.data.gmPublisherName}">0</span> 人关注
-									</p>
-								</div>
-								<span class="text-hints">7月26日更新：新门派太阴</span>
-							</div>
+                    <h1 itemprop="name" class="main-header-game-name" th:text="${game.data.gmName}">楚留香</h1>
+                    <div class="header-text-author">
+                        <a href="#" itemprop="publisher">
+                            <span>厂商: </span>
+                            <span itemprop="name" th:text="${game.data.gmPublisherName}">网易游戏</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="header-text-download">
+                    <div class="text-download-text">
+                        <div class="app-data-wrap">
+                            <button class="btn taptap-button-friendship btn-default taptap-button-friendship-simple js-taptap-button-friendship"
+                                    data-taptap-ajax="follow" type="button">
+                                <i class="app"><img src="/images/iconfont/notice.png"/></i>
+                                <span class="follow">关注</span></button>
+                            <p class="description">
+                                <span class="count-stats" th:text="${game.data.countCollector}"></span> 0人关注
+                            </p>
+                        </div>
+                        <span class="text-hints">7月26日更新：新门派太阴</span>
+                    </div>
 
-							<div class="download-btn-wrap ">
-								<div class="taptap-button-download">
-									<button class="btn btn-primary btn-lg android js-header-android-download" type="button">
-      									<i><img src="/images/iconfont/android.png"/></i>
-    									<span>下载</span>
-									</button>
-								</div>
-								<div class="taptap-button-download">
-									<button data-taptap-log="toGame" data-target="#iosDownloadModal">
-            							<i><img src="/images/iconfont/Apple.png"/></i>
-            							<span>下载</span>
-          							</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="main-header-tab">
-						<ul class="nav nav-pills nav-justified">
-							<li role="presentation" class="">
-								<a href="#" aria-controls="detail" role="tab">详情</a>
-							</li>
-							<li role="presentation" class="active">
-								<a href="#" aria-controls="detail" role="tab">评价 <small>40827</small></a>
-							</li>
-							<li role="presentation" class="">
-								<a href="#" aria-controls="detail" role="tab">社区
-									<small>33972</small>
-								</a>
-							</li>
-						</ul>
-					</div>
+                    <div class="download-btn-wrap ">
+                        <div class="taptap-button-download">
+                            <button class="btn btn-primary btn-lg android js-header-android-download" type="button">
+                                <i><img src="/images/iconfont/android.png"/></i>
+                                <span>下载</span>
+                            </button>
+                        </div>
+                        <div class="taptap-button-download">
+                            <button data-taptap-log="toGame" data-target="#iosDownloadModal">
+                                <i><img src="/images/iconfont/Apple.png"/></i>
+                                <span>下载</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-header-tab">
+                <ul class="nav nav-pills nav-justified">
+                    <li role="presentation" class="">
+                        <a href="#" aria-controls="detail" role="tab">详情</a>
+                    </li>
+                    <li role="presentation" class="active">
+                        <a href="#" aria-controls="detail" role="tab">评价
+                            <small>40827</small>
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="#" aria-controls="detail" role="tab">社区
+                            <small>33972</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-				</div>
-				<!--评论评价模块-->
-				<div class="review-section">
-					<!--总评分数据显示-->
-					<div class="review-charts">
-						<div class="review-ratings-container">
-							<div class=" review-ratings-total ">
-								<div class="total-rating ">
-									<span>总评分：</span>
-									<p class="text-download-rating ">
-										<i class="star-background "></i>
-										<i class="star-score "></i>
-										<span>7.1</span>
-									</p>
-								</div>
-								<div class="recent-7-days ">
-									<span>最近版本:6.1</span>
-									<span>Android:7.1</span>
-									<span>IOS:7.3</span>
-									<span>近7天:6.0</span>
-								</div>
-							</div>
-							<div class="review-ratings-detail ">
-								<ul class="list-unstyled ">
-									<li>
-										<a href=" ">
-											<span>5</span>
-											<i></i>
-											<div class="rating-item ">
-												<div></div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href=" ">
-											<span>4</span>
-											<i></i>
-											<div class="rating-item ">
-												<div></div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href=" ">
-											<span>3</span>
-											<i></i>
-											<div class="rating-item ">
-												<div></div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href=" ">
-											<span>2</span>
-											<i></i>
-											<div class="rating-item ">
-												<div></div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href=" ">
-											<span>1</span>
-											<i></i>
-											<div class="rating-item ">
-												<div></div>
-											</div>
-										</a>
-									</li>
+        </div>
+        <!--评论评价模块-->
+        <div class="review-section">
+            <!--总评分数据显示-->
+            <div class="review-charts">
+                <div class="review-ratings-container">
+                    <div class=" review-ratings-total ">
+                        <div class="total-rating ">
+                            <span>总评分：</span>
+                            <p class="text-download-rating ">
+                                <i class="star-background "></i>
+                                <i class="star-score "></i>
+                                <span th:text="${game.data.gmMark==null?0:game.data.gmMark}">7.1</span>
+                            </p>
+                        </div>
+                        <div class="recent-7-days ">
+                            <span th:text="'最近版本:'+${game.data.gmVersion}">6.1</span>
+                            <span>Android:7.1</span>
+                            <span>IOS:7.3</span>
+                            <span>近7天:6.0</span>
+                        </div>
+                    </div>
+                    <div class="review-ratings-detail ">
+                        <ul class="list-unstyled ">
+                            <li>
+                                <a href=" ">
+                                    <span>5</span>
+                                    <i></i>
+                                    <div class="rating-item ">
+                                        <div></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href=" ">
+                                    <span>4</span>
+                                    <i></i>
+                                    <div class="rating-item ">
+                                        <div></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href=" ">
+                                    <span>3</span>
+                                    <i></i>
+                                    <div class="rating-item ">
+                                        <div></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href=" ">
+                                    <span>2</span>
+                                    <i></i>
+                                    <div class="rating-item ">
+                                        <div></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href=" ">
+                                    <span>1</span>
+                                    <i></i>
+                                    <div class="rating-item ">
+                                        <div></div>
+                                    </div>
+                                </a>
+                            </li>
 
-								</ul>
-							</div>
-						</div>
-					</div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-					<!--用户评分添加-->
-					<div class="review-add ">
-						<div class="review-add-user ">
-							<img src="/images/avtar.png" alt=" " />
-							<p>锦爸爸</p>
-						</div>
-						<div class="review-add-stars ">
-							<p>
-								<i data-taptap-review-rating="star " data-text="讨厌 " data-taptap-review-toggle="modal " class=""></i>
-								<i data-taptap-review-rating="star " data-text="不喜欢 " data-taptap-review-toggle="modal " class=""></i>
-								<i data-taptap-review-rating="star " data-text="还可以 " data-taptap-review-toggle="modal " class=" "></i>
-								<i data-taptap-review-rating="star " data-text="很不错 " data-taptap-review-toggle="modal " class=" "></i>
-								<i data-taptap-review-rating="star " data-text="棒极了 " data-taptap-review-toggle="modal " class=" "></i>
-							</p>
-							<span></span>
-						</div>
-						<button class="btn-link ">
+            <!--用户评分添加-->
+            <div class="review-add ">
+                <div class="review-add-user ">
+                    <img src="/images/avtar.png" alt=" "/>
+                    <p th:text="${user.data.gmUsername}">锦爸爸</p>
+                </div>
+                <div class="review-add-stars ">
+                    <p>
+                        <i data-taptap-review-rating="star " data-text="讨厌 " data-taptap-review-toggle="modal "
+                           class=""></i>
+                        <i data-taptap-review-rating="star " data-text="不喜欢 " data-taptap-review-toggle="modal "
+                           class=""></i>
+                        <i data-taptap-review-rating="star " data-text="还可以 " data-taptap-review-toggle="modal "
+                           class=" "></i>
+                        <i data-taptap-review-rating="star " data-text="很不错 " data-taptap-review-toggle="modal "
+                           class=" "></i>
+                        <i data-taptap-review-rating="star " data-text="棒极了 " data-taptap-review-toggle="modal "
+                           class=" "></i>
+                    </p>
+                    <span></span>
+                </div>
+                <button class="btn-link ">
 						<span>发表评价
 					</span></button>
 
-					</div>
+            </div>
 
-					<!--评论标题-->
-					<div class="review-title ">
-						<h3>用户评价</h3>
+            <!--评论标题-->
+            <div class="review-title ">
+                <h3>用户评价</h3>
 
-					</div>
+            </div>
+            <div id="review-list-div">
+                <!--评论列表-->
+                <ul class="review-list ">
+                    <li class="review-item">
+                        <a href="" class="review-avatar">
+                            <img src="/images/avtar.png"/>
+                        </a>
+                        <div class="review-text">
+                            <div class="text-header">
+								<span class="fave-user">
+									<a href="" class="user-name">锦弟弟</a>
+									<i class="icon-verified"></i>
+								</span>
+                                <a href="" class="text-header-time">
+                                    <span>三小时前</span>
+                                    <span>已修改&gt;</span>
+                                </a>
+                                <button class="button-jubao"><span>举报</span></button>
+                            </div>
+                            <div class="text-score">
+                                <i class="colored"></i>
+                                <i class="background"></i>
+                                <span class="text-score-time">游戏时长 3小时22分钟</span>
+                            </div>
+                            <div class="text-body">
+                                <p>大沙发的方法阿孙方式</p>
+                                <p>发阿斯蒂芬艾弗森地方</p>
+                                <p>啊啊第三方 大厦的说法大师傅大师傅</p>
+                            </div>
+                            <div class="text-footer">
+                                <!--<i class="icon-mobile-gray"></i>
+                                <span class="text-footer-device"></span>-->
+                                <ul class="list-unstyled" style="border-left:none;">
+                                    <li>
+                                        <button class="vote funny">
+                                            <i class="icon"><img src="/images/cont/detail-smile.png"/></i>
+                                            <span>欢乐</span>
+                                            <span>10</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="vote up">
+                                            <i class="icon"><img src="/images/cont/detail-good.png" alt=""/></i>
+                                            <span>5</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="vote down">
+                                            <i class="icon"><img src="/images/cont/detail-bad.png" alt=""/></i>
+                                            <span>5</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="vote opinon">
+                                            <i class="icon"><img src="/images/cont/detail-message.png"/></i>
+                                            <span>回复</span>
+                                            <span>203</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="in-comments">
+                                <ul class="list-unstyled"
+                                    style="border-top: 1px solid #E1E1E1;border-left: none; padding-left: 0;">
+                                    <li class="comment-item ">
+                                        <a href="" class="comment-item-avatar">
+                                            <img src="/images/avtar.png" alt=""/>
+                                        </a>
+                                        <div class="comment-item-text">
+                                            <div class="text-header-in">
+                                                <span class="fave-user"><a href="" class="fave-user-name">鞠丽丽</a></span>
+                                            </div>
+                                            <div class="text-body-in">
+                                                <p>打分法发大水发的给大使馆的双方各的双方各第三个</p>
+                                                <p>打分法发大水发的给大使馆的双方各的双方各第三1个23</p>
+                                            </div>
+                                            <div class="text-footer-in">
+                                                <ul class="list-unstyled foot-btn">
+                                                    <li>
+                                                        <span class="vote-noh">18小时前</span>
+                                                    </li>
+                                                    <li>
+                                                        <button class="vote">
+                                                            <i><img src="/images/cont/detail-message.png" alt=""/></i>
+                                                            <span>回复</span>
+                                                        </button>
 
-					<!--评论列表-->
-					<ul class="review-list "></ul>
-				</div>
-				<!--底部更多按钮-->
-				<div class="body-footer ">
-					<section class="bottom-more ">
-						<a href=" " class="btn-more-lg ">更多</a>
-					</section>
-				</div>
-			</div>
-			<div id="main-right">
-				<div class="social-spread-wechat">
-					<img src="/images/code.png" alt="" id="side-code">
-					<div>
-						<div class="spread-logo-wrap chs">
-							<!--<span class="icon-font icon-logo"></span>-->
-							<span id="side-icon-title">发现好游戏</span>
-						</div>
-						<div class="spread-wechat-divide">
-							<p>欢迎关注我们</p>
-						</div>
-						<ul class="list-inline spread-wechat-logos">
-							<li>
-								<span><img src="/images/wechat.png"/></span>
-								<div class="wechat-logo-qrcode">
+                                                    </li>
+                                                    <li>
+                                                        <button class="vote">
+                                                            <i class="icon"><img src="/images/cont/detail-good.png"/></i>
+                                                            <span>5</span>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="vote">
+                                                            <i class="icon"><img src="/images/cont/detail-bad.png"/></i>
+                                                            <span>6</span>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button class="vote">
+                                                            <span>举报</span>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--底部更多按钮-->
+        <div class="body-footer ">
+            <section class="bottom-more ">
+                <a href=" " class="btn-more-lg ">更多</a>
+            </section>
+        </div>
+    </div>
+    <div id="main-right">
+        <div class="social-spread-wechat">
+            <img src="/images/code.png" alt="" id="side-code">
+            <div>
+                <div class="spread-logo-wrap chs">
+                    <!--<span class="icon-font icon-logo"></span>-->
+                    <span id="side-icon-title">越玩越Fave</span>
+                </div>
+                <div class="spread-wechat-divide">
+                    <p>欢迎关注我们</p>
+                </div>
+                <ul class="list-inline spread-wechat-logos">
+                    <li>
+                        <span><img src="/images/wechat.png"/></span>
+                        <div class="wechat-logo-qrcode">
 									<span>
                         				<img src="" alt="">
                     				</span>
-								</div>
-							</li>
-							<li>
-								<span><img src="/images/qq.png"/></span>
-								<!--<div class="wechat-logo-qq">
-									<span>官方QQ群: 116587007</span>
-								</div>-->
-							</li>
-							<li>
-								<a class="icon-font ic_zhihu" href="#" target="_blank" rel="nofollow"></a>
-							</li>
-							<li>
-								<a class="icon-font ic_sina" href="#" target="_blank" rel="nofollow"></a>
-							</li>
-							<!--<li>
-								<a class="icon-font ic_mail" href="mailto:cooperation@taptap.com" rel="nofollow"></a>
-								<div class="wechat-logo-mail">
-									<span>
-										<a href="mailto:cooperation@taptap.com" rel="nofollow">合作邮箱: cooperation@taptap.com</a>
-									</span>
-								</div>
-							</li>-->
-						</ul>
-					</div>
-				</div>
-				<div class="section-title">
-					<h3>厂商其他游戏</h3>
-					<a href="#" class="pull-right">更多</a>
-				</div>
-				<div class="show-side-body">
-					<div class="game-detail-side-item">
-						<a class="side-item-left" href="#">
-							<img src="/images/qq.png" />
-						</a>
-						<div class="side-item-right ">
-							<a class="item-right-title flex-text-overflow ">
-								<span class="flex-text ">猫和老鼠：欢乐互动</span>
-							</a>
-							<div class="item-right-label ">
-								<a href="#">多人</a>
-								<p class="right-label-rating pull-right ">
-									<span>8.4</span>
-									<i><img src="/images/star.png"/></i>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="game-detail-side-item">
-						<a class="side-item-left" href="#">
-							<img src="/images/qq.png" />
-						</a>
-						<div class="side-item-right ">
-							<a class="item-right-title flex-text-overflow ">
-								<span class="flex-text ">猫和老鼠：欢乐互动</span>
-							</a>
-							<div class="item-right-label ">
-								<a href="#">多人</a>
-								<p class="right-label-rating pull-right ">
-									<span>8.4</span>
-									<i><img src="/images/star.png"/></i>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="game-detail-side-item">
-						<a class="side-item-left" href="#">
-							<img src="/images/qq.png" />
-						</a>
-						<div class="side-item-right ">
-							<a class="item-right-title flex-text-overflow ">
-								<span class="flex-text ">猫和老鼠：欢乐互动</span>
-							</a>
-							<div class="item-right-label ">
-								<a href="#">多人</a>
-								<p class="right-label-rating pull-right ">
-									<span>8.4</span>
-									<i><img src="/images/star.png"/></i>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="game-detail-side-item">
-						<a class="side-item-left" href="#">
-							<img src="/images/qq.png" />
-						</a>
-						<div class="side-item-right ">
-							<a class="item-right-title flex-text-overflow ">
-								<span class="flex-text ">猫和老鼠：欢乐互动</span>
-							</a>
-							<div class="item-right-label ">
-								<a href="#">多人</a>
-								<p class="right-label-rating pull-right ">
-									<span>8.4</span>
-									<i><img src="/images/star.png"/></i>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="game-detail-side-item">
-						<a class="side-item-left" href="#">
-							<img src="/images/qq.png" />
-						</a>
-						<div class="side-item-right ">
-							<a class="item-right-title flex-text-overflow ">
-								<span class="flex-text ">猫和老鼠：欢乐互动</span>
-							</a>
-							<div class="item-right-label ">
-								<a href="#">多人</a>
-								<p class="right-label-rating pull-right ">
-									<span>8.4</span>
-									<i><img src="/images/star.png"/></i>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span><img src="/images/qq.png"/></span>
+                        <!--<div class="wechat-logo-qq">
+                            <span>官方QQ群: 116587007</span>
+                        </div>-->
+                    </li>
+                    <li>
+                        <a class="icon-font ic_zhihu" href="#" target="_blank" rel="nofollow"></a>
+                    </li>
+                    <li>
+                        <a class="icon-font ic_sina" href="#" target="_blank" rel="nofollow"></a>
+                    </li>
+                    <!--<li>
+                        <a class="icon-font ic_mail" href="mailto:cooperation@taptap.com" rel="nofollow"></a>
+                        <div class="wechat-logo-mail">
+                            <span>
+                                <a href="mailto:cooperation@taptap.com" rel="nofollow">合作邮箱: cooperation@taptap.com</a>
+                            </span>
+                        </div>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+        <div class="section-title">
+            <h3>厂商其他游戏</h3>
+            <a href="#" class="pull-right">更多</a>
+        </div>
+        <div class="show-side-body" th:each="pubGame : ${pubGames.data}">
+            <div class="game-detail-side-item">
+                <a class="side-item-left" href="#">
+                    <img th:src="${pubGame.gmIcon}"/>
+                </a>
+                <div class="side-item-right ">
+                    <a class="item-right-title flex-text-overflow ">
+                        <span class="flex-text " th:text="${pubGame.gmName}">猫和老鼠：欢乐互动</span>
+                    </a>
+                    <div class="item-right-label ">
+                        <a href="#">多人</a>
+                        <p class="right-label-rating pull-right ">
+                            <span th:text="${pubGame.gmMark==null?0:pubGame.gmMark}">8.4</span>
+                            <i><img src="/images/star.png"/></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<footer class="footer ">
-			<div class="footer-container ">
-				<div class="footer-link ">
-					<div class="footer-link__item ">
-						<h4 class="footer-title ">关于我们</h4>
-						<ul class="footer-list ">
-							<li class="item ">
-								<a href="# ">关于我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">帮助中心</a>
-							</li>
-							<li class="item ">
-								<a href="# ">加入我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">联系我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">标签集</a>
-							</li>
-							<li class="item ">
-								<a href="# ">商务合作</a>
-							</li>
-							<li class="item ">
-								<a href="# ">免责声明</a>
-							</li>
-						</ul>
-					</div>
-					<div class="footer-link__item ">
-						<h4 class="footer-title ">手机应用</h4>
-						<ul class="footer-list ">
-							<li class="item ">
-								<a href="# ">关于我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">帮助中心</a>
-							</li>
-							<li class="item ">
-								<a href="# ">加入我们</a>
-							</li>
-						</ul>
-					</div>
-					<div class="footer-link__item ">
-						<div class="footer-orcode "><img src="/images/app_qrcode.png " alt="# "></div>
-						<div class="orcode-text ">
-							<p>扫描二维码</p>
-							<p>下载tang手机客户端</p>
-						</div>
-					</div>
-					<div class="footer-link__item ">
-						<h4 class="footer-title ">关注我们</h4>
-						<ul class="footer-list ">
-							<li class="item ">
-								<a href="# ">关于我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">帮助中心</a>
-							</li>
-							<li class="item ">
-								<a href="# ">加入我们</a>
-							</li>
-						</ul>
-					</div>
-					<div class="footer-link__item ">
-						<h4 class="footer-title ">友情链接</h4>
-						<ul class="footer-list ">
-							<li class="item ">
-								<a href="# ">关于我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">帮助中心</a>
-							</li>
-							<li class="item ">
-								<a href="# ">关于我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">帮助中心</a>
-							</li>
-							<li class="item ">
-								<a href="# ">关于我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">帮助中心</a>
-							</li>
-							<li class="item ">
-								<a href="# ">关于我们</a>
-							</li>
-							<li class="item ">
-								<a href="# ">帮助中心</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="fopter-copyright ">
-					<p>©2019 favegame 版权所有。</p>
-				</div>
-			</div>
-		</footer>
+<footer class="footer ">
+    <div class="footer-container ">
+        <div class="footer-link ">
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">关于我们</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">联系我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">标签集</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">商务合作</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">免责声明</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">手机应用</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <div class="footer-orcode "><img src="/images/app_qrcode.png " alt="# "></div>
+                <div class="orcode-text ">
+                    <p>扫描二维码</p>
+                    <p>下载tang手机客户端</p>
+                </div>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">关注我们</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">友情链接</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fopter-copyright ">
+            <p>©2019 favegame 版权所有。</p>
+        </div>
+    </div>
+</footer>
 
-		<script src="/js/jquery.min.js "></script>
-		<script>
-			$(function() {
-				$("#recommend-dropdown-menu-switch ").hover(function() {
-					$("#recommend-dropdown-menu ").removeClass("recommend-dropdown-hide ");
-				});
-				$("#recommend-dropdown-menu ").mouseleave(function() {
-					$("#recommend-dropdown-menu ").addClass("recommend-dropdown-hide ");
-				});
-				$(".review-add-stars p i").hover(function() {
-					var index = $(this).index();
-					$(this).prevAll().addClass("review-add-stars-hover");
-					$(this).addClass("review-add-stars-hover");
-					if(index == 0) {
-						$(".review-add-stars span").text("讨厌");
-					} else if(index == 1) {
-						$(".review-add-stars span").text("不喜欢");
-					} else if(index == 2) {
-						$(".review-add-stars span").text("还可以");
-					} else if(index == 3) {
-						$(".review-add-stars span").text("很不错");
-					} else if(index == 4) {
-						$(".review-add-stars span").text("棒极了");
-					}
-				});
+<script src="/js/jquery.min.js "></script>
+<script>
+    $(function () {
+        $("#recommend-dropdown-menu-switch ").hover(function () {
+            $("#recommend-dropdown-menu ").removeClass("recommend-dropdown-hide ");
+        });
+        $("#recommend-dropdown-menu ").mouseleave(function () {
+            $("#recommend-dropdown-menu ").addClass("recommend-dropdown-hide ");
+        });
+        $(".review-add-stars p i").hover(function () {
+            var index = $(this).index();
+            $(this).prevAll().addClass("review-add-stars-hover");
+            $(this).addClass("review-add-stars-hover");
+            if (index == 0) {
+                $(".review-add-stars span").text("讨厌");
+            } else if (index == 1) {
+                $(".review-add-stars span").text("不喜欢");
+            } else if (index == 2) {
+                $(".review-add-stars span").text("还可以");
+            } else if (index == 3) {
+                $(".review-add-stars span").text("很不错");
+            } else if (index == 4) {
+                $(".review-add-stars span").text("棒极了");
+            }
+        });
 
-				$(".review-add-stars p i").mouseleave(function() {
-					$(this).prevAll().removeClass("review-add-stars-hover");
-					$(this).removeClass("review-add-stars-hover");
-					$(".review-add-stars span").text("");
-				});
-			});
-		</script>
+        $(".review-add-stars p i").mouseleave(function () {
+            $(this).prevAll().removeClass("review-add-stars-hover");
+            $(this).removeClass("review-add-stars-hover");
+            $(".review-add-stars span").text("");
+        });
+    });
+</script>
 
-	</body>
+</body>
 
 </html>

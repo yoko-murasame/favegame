@@ -2,9 +2,12 @@ package cn.dmdream.game.service.impl;
 
 import cn.dmdream.entity.Type;
 import cn.dmdream.entity.User;
+import cn.dmdream.entity.vo.GameVo;
+import cn.dmdream.entity.vo.UserVo;
 import cn.dmdream.game.service.UserService;
 import cn.dmdream.mapper.UserMapper;
 import cn.dmdream.utils.EmptyUtils;
+import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -24,6 +27,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    private JsonMsg jsonMsg;
 
     @Override
     public IPage<User> searchByCondition(User user, Integer page, Integer pageSize) {
@@ -76,5 +81,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteById(Integer id) {
         return userMapper.deleteById(id) == 1;
+    }
+
+    @Override
+    public JsonMsg findUserVoById(Integer id) {
+        try {
+            UserVo userVoById = userMapper.findUserVoById(id);
+            System.out.println("uservo:" + userVoById);
+            jsonMsg = JsonMsg.makeSuccess("成功", userVoById);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonMsg = JsonMsg.makeFail("失败:" + e.getMessage(), null);
+        }
+        return jsonMsg;
     }
 }

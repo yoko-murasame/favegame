@@ -1,6 +1,7 @@
 package cn.dmdream.game.service;
 
 import cn.dmdream.entity.User;
+import cn.dmdream.utils.JsonMsg;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.List;
@@ -18,5 +19,7 @@ public interface UserService {
     boolean saveOrUpdate(User user);
 
     boolean deleteById(Integer id);
+
+    JsonMsg findUserVoById(Integer id);
 
 }
