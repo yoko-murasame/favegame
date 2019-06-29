@@ -4,7 +4,7 @@
 
 
     <select id="findAllUserVoByPage" resultType="cn.dmdream.entity.vo.UserVo">
-        select u.*,ui.* from tab_user u left join tab_userInfo ui on u.id = ui.userId limit ${start} ${pageSize};
+        select u.*,ui.* from tab_user u left join tab_userInfo ui on u.id = ui.userId limit ${start},${pageSize};
     </select>
     <select id="findUserVoById" resultType="cn.dmdream.entity.vo.UserVo">
          select u.*,ui.* from tab_user u left join tab_userInfo ui on u.id = ui.userId where u.id=#{id};

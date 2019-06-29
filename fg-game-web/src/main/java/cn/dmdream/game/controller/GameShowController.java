@@ -3,7 +3,9 @@ package cn.dmdream.game.controller;
 import cn.dmdream.entity.Game;
 import cn.dmdream.entity.User;
 import cn.dmdream.entity.vo.GameVo;
+import cn.dmdream.game.service.CommentService;
 import cn.dmdream.game.service.GameService;
+import cn.dmdream.game.service.ReplyService;
 import cn.dmdream.game.service.UserService;
 import cn.dmdream.search.service.GameSearchService;
 import cn.dmdream.utils.JsonMsg;
@@ -32,6 +34,9 @@ public class GameShowController {
 
     @Reference
     private GameSearchService gameSearchService;
+    @Reference
+    private CommentService commentService;
+
 
     @GetMapping("recommend/{keyword}/{page}/{pageSize}")
     public ModelAndView showGame(@PathVariable("keyword") String keyword, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
@@ -68,6 +73,7 @@ public class GameShowController {
         modelAndView.setViewName("game-detail");
         JsonMsg game = gameService.findGameVoById(id);
         JsonMsg user = userService.findUserVoById(20);
+        JsonMsg comments = commentService.findAllByPage(id, 1, 100);
         GameVo gameVo = (GameVo) game.getData();
         List<Game> pubAllGames = (List<Game>) gameService.findAll().getData();
         pubAllGames = pubAllGames.stream().filter((temp) -> temp.getGmPublisherId() == gameVo.getGmPublisherId()).collect(Collectors.toList());
@@ -76,10 +82,23 @@ public class GameShowController {
 //        pubAllGames.forEach(System.out::println);
         modelAndView.addObject("game", game);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("comments", comments);
         modelAndView.addObject("pubGames", pubGames);
 //        System.out.println(game.getData());
 //        System.out.println(user.getData());
 //        System.out.println(games.getData());
         return modelAndView;
+    }
+
+    @GetMapping("gameVo/test")
+    public JsonMsg getTest() {
+        JsonMsg commentVoById = commentService.findAllByPage(43, 1, 2);
+        return commentVoById;
+    }
+
+    @GetMapping("gameVo/test1")
+    public JsonMsg getTest1() {
+        JsonMsg commentVoById = commentService.findCommentVoById(1);
+        return commentVoById;
     }
 }

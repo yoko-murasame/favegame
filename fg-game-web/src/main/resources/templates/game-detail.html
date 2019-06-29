@@ -321,16 +321,17 @@
             background-color: #ffffff;
         }
 
-        .review-title{
+        .review-title {
             background-color: #ffffff;
             margin-bottom: 0px;
         }
-        .vote i img{
+
+        .vote i img {
             position: relative;
-            top:5px;
+            top: 5px;
         }
 
-        .vote{
+        .vote {
             cursor: pointer;
         }
     </style>
@@ -600,40 +601,42 @@
             </div>
             <div id="review-list-div">
                 <!--评论列表-->
-                <ul class="review-list ">
+                <ul class="review-list " th:each="comment : ${comments.data}">
                     <li class="review-item">
                         <a href="" class="review-avatar">
-                            <img src="/images/avtar.png"/>
+                            <img th:src="${comment.userPic}"/>
                         </a>
                         <div class="review-text">
                             <div class="text-header">
 								<span class="fave-user">
-									<a href="" class="user-name">锦弟弟</a>
+									<a href="" class="user-name" th:text="${comment.gmUsername}">锦弟弟</a>
 									<i class="icon-verified"></i>
 								</span>
                                 <a href="" class="text-header-time">
-                                    <span>三小时前</span>
-                                    <span>已修改&gt;</span>
+                                    <span th:text="${comment.createTime}">三小时前</span>
+                                    <!--<span>已修改&gt;</span>-->
                                 </a>
                                 <button class="button-jubao"><span>举报</span></button>
                             </div>
                             <div class="text-score">
-                                <i class="colored"></i>
+                                <i class="colored" th:style="'width:'+72/10*${comment.gmRate}+'px!important'"></i>
                                 <i class="background"></i>
                                 <span class="text-score-time">游戏时长 3小时22分钟</span>
                             </div>
                             <div class="text-body">
-                                <p>大沙发的方法阿孙方式</p>
-                                <p>发阿斯蒂芬艾弗森地方</p>
-                                <p>啊啊第三方 大厦的说法大师傅大师傅</p>
+                                <p th:text="${comment.gmComment}">大沙发的方法阿孙方式</p>
+                                <!--<p>发阿斯蒂芬艾弗森地方</p>-->
+                                <!--<p>啊啊第三方 大厦的说法大师傅大师傅</p>-->
                             </div>
                             <div class="text-footer">
                                 <!--<i class="icon-mobile-gray"></i>
                                 <span class="text-footer-device"></span>-->
-                                <ul class="list-unstyled" style="border-left:none;">
+                                <ul class="list-unstyled" style="border-left:none;" >
                                     <li>
                                         <button class="vote funny">
-                                            <i class="icon"><img src="/images/cont/detail-smile.png"/></i>
+                                            <i class="icon">
+                                                <img src="/images/cont/detail-smile.png"/>
+                                            </i>
                                             <span>欢乐</span>
                                             <span>10</span>
                                         </button>
@@ -662,17 +665,16 @@
                             <div class="in-comments">
                                 <ul class="list-unstyled"
                                     style="border-top: 1px solid #E1E1E1;border-left: none; padding-left: 0;">
-                                    <li class="comment-item ">
+                                    <li class="comment-item "  th:each="reply : ${comment.replyVos}">
                                         <a href="" class="comment-item-avatar">
-                                            <img src="/images/avtar.png" alt=""/>
+                                            <img th:src="${reply.userPic}" alt=""/>
                                         </a>
                                         <div class="comment-item-text">
                                             <div class="text-header-in">
-                                                <span class="fave-user"><a href="" class="fave-user-name">鞠丽丽</a></span>
+                                                <span class="fave-user"><a href="" class="fave-user-name" th:text="${reply.gmUsername}">鞠丽丽</a></span>
                                             </div>
                                             <div class="text-body-in">
-                                                <p>打分法发大水发的给大使馆的双方各的双方各第三个</p>
-                                                <p>打分法发大水发的给大使馆的双方各的双方各第三1个23</p>
+                                                <p th:text="${reply.content}"></p>
                                             </div>
                                             <div class="text-footer-in">
                                                 <ul class="list-unstyled foot-btn">
@@ -688,14 +690,15 @@
                                                     </li>
                                                     <li>
                                                         <button class="vote">
-                                                            <i class="icon"><img src="/images/cont/detail-good.png"/></i>
-                                                            <span>5</span>
+                                                            <i class="icon"><img
+                                                                    src="/images/cont/detail-good.png"/></i>
+                                                            <span th:text="${reply.favor}">5</span>
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button class="vote">
                                                             <i class="icon"><img src="/images/cont/detail-bad.png"/></i>
-                                                            <span>6</span>
+                                                            <span  th:text="${reply.against}">6</span>
                                                         </button>
                                                     </li>
                                                     <li>
