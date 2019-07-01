@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dmdream.mapper.CommentMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="cn.dmdream.entity.Comment">
+        insert into tab_comment(
+        createTime,
+        destroyTime,
+        version,
+        isValid,
+        gmCritic,
+        gmGameId,
+        gmRate,
+        gmComment,
+        favor,
+        against
+        )
+        values(
+        #{createTime},
+        #{destroyTime},
+        #{version},
+        #{isValid},
+        #{gmCritic},
+        #{gmGameId},
+        #{gmRate},
+        #{gmComment},
+        #{favor},
+        #{against}
+        );
+    </insert>
 
 
     <select id="findAllCommentVoByPage" resultType="cn.dmdream.entity.vo.CommentVo">
-        select * from tab_comment c left join tab_user u on c.gmCritic = u.id left join tab_userInfo ui on u.id = ui.id where gmGameId = #{id} limit ${start} ,${pageSize};
+        select * from tab_comment c left join tab_user u on c.gmCritic = u.id left join tab_userInfo ui on u.id = ui.userId where gmGameId = #{id} limit ${start} ,${pageSize};
     </select>
     <select id="findCommentVoById" resultType="cn.dmdream.entity.vo.CommentVo">
-        select * from tab_comment c left join tab_user u on c.gmCritic = u.id left join tab_userInfo ui on u.id = ui.id where c.id = #{id};
+        select * from tab_comment c left join tab_user u on c.gmCritic = u.id left join tab_userInfo ui on u.id = ui.userId where c.id = #{id};
     </select>
 </mapper>

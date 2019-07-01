@@ -15,4 +15,5 @@ public class User extends Base {
     private String gmUserPhone;//	varchar	手机号
     private String gmUserQQ;//	varchar	关联QQ
     private String gmUserWechat;//	varchar	关联微信
+    private Integer gmDeveloperId;  //开发者Id
 }

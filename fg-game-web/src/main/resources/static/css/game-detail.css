@@ -1,5 +1,5 @@
 body {
-    background-color: #f2f2f2;
+    background-color: #f2f2f2!important;
 }
 
 a {
@@ -398,4 +398,366 @@ a {
     line-height: 15px;
     color: #999;
     float: right !important;
+}
+
+/*详情页样式修正*/
+body {
+    background-color: #f2f2f2;
+}
+
+.review-list {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    width: 688px;
+}
+
+.review-list {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    width: 688px;
+}
+
+.review-item {
+    padding: 15px 30px;
+    border-bottom: 1px solid #eee;
+    list-style: none;
+}
+
+.review-avatar {
+    float: left;
+    display: block;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    color: #333;
+    background-color: transparent;
+}
+
+.review-avatar img {
+    width: 100%;
+    vertical-align: middle;
+    border: 0;
+}
+
+.review-text {
+    margin-left: 65px;
+    padding-top: 5px;
+    display: block;
+}
+
+.text-header {
+    margin-bottom: 3px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.text-score {
+    position: relative;
+    margin-bottom: 10px;
+    height: 14px;
+    line-height: 14px;
+}
+
+.text-body {
+    word-wrap: break-word;
+    line-height: 22px;
+}
+
+.in-comments {
+    position: relative;
+    margin-top: 10px;
+    display: block;
+}
+
+.fave-user {
+    float: left;
+    display: block;
+    white-space: nowrap;
+    font-size: 0 !important;
+    vertical-align: middle;
+}
+
+.user-name {
+    font-weight: 700;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    margin-right: 3px;
+    color: #333;
+    text-decoration: none;
+}
+
+.fave-user a:hover {
+    text-decoration: underline;
+}
+
+.icon-verified {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    box-sizing: content-box;
+    background: 0 0;
+    margin-right: 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon-verified img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+    border: 0;
+}
+
+.text-header-time {
+    float: right;
+    line-height: 20px;
+    font-size: 12px;
+    color: #999;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.text-header-time span {
+    color: #FFAC48;
+}
+
+.button-jubao {
+    float: right;
+    margin-right: 15px;
+    padding: 0;
+    line-height: 20px;
+    color: #999;
+    border: none;
+    background: 0 0;
+    box-shadow: none;
+    font-size: 12px;
+    border-radius: 3px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    margin-bottom: 0;
+    display: inline-block;
+    outline: none;
+}
+
+.button-jubao span:hover {
+    text-decoration: underline;
+    color: #14B9C8;
+}
+
+.colored {
+    width: 56px;
+    position: absolute;
+    top: 0;
+    left: -2px;
+    display: block;
+    height: 14px;
+    background: url(/images/iconfont/score.png) repeat-x;
+    background-size: 14px;
+}
+
+.background {
+    float: left;
+    margin-left: -2px;
+    opacity: .32;
+    display: block;
+    width: 70px;
+    height: 14px;
+    background: url(/images/iconfont/background.png) repeat-x;
+    background-size: 14px;
+}
+
+.text-score-time {
+    float: left;
+    display: block;
+    margin-left: 5px;
+    padding: 0 5px 0 0;
+    line-height: 14px;
+    font-size: 12px;
+    color: #999;
+}
+
+.text-body {
+    margin-bottom: 15px;
+    line-height: 22px;
+    min-height: 14px;
+    margin: 0 0 10px;
+}
+
+.text-footer {
+    width: 563px;
+    height: 25px;
+}
+
+.text-footer ul {
+    float: right;
+    margin: 0 -10px 0 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.text-footer li {
+    float: left;
+    margin-right: 5px;
+}
+
+.vote {
+    padding: 0 7.5px;
+    line-height: 24px;
+    color: #999;
+    border: none;
+    background: 0 0;
+    box-shadow: none;
+    font-size: 12px;
+    text-decoration: none;
+    border-radius: 6px !important;
+    outline: none;
+}
+
+.vote-noh {
+    padding: 0 7.5px;
+    line-height: 24px;
+    color: #999;
+    border: none;
+    background: 0 0;
+    box-shadow: none;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.comment-item {
+    padding: 7.5px 0;
+}
+
+.comment-item-avatar {
+    float: left;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.comment-item-avatar img {
+    width: 100%;
+    vertical-align: middle;
+    border: 0;
+}
+
+.comment-item-text {
+    position: relative;
+    padding-top: 5px;
+    margin-left: 55px;
+}
+
+.text-header-in {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.fave-user-name {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    margin-right: 3px;
+    font-weight: 700;
+    color: #333;
+    text-decoration: none;
+}
+
+.fave-user-name:hover {
+    text-decoration: underline;
+}
+
+.text-body-in p {
+    margin-bottom: 15px;
+    line-height: 22px;
+    min-height: 14px;
+    margin: 0 0 10px;
+}
+
+.foot-btn {
+    width: 518px;
+    height: 25px;
+    padding-left: 0;
+    float: none;
+    border: none;
+    float: none;
+    margin: 0 -10px 0 0;
+}
+
+.foot-btn li {
+    float: left;
+    margin-right: 5px;
+    box-sizing: border-box;
+    list-style: none;
+    line-height: 22px;
+}
+
+.icon {
+    font-size: 14px;
+    width: 15px;
+    height: auto;
+    margin: 0;
+}
+
+.vote:hover {
+    color: #999;
+    background: #f2f2f2;
+}
+
+#review-list-div {
+    background-color: #ffffff;
+}
+
+.review-title {
+    background-color: #ffffff;
+    margin-bottom: 0px;
+}
+
+.vote i img {
+    position: relative;
+}
+
+.vote {
+    cursor: pointer;
+}
+
+.recommend-search-btn {
+    float: right !important;
+    position: relative;
+    top: -30px;
+}
+
+.review-title{
+    height: 60px!important;
+}
+
+ul{
+    padding:0!important;
+}
+
+.review-ratings-detail ul{
+    padding-left: 20px!important;
+}
+.spread-wechat-divide{
+    margin-bottom: 0px!important;
+}
+
+.dropdown-toggle{
+    margin-top: 7px!important;
+}
+
+.social-spread-wechat{
+    padding-top: 0px!important;
+}
+.show-side-body{
+    margin-bottom: 0px!important;
 }

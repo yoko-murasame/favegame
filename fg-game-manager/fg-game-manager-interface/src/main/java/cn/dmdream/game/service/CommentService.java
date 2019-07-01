@@ -1,5 +1,7 @@
 package cn.dmdream.game.service;
 
+import cn.dmdream.entity.Comment;
+import cn.dmdream.entity.Game;
 import cn.dmdream.utils.JsonMsg;
 
 /**
@@ -10,4 +12,6 @@ public interface CommentService {
     JsonMsg findAllByPage(Integer id, Integer page, Integer pageSize);
 
     JsonMsg findCommentVoById(Integer id);
+
+    JsonMsg save(Comment comment);
 }

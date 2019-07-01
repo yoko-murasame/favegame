@@ -1,5 +1,6 @@
 package cn.dmdream.game.controller;
 
+import cn.dmdream.entity.Comment;
 import cn.dmdream.entity.Game;
 import cn.dmdream.entity.User;
 import cn.dmdream.entity.vo.GameVo;
@@ -11,10 +12,7 @@ import cn.dmdream.search.service.GameSearchService;
 import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.qiniu.util.Json;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -61,14 +59,14 @@ public class GameShowController {
     }
 
     @GetMapping("game/login")
-    public ModelAndView showGameDetail1() {
+    public ModelAndView showGameDetailLogin() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         return modelAndView;
     }
 
     @GetMapping("gameVo/{id}")
-    public ModelAndView showGameDetail2(@PathVariable("id") Integer id) {
+    public ModelAndView showGameDetailInfo(@PathVariable("id") Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("game-detail");
         JsonMsg game = gameService.findGameVoById(id);
@@ -90,6 +88,21 @@ public class GameShowController {
         return modelAndView;
     }
 
+    @PostMapping("gameVo/{id}/addComment")
+    public JsonMsg showGameDetailAddComment(Comment comment) {
+        System.out.println(comment);
+        JsonMsg back = null;
+//        commentService.
+        try {
+            back = commentService.save(comment);
+            JsonMsg.makeSuccess("成功", back);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonMsg.makeFail("失败", e);
+        }
+        return back;
+    }
+
     @GetMapping("gameVo/test")
     public JsonMsg getTest() {
         JsonMsg commentVoById = commentService.findAllByPage(43, 1, 2);
@@ -98,7 +111,7 @@ public class GameShowController {
 
     @GetMapping("gameVo/test1")
     public JsonMsg getTest1() {
-        JsonMsg commentVoById = commentService.findCommentVoById(1);
-        return commentVoById;
+        JsonMsg user = commentService.findAllByPage(43, 1, 100);
+        return user;
     }
 }

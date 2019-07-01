@@ -1,10 +1,13 @@
 package cn.dmdream.game.service.impl;
 
+import cn.dmdream.entity.Comment;
 import cn.dmdream.entity.vo.CommentVo;
+import cn.dmdream.entity.vo.ReplyVo;
 import cn.dmdream.game.service.CommentService;
 import cn.dmdream.game.service.ReplyService;
 import cn.dmdream.mapper.CommentMapper;
 import cn.dmdream.mapper.ReplyMapper;
+import cn.dmdream.utils.EmptyUtils;
 import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +38,9 @@ public class CommentServiceImpl implements CommentService {
             List<CommentVo> commentVos = commentMapper.findAllCommentVoByPage(id, page - 1, pageSize);
             //手动设置评论的所有回复
             for (CommentVo commentVo : commentVos) {
-                commentVo.setReplyVos(replyMapper.findCommentAllRePlyVoByPage(commentVo.getId(), 0, 100));
+                List<ReplyVo> replyVos = replyMapper.findCommentAllRePlyVoByPage(commentVo.getId(), 0, 100);
+                commentVo.setReplyVos(replyVos);
+                commentVo.setReplyNumber(replyVos.size());
             }
             jsonMsg = JsonMsg.makeSuccess("查询成功", commentVos);
         } catch (Exception e) {
@@ -54,6 +59,20 @@ public class CommentServiceImpl implements CommentService {
         } catch (Exception e) {
             e.printStackTrace();
             jsonMsg = JsonMsg.makeFail("失败:" + e.getMessage(), null);
+        }
+        return jsonMsg;
+    }
+
+    @Override
+    public JsonMsg save(Comment comment) {
+        try {
+            comment.setFavor(0);
+            comment.setAgainst(0);
+            commentMapper.save(comment);
+            System.out.println(comment.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonMsg = JsonMsg.makeFail("失败!" + e.getMessage(), null);
         }
         return jsonMsg;
     }

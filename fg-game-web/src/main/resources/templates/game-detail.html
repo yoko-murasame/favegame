@@ -8,331 +8,128 @@
     <link rel="stylesheet" href="/css/recommend.css">
     <link rel="stylesheet" type="text/css" href="/css/game-detail.css"/>
     <link rel="stylesheet" type="text/css" href="/css/game-comments.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <style type="text/css">
-        .review-list {
-            margin: 0;
-            padding-left: 0;
-            list-style: none;
-            width: 688px;
+        /*回复模态框样式*/
+        .modal-dialog {
+            margin: 8% auto;
+            width: 500px;
+            transition: all .3s ease-out;
+            box-shadow: 0 0 20px rgba(0, 0, 0, .3);
         }
 
-        .review-list {
-            margin: 0;
-            padding-left: 0;
-            list-style: none;
-            width: 688px;
+        .modal-content {
+            position: relative;
+            border: none;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: none;
         }
 
-        .review-item {
-            padding: 15px 30px;
-            border-bottom: 1px solid #eee;
-            list-style: none;
+        .modal-header {
+            position: relative;
+            color: #fff;
+            background: #14B9C8;
+            padding: 15px;
+            border-bottom: 1px solid #e5e5e5;
+            box-sizing: border-box;
         }
 
-        .review-avatar {
-            float: left;
+        .modal-header-user {
+            box-sizing: border-box;
             display: block;
+            color: #fff;
+            line-height: 20px;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        .modal-header-user p {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .img-circle {
+            display: inline-block;
+            padding: 2px;
             width: 50px;
             height: 50px;
-            overflow: hidden;
+            background: #fff;
+            vertical-align: middle;
             border-radius: 50%;
-            color: #333;
-            background-color: transparent;
-        }
-
-        .review-avatar img {
-            width: 100%;
-            vertical-align: middle;
             border: 0;
+            color: #fff;
+            line-height: 20px;
         }
 
-        .review-text {
-            margin-left: 65px;
-            padding-top: 5px;
+        .switch-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            box-sizing: border-box;
             display: block;
         }
 
-        .text-header {
-            margin-bottom: 3px;
+        .btn-exit {
+            width: 20px;
             height: 20px;
-            line-height: 20px;
-        }
-
-        .text-score {
-            position: relative;
-            margin-bottom: 10px;
-            height: 14px;
-            line-height: 14px;
-        }
-
-        .text-body {
-            word-wrap: break-word;
-            line-height: 22px;
-        }
-
-        .in-comments {
-            position: relative;
-            margin-top: 10px;
-            display: block;
-        }
-
-        .fave-user {
-            float: left;
-            display: block;
-            white-space: nowrap;
-            font-size: 0 !important;
-            vertical-align: middle;
-        }
-
-        .user-name {
-            font-weight: 700;
+            background: url(/images/cont/detail-exit.png) no-repeat;
             display: inline-block;
-            vertical-align: middle;
+            padding: 6px 12px;
+            margin-bottom: 0;
             font-size: 14px;
-            margin-right: 3px;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .fave-user a:hover {
-            text-decoration: underline;
-        }
-
-        .icon-verified {
-            position: relative;
-            width: 14px;
-            height: 14px;
-            box-sizing: content-box;
-            background: 0 0;
-            margin-right: 3px;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .icon-verified img {
-            display: block;
-            max-width: 100%;
-            max-height: 100%;
-            vertical-align: middle;
-            border: 0;
-        }
-
-        .text-header-time {
-            float: right;
-            line-height: 20px;
-            font-size: 12px;
-            color: #999;
-            background-color: transparent;
-            text-decoration: none;
-        }
-
-        .text-header-time span {
-            color: #FFAC48;
-        }
-
-        .button-jubao {
-            float: right;
-            margin-right: 15px;
-            padding: 0;
-            line-height: 20px;
-            color: #999;
-            border: none;
-            background: 0 0;
-            box-shadow: none;
-            font-size: 12px;
-            border-radius: 3px;
+            font-weight: 400;
             text-align: center;
             white-space: nowrap;
-            vertical-align: middle;
-            -ms-touch-action: manipulation;
-            touch-action: manipulation;
-            cursor: pointer;
-            margin-bottom: 0;
-            display: inline-block;
-            outline: none;
         }
 
-        .button-jubao span:hover {
-            text-decoration: underline;
-            color: #14B9C8;
-        }
-
-        .colored {
-            width: 56px;
-            position: absolute;
-            top: 0;
-            left: -2px;
-            display: block;
-            height: 14px;
-            background: url(/images/iconfont/score.png) repeat-x;
-            background-size: 14px;
-        }
-
-        .background {
-            float: left;
-            margin-left: -2px;
-            opacity: .32;
-            display: block;
-            width: 70px;
-            height: 14px;
-            background: url(/images/iconfont/background.png) repeat-x;
-            background-size: 14px;
-        }
-
-        .text-score-time {
-            float: left;
-            display: block;
-            margin-left: 5px;
-            padding: 0 5px 0 0;
-            line-height: 14px;
-            font-size: 12px;
-            color: #999;
-        }
-
-        .text-body {
-            margin-bottom: 15px;
-            line-height: 22px;
-            min-height: 14px;
-            margin: 0 0 10px;
-        }
-
-        .text-footer {
-            width: 563px;
-            height: 25px;
-        }
-
-        .text-footer ul {
-            float: right;
-            margin: 0 -10px 0 0;
-            padding-left: 0;
-            list-style: none;
-        }
-
-        .text-footer li {
-            float: left;
-            margin-right: 5px;
-        }
-
-        .vote {
-            padding: 0 7.5px;
-            line-height: 24px;
-            color: #999;
-            border: none;
-            background: 0 0;
-            box-shadow: none;
-            font-size: 12px;
-            text-decoration: none;
-            border-radius: 6px !important;
-            outline: none;
-        }
-
-        .vote-noh {
-            padding: 0 7.5px;
-            line-height: 24px;
-            color: #999;
-            border: none;
-            background: 0 0;
-            box-shadow: none;
-            font-size: 12px;
-            text-decoration: none;
-        }
-
-        .comment-item {
-            padding: 7.5px 0;
-        }
-
-        .comment-item-avatar {
-            float: left;
-            width: 40px;
-            height: 40px;
-            overflow: hidden;
-            border-radius: 50%;
-        }
-
-        .comment-item-avatar img {
-            width: 100%;
-            vertical-align: middle;
-            border: 0;
-        }
-
-        .comment-item-text {
-            position: relative;
-            padding-top: 5px;
-            margin-left: 55px;
-        }
-
-        .text-header-in {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .fave-user-name {
-            display: inline-block;
-            vertical-align: middle;
+        .modal-body {
+            padding: 20px;
             font-size: 14px;
-            margin-right: 3px;
-            font-weight: 700;
             color: #333;
-            text-decoration: none;
         }
 
-        .fave-user-name:hover {
-            text-decoration: underline;
-        }
-
-        .text-body-in p {
-            margin-bottom: 15px;
-            line-height: 22px;
-            min-height: 14px;
-            margin: 0 0 10px;
-        }
-
-        .foot-btn {
-            width: 518px;
-            height: 25px;
-            padding-left: 0;
-            float: none;
-            border: none;
-            float: none;
-            margin: 0 -10px 0 0;
-        }
-
-        .foot-btn li {
+        .modal-body-app {
             float: left;
-            margin-right: 5px;
+            max-width: 90px;
             box-sizing: border-box;
-            list-style: none;
-            line-height: 22px;
         }
 
-        .icon {
-            font-size: 14px;
-            width: 15px;
-            height: auto;
-            margin: 0;
+        .modal-body-app img {
+            vertical-align: middle;
+            width: 90px;
         }
 
-        .vote:hover {
-            color: #999;
-            background: #f2f2f2;
+        .review-modal-right {
+            margin: 0 0 0 105px;
+            box-sizing: border-box;
+            display: block;
         }
 
-        #review-list-div {
-            background-color: #ffffff;
+        .modal-body-rate {
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
         }
 
-        .review-title {
-            background-color: #ffffff;
-            margin-bottom: 0px;
+        .body-rate-star {
+            margin-right: 12px;
+            display: inline-block;
+            vertical-align: middle;
         }
 
-        .vote i img {
-            position: relative;
-            top: 5px;
-        }
-
-        .vote {
+        .body-rate-star i {
             cursor: pointer;
+            float: left;
+            display: block;
+            padding: 0 14px 0 0;
+            width: 44px;
+            height: 30px;
+            background: url(/images/iconfont/star-score.png) no-repeat;
         }
     </style>
 </head>
@@ -347,11 +144,11 @@
         </div>
         <nav class="header-nav">
             <ul>
-                <li>
-                    <span class="line"></span>
-                    <a href="#" class="dreamer">tang生活家</a>
-                    <i class="icon-text__pink icon-new">new</i>
-                </li>
+                <!--<li>-->
+                <!--<span class="line"></span>-->
+                <!--<a href="#" class="dreamer">tang生活家</a>-->
+                <!--<i class="icon-text__pink icon-new">new</i>-->
+                <!--</li>-->
                 <li style="display: none;">
                     <span class="line"></span>
                     <a href="login.html">登录</a>
@@ -360,7 +157,7 @@
                     <span class="line"></span>
                     <span class="user-pic"></span>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="recommend-dropdown-menu-switch">
-                        <img alt="" class="img-circle" src="/images/avtar.png" width="38px" height="38px"/>
+                        <img alt="" class="img-circle" th:src="${user.data.userPic}" width="38px" height="38px"/>
                         <span style="color: #000;font-size: 15px">
                                 <i th:text="${user.data.gmUsername}">username</i>
                             </span>
@@ -373,7 +170,7 @@
 <div id="recommend-dropdown-menu" class="recommend-dropdown-hide">
     <div id="recommend-dropdown-img-container">
         <div id="recommend-dropdown-img">
-            <img class="img-circle" src="/images/avtar.png"/>
+            <img class="img-circle" th:src="${user.data.userPic}"/>
         </div>
         <div id="recommend-dropdown-img-username">
             <span th:text="${user.data.gmUsername}">username</span>
@@ -447,7 +244,7 @@
                 <div class="header-text-download">
                     <div class="text-download-text">
                         <div class="app-data-wrap">
-                            <button class="btn taptap-button-friendship btn-default taptap-button-friendship-simple js-taptap-button-friendship"
+                            <button class=" taptap-button-friendship-simple js-taptap-button-friendship"
                                     data-taptap-ajax="follow" type="button">
                                 <i class="app"><img src="/images/iconfont/notice.png"/></i>
                                 <span class="follow">关注</span></button>
@@ -481,12 +278,12 @@
                     </li>
                     <li role="presentation" class="active">
                         <a href="#" aria-controls="detail" role="tab">评价
-                            <small>40827</small>
+                            <!--<small>40827</small>-->
                         </a>
                     </li>
                     <li role="presentation" class="">
                         <a href="#" aria-controls="detail" role="tab">社区
-                            <small>33972</small>
+                            <!--<small>33972</small>-->
                         </a>
                     </li>
                 </ul>
@@ -503,7 +300,7 @@
                             <span>总评分：</span>
                             <p class="text-download-rating ">
                                 <i class="star-background "></i>
-                                <i class="star-score "></i>
+                                <i class="star-score " th:style="'width:'+70/10*${game.data.gmMark}+'px!important'"></i>
                                 <span th:text="${game.data.gmMark==null?0:game.data.gmMark}">7.1</span>
                             </p>
                         </div>
@@ -570,7 +367,7 @@
             <!--用户评分添加-->
             <div class="review-add ">
                 <div class="review-add-user ">
-                    <img src="/images/avtar.png" alt=" "/>
+                    <img th:src="${user.data.userPic}" alt=" "/>
                     <p th:text="${user.data.gmUsername}">锦爸爸</p>
                 </div>
                 <div class="review-add-stars ">
@@ -588,10 +385,73 @@
                     </p>
                     <span></span>
                 </div>
-                <button class="btn-link ">
-						<span>发表评价
-					</span></button>
-
+                <button class="btn-link " data-toggle="modal" data-target="#reply-modal">
+                    <span>发表评价</span>
+                </button>
+                <!--添加评论模态框-->
+                <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="modal-header-user">
+                                    <img th:src="${user.data.userPic}" alt="" class="img-circle">
+                                    <p th:text="'评价者：'+${user.data.gmUsername}">评价者：15443410@Social</p>
+                                </div>
+                                <div class="switch-btn">
+                                    <button type="button" class="btn-exit"
+                                            data-taptap-action="review-modal-switch"></button>
+                                </div>
+                            </div>
+                            <!--<input type="hidden" name="_token" value="QKo1vMOXpyNW7tzecFARCeGp4qPFJILNgDBpuVv1">-->
+                            <!--<input type="hidden" name="app_id" value="2301">-->
+                            <!--<input type="hidden" name="device" value="Web">-->
+                            <div class="modal-body">
+                                <!--<div class="modal-body-warning" data-taptap-review="error">-->
+                                <!--<span>!</span>-->
+                                <!--<p></p>-->
+                                <!--</div>-->
+                                <div class="modal-body-app">
+                                    <img th:src="${game.data.gmIcon}" alt="">
+                                    <p th:text="${game.data.gmName}">王者荣耀</p>
+                                </div>
+                                <div class="review-modal-right">
+                                    <div class="modal-body-rate">
+                            <span class="body-rate-star">
+                                <i data-taptap-review-rating="star" data-text="讨厌"
+                                   class=""></i>
+                                <i data-taptap-review-rating="star" data-text="不喜欢"
+                                   class=""></i>
+                                <i data-taptap-review-rating="star" data-text="还可以"
+                                   class=""></i>
+                                <i data-taptap-review-rating="star" data-text="很不错"
+                                   class=""></i>
+                                <i data-taptap-review-rating="star" data-text="棒极了"
+                                   class=""></i>
+                            </span>
+                                        <span class="body-rate-text" data-taptap-review-rating="tips"></span>
+                                        <input type="hidden" name="score" value="" data-warning="请先对游戏进行评分">
+                                    </div>
+                                    <p class="accident-tips"></p>
+                                    <div class="form-group">
+                                    <textarea name="contents" data-paste-listen="true" id="comment-detail"
+                                              class="form-control" cols="30"
+                                              rows="6" placeholder="请写下你的宝贵意见" required=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                                            aria-label="Close">取消
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" id="comment-submit">发表</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--评论模态框结束-->
             </div>
 
             <!--评论标题-->
@@ -631,7 +491,7 @@
                             <div class="text-footer">
                                 <!--<i class="icon-mobile-gray"></i>
                                 <span class="text-footer-device"></span>-->
-                                <ul class="list-unstyled" style="border-left:none;" >
+                                <ul class="list-unstyled" style="border-left:none;">
                                     <li>
                                         <button class="vote funny">
                                             <i class="icon">
@@ -644,20 +504,20 @@
                                     <li>
                                         <button class="vote up">
                                             <i class="icon"><img src="/images/cont/detail-good.png" alt=""/></i>
-                                            <span>5</span>
+                                            <span th:text="${comment.favor}">5</span>
                                         </button>
                                     </li>
                                     <li>
                                         <button class="vote down">
                                             <i class="icon"><img src="/images/cont/detail-bad.png" alt=""/></i>
-                                            <span>5</span>
+                                            <span th:text="${comment.against}">5</span>
                                         </button>
                                     </li>
                                     <li>
                                         <button class="vote opinon">
                                             <i class="icon"><img src="/images/cont/detail-message.png"/></i>
                                             <span>回复</span>
-                                            <span>203</span>
+                                            <span th:text="${comment.replyNumber}">203</span>
                                         </button>
                                     </li>
                                 </ul>
@@ -665,13 +525,14 @@
                             <div class="in-comments">
                                 <ul class="list-unstyled"
                                     style="border-top: 1px solid #E1E1E1;border-left: none; padding-left: 0;">
-                                    <li class="comment-item "  th:each="reply : ${comment.replyVos}">
+                                    <li class="comment-item " th:each="reply : ${comment.replyVos}">
                                         <a href="" class="comment-item-avatar">
                                             <img th:src="${reply.userPic}" alt=""/>
                                         </a>
                                         <div class="comment-item-text">
                                             <div class="text-header-in">
-                                                <span class="fave-user"><a href="" class="fave-user-name" th:text="${reply.gmUsername}">鞠丽丽</a></span>
+                                                <span class="fave-user"><a href="" class="fave-user-name"
+                                                                           th:text="${reply.gmUsername}">鞠丽丽</a></span>
                                             </div>
                                             <div class="text-body-in">
                                                 <p th:text="${reply.content}"></p>
@@ -679,7 +540,8 @@
                                             <div class="text-footer-in">
                                                 <ul class="list-unstyled foot-btn">
                                                     <li>
-                                                        <span class="vote-noh">18小时前</span>
+                                                        <span class="vote-noh"
+                                                              th:text="${reply.createTime}">18小时前</span>
                                                     </li>
                                                     <li>
                                                         <button class="vote">
@@ -698,7 +560,7 @@
                                                     <li>
                                                         <button class="vote">
                                                             <i class="icon"><img src="/images/cont/detail-bad.png"/></i>
-                                                            <span  th:text="${reply.against}">6</span>
+                                                            <span th:text="${reply.against}">6</span>
                                                         </button>
                                                     </li>
                                                     <li>
@@ -890,40 +752,126 @@
         <div class="fopter-copyright ">
             <p>©2019 favegame 版权所有。</p>
         </div>
+        <div style="display: none" th:text="${user.data.id}" id="user-id"></div>
+        <div style="display: none" th:text="${game.data.id}" id="game-id"></div>
     </div>
+
 </footer>
 
+
 <script src="/js/jquery.min.js "></script>
+<script src="/js/bootstrap.js "></script>
 <script>
     $(function () {
+
+        $("#comment-submit").click(function () {
+            var comment = {};
+            var path = window.location.pathname;
+            comment.gmComment = $("#comment-detail").val();
+            comment.gmCritic = $("#user-id").text();
+            comment.gmGameId = $("#game-id").text();
+            console.log($(".body-rate-star i").children(0));
+            if ($(".body-rate-star i")[0].hasClass("review-add-stars-hover")) {
+                comment.gmRate = 2;
+            } else if ($(".body-rate-star i")[1].hasClass("review-add-stars-hover")) {
+                comment.gmRate = 4;
+            } else if ($(".body-rate-star i")[2].hasClass("review-add-stars-hover")) {
+                comment.gmRate = 6;
+            } else if ($(".body-rate-star i")[3].hasClass("review-add-stars-hover")) {
+                comment.gmRate = 8;
+            } else if ($(".body-rate-star i")[4].hasClass("review-add-stars-hover")) {
+                comment.gmRate = 10;
+            }
+            console.log(comment);
+//            $.ajax({
+//                type: "post",
+//                url: path + "/addComment",
+//                data: comment,
+//                success: function (back) {
+////                alert("添加成功");
+////                location.reload();
+//                },
+//                error: function (XMLHttpRequest, textStatus, errorThrown) {
+//                    console.log("error");
+//
+//                }
+//            });
+        });
+
         $("#recommend-dropdown-menu-switch ").hover(function () {
             $("#recommend-dropdown-menu ").removeClass("recommend-dropdown-hide ");
         });
         $("#recommend-dropdown-menu ").mouseleave(function () {
             $("#recommend-dropdown-menu ").addClass("recommend-dropdown-hide ");
         });
+        //初始化星星样式
         $(".review-add-stars p i").hover(function () {
             var index = $(this).index();
+            $(this).parent().children().removeClass("review-add-stars-hover");
             $(this).prevAll().addClass("review-add-stars-hover");
             $(this).addClass("review-add-stars-hover");
+            var that = $(".body-rate-star i")[index];
+            $(that).parent().children().removeClass("review-add-stars-hover");
+            $(that).prevAll().addClass("review-add-stars-hover");
+            $(that).addClass("review-add-stars-hover");
             if (index == 0) {
                 $(".review-add-stars span").text("讨厌");
+                $(".body-rate-text").text("讨厌");
             } else if (index == 1) {
                 $(".review-add-stars span").text("不喜欢");
+                $(".body-rate-text").text("不喜欢");
             } else if (index == 2) {
                 $(".review-add-stars span").text("还可以");
+                $(".body-rate-text").text("还可以");
             } else if (index == 3) {
-                $(".review-add-stars span").text("很不错");
+                $(".review-add-stars span").text("很不错")
+                $(".body-rate-text").text("很不错");
             } else if (index == 4) {
                 $(".review-add-stars span").text("棒极了");
+                $(".body-rate-text").text("棒极了");
             }
         });
 
-        $(".review-add-stars p i").mouseleave(function () {
-            $(this).prevAll().removeClass("review-add-stars-hover");
-            $(this).removeClass("review-add-stars-hover");
-            $(".review-add-stars span").text("");
+        $(".review-add-stars p i").click(function () {
+            $('#reply-modal').modal("show");
         });
+//        $(".review-add-stars p i").mouseleave(function () {
+//            $(this).parent().children().removeClass("review-add-stars-hover");
+//            $(".review-add-stars span").text("");
+//        });
+
+        $(".body-rate-star i").click(function () {
+            var index = $(this).index();
+            $(this).parent().children().removeClass("review-add-stars-hover");
+            $(this).prevAll().addClass("review-add-stars-hover");
+            $(this).addClass("review-add-stars-hover");
+            var that = $(".review-add-stars p i")[index];
+            $(that).parent().children().removeClass("review-add-stars-hover");
+            $(that).prevAll().addClass("review-add-stars-hover");
+            $(that).addClass("review-add-stars-hover");
+            if (index == 0) {
+                $(".review-add-stars span").text("讨厌");
+                $(".body-rate-text").text("讨厌");
+            } else if (index == 1) {
+                $(".review-add-stars span").text("不喜欢");
+                $(".body-rate-text").text("不喜欢");
+            } else if (index == 2) {
+                $(".review-add-stars span").text("还可以");
+                $(".body-rate-text").text("还可以");
+            } else if (index == 3) {
+                $(".review-add-stars span").text("很不错")
+                $(".body-rate-text").text("很不错");
+            } else if (index == 4) {
+                $(".review-add-stars span").text("棒极了");
+                $(".body-rate-text").text("棒极了");
+            }
+        });
+
+//        $(".body-rate-star i").mouseleave(function () {
+//            $(this).prevAll().removeClass("review-add-stars-hover");
+//            $(this).removeClass("review-add-stars-hover");
+//            $(".body-rate-text").text("");
+//        });
     });
 </script>
 
