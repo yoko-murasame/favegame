@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dmdream.mapper.ReplyMapper">
+    <insert id="save">
+        insert into tab_reply(
+        createTime,
+        destroyTime,
+        version,
+        isValid,
+        replierId,
+        toCommentId,
+        toReplyId,
+        favor,
+        against,
+        content
+        )
+        values(
+        #{createTime},
+        #{destroyTime},
+        #{version},
+        #{isValid},
+        #{replierId},
+        #{toCommentId},
+        #{toReplyId},
+        #{favor},
+        #{against},
+        #{content}
+        );
+    </insert>
 
 
     <select id="findCommentAllRePlyVoByPage" resultType="cn.dmdream.entity.vo.ReplyVo">
-        select * from tab_reply r left join tab_user u  on u.id = r.replierId left join tab_userInfo ui on u.id = ui.id where toCommentId = #{id} limit ${start} ,${pageSize};
+        select * from tab_reply r left join tab_user u  on u.id = r.replierId left join tab_userInfo ui on u.id = ui.userId where toCommentId = #{id} limit ${start} ,${pageSize};
     </select>
     <select id="findRePlyVoById" resultType="cn.dmdream.entity.vo.ReplyVo">
         select * from tab_reply r where id = #{id};

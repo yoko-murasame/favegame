@@ -1,5 +1,6 @@
 package cn.dmdream.game.service;
 
+import cn.dmdream.entity.Reply;
 import cn.dmdream.utils.JsonMsg;
 
 /**
@@ -10,4 +11,7 @@ public interface ReplyService {
     JsonMsg findAllByPage(Integer id, Integer page, Integer pageSize);
 
     JsonMsg findReplyVoById(Integer id);
+
+
+    JsonMsg save(Reply reply);
 }

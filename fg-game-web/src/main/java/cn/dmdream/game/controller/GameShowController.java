@@ -2,6 +2,7 @@ package cn.dmdream.game.controller;
 
 import cn.dmdream.entity.Comment;
 import cn.dmdream.entity.Game;
+import cn.dmdream.entity.Reply;
 import cn.dmdream.entity.User;
 import cn.dmdream.entity.vo.GameVo;
 import cn.dmdream.game.service.CommentService;
@@ -32,9 +33,12 @@ public class GameShowController {
 
     @Reference
     private GameSearchService gameSearchService;
+
     @Reference
     private CommentService commentService;
 
+    @Reference
+    private ReplyService replyService;
 
     @GetMapping("recommend/{keyword}/{page}/{pageSize}")
     public ModelAndView showGame(@PathVariable("keyword") String keyword, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
@@ -95,6 +99,20 @@ public class GameShowController {
 //        commentService.
         try {
             back = commentService.save(comment);
+            JsonMsg.makeSuccess("成功", back);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonMsg.makeFail("失败", e);
+        }
+        return back;
+    }
+
+    @PostMapping("gameVo/{id}/addReply")
+    public JsonMsg showGameDetailAddComment(Reply reply) {
+        System.out.println(reply);
+        JsonMsg back = null;
+        try {
+            back = replyService.save(reply);
             JsonMsg.makeSuccess("成功", back);
         } catch (Exception e) {
             e.printStackTrace();

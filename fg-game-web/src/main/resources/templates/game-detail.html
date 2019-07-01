@@ -131,6 +131,24 @@
             height: 30px;
             background: url(/images/iconfont/star-score.png) no-repeat;
         }
+
+        .reply-img-right, .reply-p-right {
+            float: right;
+        }
+
+        .reply-p-left, .reply-img-left {
+            float: left;
+        }
+
+        .reply-p-right, .reply-p-left {
+            padding-top: 15px;
+        }
+
+        .modal-header-user {
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+        }
     </style>
 </head>
 
@@ -385,11 +403,11 @@
                     </p>
                     <span></span>
                 </div>
-                <button class="btn-link " data-toggle="modal" data-target="#reply-modal">
+                <button class="btn-link " data-toggle="modal" data-target="#comment-modal">
                     <span>发表评价</span>
                 </button>
                 <!--添加评论模态框-->
-                <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                <div class="modal fade" id="comment-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -400,7 +418,7 @@
                                 </div>
                                 <div class="switch-btn">
                                     <button type="button" class="btn-exit"
-                                            data-taptap-action="review-modal-switch"></button>
+                                            data-taptap-action="review-modal-switch" style="display: none"></button>
                                 </div>
                             </div>
                             <!--<input type="hidden" name="_token" value="QKo1vMOXpyNW7tzecFARCeGp4qPFJILNgDBpuVv1">-->
@@ -452,6 +470,7 @@
                     </div>
                 </div>
                 <!--评论模态框结束-->
+
             </div>
 
             <!--评论标题-->
@@ -469,11 +488,12 @@
                         <div class="review-text">
                             <div class="text-header">
 								<span class="fave-user">
-									<a href="" class="user-name" th:text="${comment.gmUsername}">锦弟弟</a>
+									<a href="" class="user-name" th:text="${comment.gmUsername}"></a>
+                                    <a style="display: none;" th:text="${comment.id}"></a>
 									<i class="icon-verified"></i>
 								</span>
                                 <a href="" class="text-header-time">
-                                    <span th:text="${comment.createTime}">三小时前</span>
+                                    <span th:text="${#dates.format(comment.createTime,'yyyy-MM-dd')}">三小时前</span>
                                     <!--<span>已修改&gt;</span>-->
                                 </a>
                                 <button class="button-jubao"><span>举报</span></button>
@@ -514,7 +534,7 @@
                                         </button>
                                     </li>
                                     <li>
-                                        <button class="vote opinon">
+                                        <button class="vote opinon comment-btn-reply">
                                             <i class="icon"><img src="/images/cont/detail-message.png"/></i>
                                             <span>回复</span>
                                             <span th:text="${comment.replyNumber}">203</span>
@@ -533,6 +553,7 @@
                                             <div class="text-header-in">
                                                 <span class="fave-user"><a href="" class="fave-user-name"
                                                                            th:text="${reply.gmUsername}">鞠丽丽</a></span>
+                                                <a style="display: none;" th:text="${reply.id}"></a>
                                             </div>
                                             <div class="text-body-in">
                                                 <p th:text="${reply.content}"></p>
@@ -541,10 +562,10 @@
                                                 <ul class="list-unstyled foot-btn">
                                                     <li>
                                                         <span class="vote-noh"
-                                                              th:text="${reply.createTime}">18小时前</span>
+                                                              th:text="${#dates.format(reply.createTime,'yyyy-MM-dd')}">18小时前</span>
                                                     </li>
                                                     <li>
-                                                        <button class="vote">
+                                                        <button class="vote reply-btn-reply">
                                                             <i><img src="/images/cont/detail-message.png" alt=""/></i>
                                                             <span>回复</span>
                                                         </button>
@@ -756,6 +777,41 @@
         <div style="display: none" th:text="${game.data.id}" id="game-id"></div>
     </div>
 
+    <!--添加回复模态框-->
+    <div class="modal fade" aria-hidden="true" id="reply-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-header-user">
+                        <img th:src="${user.data.userPic}" alt="" class="img-circle reply-img-left">
+                        <p th:text="${user.data.gmUsername}" class="reply-p-left"></p>
+                        <img src="/images/cont/detail-toR.png"/>
+                        <img alt="" class="img-circle reply-img-right">
+                        <p class="reply-p-right"></p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" style="margin-bottom: 0px">
+    <textarea name="contents" data-paste-listen="true" id="reply-detail"
+              class="form-control" cols="30"
+              rows="6" placeholder="请写下你的宝贵意见" required=""></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                aria-label="Close">取消
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="reply-submit">发表</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="comment-id"></div>
+        <div id="reply-id"></div>
+    </div>
+    <!--</div>-->
+    <!--回复模态框结束-->
 </footer>
 
 
@@ -764,38 +820,64 @@
 <script>
     $(function () {
 
+        $("#reply-submit").click(function () {
+            var reply = {};
+            var path = window.location.pathname;
+            reply.replierId = $("#user-id").text();
+            reply.toCommentId = $("#comment-id").html();
+            reply.content = $("#reply-detail").val();
+            console.log(reply);
+            $.ajax({
+                type: "post",
+                url: path + "/addReply",
+                data: reply,
+                success: function (back) {
+                    location.reload();
+//                    console.log(back);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("error");
+
+                }
+            });
+        });
+
         $("#comment-submit").click(function () {
             var comment = {};
             var path = window.location.pathname;
             comment.gmComment = $("#comment-detail").val();
             comment.gmCritic = $("#user-id").text();
             comment.gmGameId = $("#game-id").text();
-            console.log($(".body-rate-star i").children(0));
-            if ($(".body-rate-star i")[0].hasClass("review-add-stars-hover")) {
+            console.log($(".body-rate-star").children()[0].className);
+            if ($(".body-rate-star").children()[0].className == "review-add-stars-hover") {
                 comment.gmRate = 2;
-            } else if ($(".body-rate-star i")[1].hasClass("review-add-stars-hover")) {
+            }
+            if ($(".body-rate-star").children()[1].className == "review-add-stars-hover") {
                 comment.gmRate = 4;
-            } else if ($(".body-rate-star i")[2].hasClass("review-add-stars-hover")) {
+            }
+            if ($(".body-rate-star").children()[2].className == "review-add-stars-hover") {
                 comment.gmRate = 6;
-            } else if ($(".body-rate-star i")[3].hasClass("review-add-stars-hover")) {
+            }
+            if ($(".body-rate-star").children()[3].className == "review-add-stars-hover") {
                 comment.gmRate = 8;
-            } else if ($(".body-rate-star i")[4].hasClass("review-add-stars-hover")) {
+            }
+            if ($(".body-rate-star").children()[4].className == "review-add-stars-hover") {
                 comment.gmRate = 10;
             }
             console.log(comment);
-//            $.ajax({
-//                type: "post",
-//                url: path + "/addComment",
-//                data: comment,
-//                success: function (back) {
-////                alert("添加成功");
-////                location.reload();
-//                },
-//                error: function (XMLHttpRequest, textStatus, errorThrown) {
-//                    console.log("error");
-//
-//                }
-//            });
+            $.ajax({
+                type: "post",
+                url: path + "/addComment",
+                data: comment,
+                success: function (back) {
+                    location.reload();
+//                    console.log(back);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("error");
+
+                }
+            });
         });
 
         $("#recommend-dropdown-menu-switch ").hover(function () {
@@ -833,7 +915,25 @@
         });
 
         $(".review-add-stars p i").click(function () {
+            $('#comment-modal').modal("show");
+        });
+        $(".comment-btn-reply").click(function () {
             $('#reply-modal').modal("show");
+            var path = $(this).parent().parent().parent().parent().prev().children()[0].src;
+            var name = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[1].innerText;
+            var commentId = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[3].innerText;
+            $(".reply-img-right").attr('src', path);
+            $(".reply-p-right").text(name);
+            $("#comment-id").html(commentId);
+        });
+        $(".reply-btn-reply").click(function () {
+            $('#reply-modal').modal("show");
+            var path = $(this).parent().parent().parent().parent().prev().children()[0].src;
+            var name = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[0].innerText;
+            var commentId = $(this).parent().parent().parent().parent().parent().parent().parent().parent().children()[0].childNodes[1].childNodes[3].innerText;
+            $("#comment-id").html(commentId);
+            $(".reply-img-right").attr('src', path);
+            $(".reply-p-right").text(name);
         });
 //        $(".review-add-stars p i").mouseleave(function () {
 //            $(this).parent().children().removeClass("review-add-stars-hover");

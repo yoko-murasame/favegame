@@ -12,4 +12,6 @@ public interface ReplyMapper extends BaseMapper<Reply> {
     List<ReplyVo> findCommentAllRePlyVoByPage(@Param("id") Integer id, @Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
     ReplyVo findRePlyVoById(Integer id);
+
+    int save(Reply reply);
 }
