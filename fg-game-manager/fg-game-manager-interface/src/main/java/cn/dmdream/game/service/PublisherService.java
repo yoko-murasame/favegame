@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PublisherService {
 
-    IPage<Publisher> findAllByPage(Integer page, Integer pageSize);
+    IPage<Publisher> findAllByPage(Integer page, Integer pageSize, Integer status);
 
     List<Publisher> findAll();
 
@@ -17,7 +17,12 @@ public interface PublisherService {
 
     boolean deleteById(Integer id);
 
-    boolean deletdByBatch(List<Integer>id);
+    boolean deletdByBatch(List<Integer> id);
 
-    int totalCount();
+    int totalCount(Integer status);
+
+
+
+
+
 }

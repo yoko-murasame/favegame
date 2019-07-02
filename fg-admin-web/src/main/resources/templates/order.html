@@ -23,15 +23,20 @@
 		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-.examSuccess{
-	border: 0.2px solid gray;
-    color: black;
-    background-color: white;
-    margin-top: 1px;
-    height: 28px;
+.table-id{
+	width: 100px;
 }
-.examSuccess:hover{
-	color: gray;
+.select {
+	display: inline;
+    position: relative;
+    
+    height: 30px;
+    background-color: lightsteelblue;
+}
+.am-u-md-3 {
+    width: 25%;
+    position: relative;
+    
 }
 </style>
 	</head>
@@ -308,24 +313,27 @@
 								<div class="am-btn-toolbar">
 									<div class="am-btn-group am-btn-group-xs">
 										<button type="button" class="am-btn am-btn-default am-btn-success" data-toggle="modal" data-target="#myModal"> <span  class="am-icon-plus"></span>新增
-                               </button>
-										<button type="button" class="am-btn am-btn-default am-btn-warning"><span
-                                        class="am-icon-archive"></span> <span class="examined">已审核</span><span class="examining" hidden="hidden">待审核</span>
-                                </button>
+                              </button>
 										<button type="button" class="am-btn am-btn-default am-btn-danger"><span
                                         class="am-icon-trash-o"></span> 删除
                                 </button>
+                                	<select class="select" >
+	                           <option value="1">已完成订单</option>
+	                           <option value="0">未完成订单</option>
+	                           <option value="2">已关闭订单</option>
+							</select>
 									</div>
 								</div>
 							</div>
+							
 
 							<div class="am-u-sm-12 am-u-md-3">
-								<div class="am-input-group am-input-group-sm">
+						
+								<div class="am-input-group am-input-group-sm" >
 									<input type="text" class="am-form-field">
 									<span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
-                    type="button"></button>
-          </span>
+                                    <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"type="button"></button>
+                                    </span>
 								</div>
 							</div>
 						</div>
@@ -336,12 +344,12 @@
 										<thead>
 											<tr>
 												<th class="table-check"></th>
-												<th class="table-id">ID</th>
-												<th class="table-title">发行时间</th>
-												<th class="table-title">发行商名称</th>
-												<th class="table-type">发行商联系人姓名</th>
-												<th class="table-author am-hide-sm-only">发行商地址</th>
-												<th class="table-date am-hide-sm-only">发行商联系人电话</th>
+												<th class="table-id">订单ID</th>
+												<th class="table-title">创建时间</th>
+												<th class="table-title">订单金额</th>
+												<th class="table-type">游戏ID</th>
+												<th class="table-author am-hide-sm-only">用户ID</th>
+												<th class="table-date am-hide-sm-only">支付方式</th>
 												<th class="table-set">操作</th>
 											</tr>
 										</thead>
@@ -351,16 +359,17 @@
 												<tr th:each="list : ${pageInfo.getRecords()}">
 
 													<td><input type="checkbox"></td>
-													<td th:text="${list.id}"></td>
+													<td th:text="${list.gmOrderId}"></td>
 													<td th:text="${#dates.format(list.createTime, 'yyyy-MM-dd')}"></td>
-													<td th:text="${list.gmPublisherName}"></td>
-													<td th:text="${list.gmPublisherLinkman}"></td>
-													<td  th:text="${list.gmPublisherAddress}"></td>
-													<td  th:text="${list.gmPublisherPhone}"></td>
+													<td th:text="${list.gmOrderPrice}"></td>
+													<td th:text="${list.gmGameId}"></td>
+													<td  th:text="${list.gmPurchaserId}"></td>
+													<td  th:text="${list.gmPayment}"></td>
+													<td hidden="hidden"  th:text="${list.id}"></td>
 													<td>
 														<div class="am-btn-toolbar">
 															<div class="am-btn-group am-btn-group-xs">
-																<button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary" data-toggle="modal" data-target="#myModal1"> 编辑</button>
+																<button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary" data-toggle="modal" th:value="${list.id}" data-target="#myModal1"> 编辑</button>
 																<button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" th:value="${list.id}">删除</button>
 																<button class="examSuccess" hidden="hidden"><span class="am-icon-copy" ></span> 审核通过</button>
 
@@ -396,15 +405,11 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<input style="width: 100%;" class="modal-body" placeholder="发行商名称" id="gmPublisherName" name="gmPublisherName" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系人姓名" id="gmPublisherLinkman" name="gmPublisherLinkman" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系号码" id="gmPublisherPhone" name="gmPublisherPhone" />
-					<input style="width: 100%;" class="modal-body" placeholder="发行商网址" id="gmPublisherWebsite" name="gmPublisherWebsite" />
-					<input style="width: 100%;" class="modal-body" placeholder="厂商地址" id="gmPublisherAddress" name="gmPublisherAddress" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系人微信" id="gmPublisherWechat" name="gmPublisherWechat" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系人支付宝" id="gmPublisherAlipay" name="gmPublisherAlipay" />
-					<input style="width: 100%;" class="modal-body" placeholder="银行卡号" id="gmPublisherCredit" name="gmPublisherCredit" />
-					<input style="width: 100%;" class="modal-body" placeholder="厂商简介" id="gmPublisherIntro" name="gmPublisherIntro" />
+					<input style="width: 100%;" class="modal-body" placeholder="订单编号" id="gmOrderId" name="gmOrderId" />
+					<input style="width: 100%;" class="modal-body" placeholder="订单金额" id="gmOrderPrice" name="gmOrderPrice" />
+					<input style="width: 100%;" class="modal-body" placeholder="支付方式" id="gmPayment" name="gmPayment" />
+					<input style="width: 100%;" class="modal-body" placeholder="游戏ID" id="gmGameId" name="gmGameId" />
+					<input style="width: 100%;" class="modal-body" placeholder="用户ID" id="gmPurchaserId" name="gmPurchaserId" />
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary">提交更改</button>
@@ -420,11 +425,12 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
-					<div class="modal-body" id="gmPublisherId1" name="gmPublisherName"></div>
-					<input style="width: 100%;" class="modal-body" placeholder="发行商名称" id="gmPublisherName1" name="gmPublisherName" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系人姓名" id="gmPublisherLinkman1" name="gmPublisherLinkman" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系号码" id="gmPublisherPhone1" name="gmPublisherPhone" />
-					<input style="width: 100%;" class="modal-body" placeholder="厂商地址" id="gmPublisherAddress1" name="gmPublisherAddress" />
+					<div class="modal-body" id="orderId1" ></div>
+					<input style="width: 100%;" class="modal-body" placeholder="订单金额" id="gmOrderPrice1" name="gmOrderPrice1" />
+					<input style="width: 100%;" class="modal-body" placeholder="游戏ID" id="gmGameId1" name="gmGameId1" />
+					<input style="width: 100%;" class="modal-body" placeholder="用户ID" id="gmPurchaserId1" name="gmPurchaserId1" />
+					<input style="width: 100%;" class="modal-body" placeholder="支付方式" id="gmPayment1" name="gmPayment1" />
+					<input hidden="hidden" style="width: 100%;" class="modal-body" placeholder="订单ID" id="gmorderId1" name="gmorderId1" />
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary1">提交更改</button>
@@ -439,33 +445,13 @@
 		<script src="/assets/js/amazeui.min.js"></script>
 		<script src="/assets/js/app.js"></script>
 		<script th:inline="javascript">
-			
-			$(".am-btn-warning").click(function(){
-				if([[${flag}]]!=true){
-				window.location.href="/publisher/valid";
-				}
-				else{
-					window.location.href="/publisher/all";
-				}
-		
-			});
-			
-			
+			var statue;
 			$(function() {
-				if([[${flag}]]==true){
-					$(".examined").hide();
-					$(".examining").show();
-					$(".examSuccess").show();
-					
-				}else{
-					$(".examined").show();
-					$(".examining").hide();
-					$(".examSuccess").hide();
-				}
-				
-
+				if([[${flag}]]!=null){
+	            $("select").find("option[value='"+[[${flag}]]+"']").attr("selected","selected");
+	           }
+				statue=$(".select").val();
 				var flag = false;
-				
 				$("#Page").page({
 					pages: [[${pageInfo.pages}]], //总页码数(后台返回字段可以给出)
 					first: "首页", //设置false则不显示，默认为false
@@ -477,11 +463,7 @@
 					jump: function(context, first) {
 						if(flag) {
 							var pageNum = String(context.option.curr);
-							if([[${flag}]]==true){
-							window.location.href = "http://localhost:8080/publisher/valid/" + pageNum;
-							}else{
-								window.location.href = "http://localhost:8080/publisher/all/" + pageNum;
-							}
+							window.location.href = "http://localhost:8080/order/classify/" + pageNum+"/"+statue;
 						}
 						flag=true;
 					}
@@ -489,61 +471,31 @@
 				});
 
 			})
-			$(".examSuccess").click(function(){
-				var url=window.location.href;
-				var e = $(this).parent();
-				var son=e.children("button");
-					var id=$(son[1]).val();
-					var paramArray=url.split("/");
-				    var length=paramArray.length;
-				    var current=paramArray[length-1];
-				    if(current.indexOf("all")!=-1||current.indexOf("valid")!=-1){
-					   current=1;
-				     }
-				    $.ajax({
-					type: "GET",
-					url: "http://localhost:8080/publisher/examine",
-					data: {
-						id: id
-					},
-					dataType: "json",
-					async: true,
-					success: function(data) {	
-						if(data.status == 200) {
-								window.location.href="http://localhost:8080/publisher/valid/"+current;
-						} else if(data.status == 400) {
-							alert("审核失敗");
-						} else {
-
-							alert("服务器错误");
-						}
-					}
-
-				})
-				  
-					
-					
-			})
+			$(".select").change(function(){
+				statue=$(".select").val();
+				window.location.href="http://localhost:8080/order/classify/" + 1+"/"+statue;
+			});
 			$(".am-btn-danger").click(function() {
 				var id = new Array();
 				var url = window.location.href;
 				var paramArray=url.split("/");
 				var length=paramArray.length;
 				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1){
+				if(current.indexOf("finshed")!=-1){
 					current=1;
+				}else{
+					current=paramArray[length-2];
 				}
 				var e = $("tbody").children("tr");
 				for(var i = 0; i <= e.length - 1; i++) {
 					if($($(e[i]).children().get(0)).children(":first").is(":checked")) {
-						id.push($($(e[i]).children().get(1)).text());
+						id.push($($(e[i]).children().get(7)).text());
 					}
 
 				}
-
 				$.ajax({
 					type: "Post",
-					url: "http://localhost:8080/publisher/deleteBatch",
+					url: "http://localhost:8080/order/deleteBatch",
 					data: JSON.stringify(id),
 					async: true,
 					dataType: "application/json",
@@ -552,13 +504,7 @@
 					processData: false, // 不可缺
 					success: function(data) {
 						if(data.status == 200) {
-						   if([[${flag}]]==true){
-									window.location.href="http://localhost:8080/publisher/valid/"+current;
-									}
-								    else{
-								    	window.location.href="http://localhost:8080/publisher/all/"+current;
-								    }
-							
+									window.location.href="http://localhost:8080/order/classify/"+current+"/"+statue;							
 						} else if(data.status == 400) {
 							alert("删除失敗");
 						} else {
@@ -578,16 +524,17 @@
 				var paramArray=url.split("/");
 				var length=paramArray.length;
 				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1||current.indexOf("valid")!=-1){
+				if(current.indexOf("finshed")!=-1){
 					current=1;
 				}
 				var e = $(this).parent().parent().parent().parent();
 				var son = e.children("td");
-				$("#gmPublisherName1").val($(son[3]).text());
-				$("#gmPublisherLinkman1").val($(son[4]).text());
-				$("#gmPublisherAddress1").val($(son[5]).text());
-				$("#gmPublisherPhone1").val($(son[6]).text());
-				$("#gmPublisherId1").html("ID:<span class='GetId'>" + $(son[1]).text() + "</span>");
+				$("#gmOrderPrice1").val($(son[3]).text());
+				$("#gmGameId1").val($(son[4]).text());
+				$("#gmPurchaserId1").val($(son[5]).text());
+				$("#gmPayment1").val($(son[6]).text());
+				$("#orderId1").html("订单编号:<span class='GetId'>" + $(son[1]).text() + "</span>");
+				$("#gmorderId1").val($(son[7]).text());
 
 			});
 			$(".btn-primary1").click(function() {
@@ -595,38 +542,47 @@
 				var paramArray=url.split("/");
 				var length=paramArray.length;
 				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1||current.indexOf("valid")!=-1){
+				if(current.indexOf("finshed")!=-1){
 					current=1;
-				}
-				var publisher = {};
-				publisher.gmPublisherName = $("#gmPublisherName1").val();
-				publisher.gmPublisherLinkman = $("#gmPublisherLinkman1").val();
-				publisher.gmPublisherPhone = $("#gmPublisherPhone1").val();
-				publisher.gmPublisherAddress = $("#gmPublisherAddress1").val();
-				publisher.id = $(".GetId").text();
-				if([[${flag}]]){
-					publisher.isValid=0;
 				}else{
-					publisher.isValid=1;
+					current=paramArray[length-2];
 				}
-				alert([[${flag}]]);
-				alert(publisher.isValid);
-				console.log(publisher);
+				var order = {};
+				if([[${flag}]]==0){
+					order.gmOrderPerformance=0;
+				}else if([[${flag}]]==1){
+					order.gmOrderPerformance=1;
+				}else {
+					order.gmOrderPerformance=3;
+				}
+				order.gmOrderPrice = $("#gmOrderPrice1").val();
+				order.gmGameId= $("#gmGameId1").val();
+				order.gmPurchaserId= $("#gmPurchaserId1").val();
+				order.gmPayment= $("#gmPayment1").val();
+				order.gmOrderId = $(".GetId").text();
+				var id=$("#gmorderId1").val();
+				order.id=id;
+				if(order.gmOrderId=="") {
+					alert("订单编号不能为空");
+				} else if(order.gmOrderPrice== "") {
+					alert("订单金额不能为空");
+				}else if(order.gmPayment == "") {
+					alert("支付方式不能为空");
+				} else if(order.gmGameId=="") {
+					alert("游戏ID不能为空");
+				} else if(order.gmPurchaserId == "") {
+					alert("用户ID不能为空");
+				} else{
 				$.ajax({
-					type: "GET",
-					url: "http://localhost:8080/publisher/update",
-					data: publisher,
+					type: "Post",
+					url: "http://localhost:8080/order/update",
+					data: order,
 					async: true,
 					dataType: "json",
 					success: function(data) {
-						if(data.status == 200) {
-							if([[${flag}]]==true){
-							window.location.href="http://localhost:8080/publisher/valid/"+current;
-							}else{
-							window.location.href="http://localhost:8080/publisher/all/"+current;
+						if(data.status == 200) {				
+							window.location.href="http://localhost:8080/order/classify/"+current+"/"+statue;
 
-							}
-					
 						} else if(data.status == 400) {
 							alert("更新失敗");
 						} else {
@@ -639,6 +595,7 @@
 						location.reload();
 					}
 				});
+				}
 			})
 			
 			$(".am-hide-sm-only").click(function() {
@@ -647,38 +604,13 @@
 				var paramArray=url.split("/");
 				var length=paramArray.length;
 				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1){
+				if(current.indexOf("finshed")!=-1){
 					current=1;
 				}
-				$.ajax({
-					type: "GET",
-					url: "http://localhost:8080/publisher/delete",
-					data: {
-						id: id,
-						current:current
-					},
-					dataType: "json",
-					async: true,
-					success: function(data) {					
-						if(data.status == 200) {
-							if([[${flag}]]==true){
-								window.location.href="http://localhost:8080/publisher/valid/"+current;
-							}else{
-								window.location.href="http://localhost:8080/publisher/all/"+current;
-							}
-							
-							
-						} else if(data.status == 400) {
-
-							alert("刪除失敗");
-						} else {
-
-							alert("服务器错误");
-						}
-
-					}
-
-				})
+				else{
+					current=paramArray[length-2];
+				}
+				window.location.href="http://localhost:8080/order/delete/"+id+"/"+current+"/"+statue;
 
 			})
 
@@ -688,49 +620,44 @@
 				var paramArray=url.split("/");
 				var length=paramArray.length;
 				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1||current.indexOf("valid")!=-1){
+				if(current.indexOf("finshed")!=-1){
 					current=1;
+				}else{
+					current=paramArray[length-2];
 				}
-				var publisher = {};
-				publisher.gmPublisherName = $("#gmPublisherName").val();
-				publisher.gmPublisherLinkman = $("#gmPublisherLinkman").val();
-				publisher.gmPublisherPhone = $("#gmPublisherPhone").val();
-				publisher.gmPublisherAddress = $("#gmPublisherAddress").val();
-				publisher.gmPublisherWebsite = $("#gmPublisherWebsite").val();
-				publisher.gmPublisherWechat = $("#gmPublisherWechat").val();
-				publisher.gmPublisherAlipay = $("#gmPublisherAlipay").val();
-				publisher.gmPublisherCredit = $("#gmPublisherCredit").val();
-				publisher.gmPublisherIntro = $("#gmPublisherIntro").val();
-				console.log(publisher);
-				if(publisher.gmPublisherName == "") {
-					alert("厂商名称不能为空");
-				} else if(publisher.gmPublisherLinkman == "") {
-					alert("联系人姓名不能为空");
-				} else if(!(/^1[34578]\d{9}$/.test(publisher.gmPublisherPhone))) {
-					alert("手机号格式不正确");
-				} else if(publisher.gmPublisherAddress == "") {
-					alert("发行商地址不能为空");
-				} else if(publisher.gmPublisherWechat == "") {
-					alert("联系人微信不能为空");
-				} else if(publisher.gmPublisherCredit == "") {
-					alert("银行卡号不能为空");
+				var order = {};
+				if([[${flag}]]==0){
+					order.gmOrderPerformance=0;
+				}else if([[${flag}]]==1){
+					order.gmOrderPerformance=1;
+				}else {
+					order.gmOrderPerformance=3;
+				}
+				order.gmOrderPrice = $("#gmOrderPrice").val();
+				order.gmGameId= $("#gmGameId").val();
+				order.gmPurchaserId= $("#gmPurchaserId").val();
+				order.gmPayment= $("#gmPayment").val();
+				order.gmOrderId = $("#gmOrderId").val();
+				if(order.gmOrderId=="") {
+					alert("订单编号不能为空");
+				} else if(order.gmOrderPrice== "") {
+					alert("订单金额不能为空");
+				}else if(order.gmPayment == "") {
+					alert("支付方式不能为空");
+				} else if(order.gmGameId=="") {
+					alert("游戏ID不能为空");
+				} else if(order.gmPurchaserId == "") {
+					alert("用户ID不能为空");
 				} else {
-
 					$.ajax({
-						type: "GET",
-						url: "http://localhost:8080/publisher/add",
-						data: publisher,
+						type: "Post",
+						url: "http://localhost:8080/order/add",
+						data: order,
 						async: true,
 						dataType: "json",
 						success: function(data) {
-							if(data.status == 200) {
-								    if([[${flag}]]==true){
-									window.location.href="http://localhost:8080/publisher/valid/"+current;
-									}
-								    else{
-								    	window.location.href="http://localhost:8080/publisher/all/"+current;
-								    }
-								
+							if(data.status == 200) {		   
+									window.location.href="http://localhost:8080/order/classify/"+current+"/"+statue;
 							} else if(data.status == 400) {
 								alert("添加失敗");
 							} else {
@@ -739,6 +666,7 @@
 
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							alert("添加失敗");
 							console.log(XMLHttpRequest, textStatus, errorThrown);
 							location.reload();
 						}

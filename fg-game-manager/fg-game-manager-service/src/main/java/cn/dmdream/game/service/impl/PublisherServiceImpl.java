@@ -22,9 +22,9 @@ public class PublisherServiceImpl implements PublisherService {
     @Autowired
     private PublisherMapper publisherMapper;
     @Override
-    public IPage<Publisher> findAllByPage(Integer page, Integer pageSize) {
+    public IPage<Publisher> findAllByPage(Integer page, Integer pageSize, Integer status) {
         QueryWrapper<Publisher> queryWrapper = new QueryWrapper<Publisher>();
-        queryWrapper.eq("isValid", 1);
+        queryWrapper.eq("isValid", status);
         IPage<Publisher> publisherIPage = publisherMapper.selectPage(new Page<Publisher>(page, pageSize), queryWrapper);
         return publisherIPage;
     }
@@ -69,7 +69,11 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public int totalCount() {
-        return publisherMapper.selectCount(null);
+    public int totalCount(Integer status) {
+        QueryWrapper<Publisher> queryWrapper = new QueryWrapper<Publisher>();
+        queryWrapper.eq("isValid", status);
+        return publisherMapper.selectCount(queryWrapper);
     }
+
+
 }
