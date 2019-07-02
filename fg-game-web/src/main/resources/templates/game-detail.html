@@ -9,145 +9,279 @@
     <link rel="stylesheet" type="text/css" href="/css/game-detail.css"/>
     <link rel="stylesheet" type="text/css" href="/css/game-comments.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <style type="text/css">
-        /*回复模态框样式*/
-        .modal-dialog {
-            margin: 8% auto;
-            width: 500px;
-            transition: all .3s ease-out;
-            box-shadow: 0 0 20px rgba(0, 0, 0, .3);
-        }
-
-        .modal-content {
-            position: relative;
-            border: none;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: none;
-        }
-
-        .modal-header {
-            position: relative;
-            color: #fff;
-            background: #14B9C8;
-            padding: 15px;
-            border-bottom: 1px solid #e5e5e5;
-            box-sizing: border-box;
-        }
-
-        .modal-header-user {
-            box-sizing: border-box;
-            display: block;
-            color: #fff;
-            line-height: 20px;
-            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
-            font-weight: 400;
+    <style>
+        body {
             font-size: 14px;
+            color: #333;
+            background-color: #fff;
         }
 
-        .modal-header-user p {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: normal;
-            margin: 0;
-            font-size: 16px;
+        .first {
+            margin-top: 0;
         }
 
-        .img-circle {
-            display: inline-block;
-            padding: 2px;
-            width: 50px;
-            height: 50px;
+        .show-main-body {
+            position: relative;
+            line-height: 22px;
             background: #fff;
-            vertical-align: middle;
-            border-radius: 50%;
-            border: 0;
-            color: #fff;
-            line-height: 20px;
+            border-radius: 3px;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
         }
 
-        .switch-btn {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            box-sizing: border-box;
+        .in {
             display: block;
         }
 
-        .btn-exit {
-            width: 20px;
+        .section-title {
+            height: 42px !important;
             height: 20px;
-            background: url(/images/cont/detail-exit.png) no-repeat;
-            display: inline-block;
-            padding: 6px 12px;
-            margin-bottom: 0;
-            font-size: 14px;
+            margin-bottom: 15px;
+            padding: 20px 30px 0;
+            border-top: 1px solid #eee;
+            border-bottom: none;
+            margin: 0 0 15px;
+        }
+
+        #section-title2 {
+            padding: 0;
+            border: 0;
+        }
+
+        .section-title > h3 {
+            float: left;
+            margin: 0;
+            padding: 0 0 0 8px;
+            line-height: 20px;
+            font-size: 18px;
+            border-left: 4px solid #14B9C8;
             font-weight: 400;
-            text-align: center;
+        }
+
+        #section-title2 > h3 {
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 15px;
+        }
+
+        .main-body-developer {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .main-body-description {
+            margin-bottom: 0;
+        }
+
+        .main-body-images {
+            position: relative;
+            margin: 0;
+            padding: 20px 30px;
+            border-top: 0;
+        }
+
+        .body-images-normal {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
             white-space: nowrap;
         }
 
-        .modal-body {
-            padding: 20px;
-            font-size: 14px;
-            color: #333;
-        }
-
-        .modal-body-app {
+        .checkbox {
+            height: 22px;
             float: left;
-            max-width: 90px;
-            box-sizing: border-box;
-        }
-
-        .modal-body-app img {
-            vertical-align: middle;
-            width: 90px;
-        }
-
-        .review-modal-right {
-            margin: 0 0 0 105px;
-            box-sizing: border-box;
+            margin: 0;
+            color: #999;
+            position: relative;
             display: block;
         }
 
-        .modal-body-rate {
-            box-sizing: border-box;
-            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+        .checkbox label {
+            min-height: 20px;
+            margin-bottom: 0;
             font-weight: 400;
+            cursor: pointer;
+            display: inline-block;
+            max-width: 100%;
+            color: #999;
         }
 
-        .body-rate-star {
-            margin-right: 12px;
+        .active {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .more {
+            float: right;
+            font-size: 14px;
+            margin-left: 20px;
+            color: #14B9C8;
+            text-decoration: none;
+        }
+
+        .body-images-normal {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .intro-list-unstyled {
+            height: 100%;
+            margin: 0;
+            font-size: 0;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .intro-list-unstyled > li {
+            display: inline-block;
+            position: relative;
+            height: 100%;
+            padding-right: 10px;
+            vertical-align: middle;
+            list-style: none;
+        }
+
+        .intro-list-unstyled > li > a {
+            display: block;
+            height: 100%;
+            z-index: 2;
+            text-decoration: none;
+        }
+
+        .intro-list-unstyled > li > a > img {
+            height: 100%;
+            border-radius: 3px;
+            vertical-align: middle;
+            border: 0;
+        }
+
+        .intro-list-unstyled > li > a > video {
+            height: 100%;
+            border-radius: 3px;
+            vertical-align: middle;
+            border: 0;
+        }
+
+        .body-images-control {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            height: 280px;
+            top: 0;
+            margin-bottom: -27.5px;
+            width: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all .3s ease-in-out 0s;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .main-body-additional {
+            height: 38px;
+            list-style: none;
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-left: 30px !important;
+        }
+
+        .main-body-additional > li {
+            float: left;
+            margin-bottom: 10px;
+            width: 33.3333333333%;
+            white-space: nowrap;
+        }
+
+        .main-body-additional > li > i {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: url(/images/iconlist.png) no-repeat #14B9C8;
+            background-size: 28px;
             display: inline-block;
             vertical-align: middle;
         }
 
-        .body-rate-star i {
-            cursor: pointer;
-            float: left;
+        .lang-zh_CN {
+            background-position: 0 -90px !important;
+        }
+
+        .network-yes {
+            background-position: 0 -240px !important;
+        }
+
+        .main-body-additional > li > span {
+            margin-left: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 80%;
+        }
+
+        .body-description-paragraph {
+            position: relative;
+            padding: 0 30px;
+            word-wrap: break-word;
+            transition: all .5s ease-in-out 0s;
+        }
+
+        .collapse {
             display: block;
-            padding: 0 14px 0 0;
-            width: 44px;
-            height: 30px;
-            background: url(/images/iconfont/star-score.png) no-repeat;
+            height: 132px;
         }
 
-        .reply-img-right, .reply-p-right {
-            float: right;
+        .body-log-list {
+            transition: all .3s;
+            margin-bottom: 0;
+            padding: 0 30px;
+            word-wrap: break-word;
+            word-break: normal;
         }
 
-        .reply-p-left, .reply-img-left {
+        .collapse2 {
+            display: block;
+            height: 100px;
+        }
+
+        .body-info-list {
+            margin-bottom: 0;
+            padding: 0 30px !important;
+            font-size: 14px;
+        }
+
+        .body-info-list > li {
             float: left;
+            margin-bottom: 10px;
+            width: 30%;
+            text-overflow: ellipsis;
         }
 
-        .reply-p-right, .reply-p-left {
-            padding-top: 15px;
+        .info-item-title {
+            margin-bottom: 5px;
+            font-weight: 700;
+            display: block;
         }
 
-        .modal-header-user {
-            text-align: center;
-            height: 50px;
-            line-height: 50px;
+        .info-item-content {
+            color: #666;
+        }
+
+        .body-info-list > li > a {
+            text-decoration: underline;
+        }
+
+        .link {
+            height: 32px !important;
         }
     </style>
 </head>
@@ -232,6 +366,7 @@
 
 <div id="main-container">
     <div id="main-left">
+
         <div class="show-main-header">
             <div class="main-header-icon">
                 <div class="header-icon-body">
@@ -275,16 +410,20 @@
 
                     <div class="download-btn-wrap ">
                         <div class="taptap-button-download">
-                            <button class="btn btn-primary btn-lg android js-header-android-download" type="button">
-                                <i><img src="/images/iconfont/android.png"/></i>
-                                <span>下载</span>
-                            </button>
+                            <a th:href="${game.data.gmAndroidUrl}">
+                                <button class="btn btn-primary btn-lg android js-header-android-download" type="button">
+                                    <i><img src="/images/iconfont/android.png"/></i>
+                                    <span>下载</span>
+                                </button>
+                            </a>
                         </div>
                         <div class="taptap-button-download">
-                            <button data-taptap-log="toGame" data-target="#iosDownloadModal">
-                                <i><img src="/images/iconfont/Apple.png"/></i>
-                                <span>下载</span>
-                            </button>
+                            <a>
+                                <button data-taptap-log="toGame" data-target="#iosDownloadModal">
+                                    <i><img src="/images/iconfont/Apple.png"/></i>
+                                    <span>下载</span>
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -292,21 +431,120 @@
             <div class="main-header-tab">
                 <ul class="nav nav-pills nav-justified">
                     <li role="presentation" class="">
-                        <a href="#" aria-controls="detail" role="tab">详情</a>
+                        <a href="#detail" aria-controls="detail" role="tab">详情</a>
                     </li>
-                    <li role="presentation" class="active">
-                        <a href="#" aria-controls="detail" role="tab">评价
+                    <li role="presentation" class="">
+                        <a href="#comment" aria-controls="detail" role="tab">评价
                             <!--<small>40827</small>-->
                         </a>
                     </li>
-                    <li role="presentation" class="">
-                        <a href="#" aria-controls="detail" role="tab">社区
-                            <!--<small>33972</small>-->
-                        </a>
-                    </li>
+                    <!--<li role="presentation" class="">-->
+                    <!--<a href="#" aria-controls="detail" role="tab">社区-->
+                    <!--&lt;!&ndash;<small>33972</small>&ndash;&gt;-->
+                    <!--</a>-->
+                    <!--</li>-->
                 </ul>
             </div>
 
+        </div>
+        <div class="show-main-body in first" data-taptap-tab-target="detail" id="detail">
+            <div class="section-title">
+                <h3>开发者的话:</h3>
+            </div>
+            <div class="main-body-developer main-body-description">
+                <div class="text-wrapper" id="developer-speak">
+                    <p th:text="${game.data.gmDetail}">乱党们好！</p>
+                </div>
+            </div>
+            <div class="main-body-images">
+                <div class="section-title" id="section-title2">
+                    <h3>官方</h3>
+                    <div class="checkbox active">
+                        <label>
+                            <input type="checkbox"> 视频自动播放
+                        </label>
+                    </div>
+                    <div class="right-entry">
+                        <a href="" class="more">玩家图片</a>
+                        <a href="" class="more">玩家视频(2)</a>
+                    </div>
+                </div>
+                <div class="body-images-normal">
+                    <ul class="intro-list-unstyled" data-taptap-app="screenshots" id="imageShots">
+                        <li th:each="media : ${game.data.gmIntroMedia}">
+                            <a href="#" th:switch="${media.indexOf('mp4')==-1}">
+                                <video th:src="${media}" th:case="false"/>
+                                <img th:src="${media}" th:case="true"/>
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="#" class="body-images-control prev" style="opacity: 0;">
+                        <i class="taptap-icon icon-chevron-white-left"></i>
+                    </a>
+                    <a href="#" class="body-images-control next" style="opacity: 0;">
+                        <i class="taptap-icon icon-chevron-white-right"></i>
+                    </a>
+                </div>
+            </div>
+            <ul class="main-body-additional">
+                <li>
+                    <i class="lang-zh_CN"></i>
+                    <span>简体中文</span>
+                </li>
+                <li>
+                    <i class="network-yes"></i>
+                    <span>需要网络</span>
+                </li>
+            </ul>
+
+            <div class="main-body-description">
+                <div class="section-title">
+                    <h3>简介</h3>
+                    <div class="pull-right">
+                    </div>
+                </div>
+                <div class="body-description-paragraph collapse" id="description" th:text="${game.data.gmDetail}">
+                </div>
+            </div>
+
+            <div class="main-body-log main-body-description">
+                <div class="section-title">
+                    <h3>最近更新</h3>
+                </div>
+                <div class="body-log-list collapse2" id="app-log">
+                    1.修复一部分手机进入游戏会闪退的问题。<br>2.游戏介绍里增加了一部萌萌萌萌萌萌萌萌萌萌萌萌萌萌哒的宣传视频，请查看 (≖ ‿ ≖)✧
+                </div>
+            </div>
+
+            <div class="main-body-info">
+                <div class="section-title">
+                    <h3>详细信息</h3>
+                </div>
+                <ul class="intro-list-unstyled body-info-list">
+                    <li>
+                        <span class="info-item-title">文件大小:</span>
+                        <span class="info-item-content">65.42MB</span>
+                    </li>
+                    <li>
+                        <span class="info-item-title">当前版本:</span>
+                        <span itemprop="softwareVersion" class="info-item-content">5.3.7</span>
+                    </li>
+                    <li>
+                        <span class="info-item-title">更新时间:</span>
+                        <span itemprop="datePublished" class="info-item-content"
+                              th:text="${#dates.format(game.data.gmPubdate,'yyyy-MM-dd')}">2017年04月24日</span>
+                    </li>
+                    <li>
+                        <span class="info-item-title">厂商:</span>
+                        <a href="#" class="info-item-content link"
+                           th:text="${game.data.gmPublisherName}">厦门魔兔网络科技有限公司</a>
+                    </li>
+                    <li>
+                        <span class="info-item-title">官网:</span>
+                        <a class="info-item-content" href="#">查看详情</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <!--评论评价模块-->
         <div class="review-section">
@@ -383,7 +621,7 @@
             </div>
 
             <!--用户评分添加-->
-            <div class="review-add ">
+            <div class="review-add " id="comment">
                 <div class="review-add-user ">
                     <img th:src="${user.data.userPic}" alt=" "/>
                     <p th:text="${user.data.gmUsername}">锦爸爸</p>
@@ -656,11 +894,11 @@
         </div>
         <div class="show-side-body" th:each="pubGame : ${pubGames.data}">
             <div class="game-detail-side-item">
-                <a class="side-item-left" href="#">
+                <a class="side-item-left" th:href="${pubGame.id}">
                     <img th:src="${pubGame.gmIcon}"/>
                 </a>
                 <div class="side-item-right ">
-                    <a class="item-right-title flex-text-overflow ">
+                    <a class="item-right-title flex-text-overflow " th:href="${pubGame.id}">
                         <span class="flex-text " th:text="${pubGame.gmName}">猫和老鼠：欢乐互动</span>
                     </a>
                     <div class="item-right-label ">
@@ -817,164 +1055,8 @@
 
 <script src="/js/jquery.min.js "></script>
 <script src="/js/bootstrap.js "></script>
-<script>
-    $(function () {
-
-        $("#reply-submit").click(function () {
-            var reply = {};
-            var path = window.location.pathname;
-            reply.replierId = $("#user-id").text();
-            reply.toCommentId = $("#comment-id").html();
-            reply.content = $("#reply-detail").val();
-            console.log(reply);
-            $.ajax({
-                type: "post",
-                url: path + "/addReply",
-                data: reply,
-                success: function (back) {
-                    location.reload();
-//                    console.log(back);
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    console.log("error");
-
-                }
-            });
-        });
-
-        $("#comment-submit").click(function () {
-            var comment = {};
-            var path = window.location.pathname;
-            comment.gmComment = $("#comment-detail").val();
-            comment.gmCritic = $("#user-id").text();
-            comment.gmGameId = $("#game-id").text();
-            console.log($(".body-rate-star").children()[0].className);
-            if ($(".body-rate-star").children()[0].className == "review-add-stars-hover") {
-                comment.gmRate = 2;
-            }
-            if ($(".body-rate-star").children()[1].className == "review-add-stars-hover") {
-                comment.gmRate = 4;
-            }
-            if ($(".body-rate-star").children()[2].className == "review-add-stars-hover") {
-                comment.gmRate = 6;
-            }
-            if ($(".body-rate-star").children()[3].className == "review-add-stars-hover") {
-                comment.gmRate = 8;
-            }
-            if ($(".body-rate-star").children()[4].className == "review-add-stars-hover") {
-                comment.gmRate = 10;
-            }
-            console.log(comment);
-            $.ajax({
-                type: "post",
-                url: path + "/addComment",
-                data: comment,
-                success: function (back) {
-                    location.reload();
-//                    console.log(back);
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    console.log("error");
-
-                }
-            });
-        });
-
-        $("#recommend-dropdown-menu-switch ").hover(function () {
-            $("#recommend-dropdown-menu ").removeClass("recommend-dropdown-hide ");
-        });
-        $("#recommend-dropdown-menu ").mouseleave(function () {
-            $("#recommend-dropdown-menu ").addClass("recommend-dropdown-hide ");
-        });
-        //初始化星星样式
-        $(".review-add-stars p i").hover(function () {
-            var index = $(this).index();
-            $(this).parent().children().removeClass("review-add-stars-hover");
-            $(this).prevAll().addClass("review-add-stars-hover");
-            $(this).addClass("review-add-stars-hover");
-            var that = $(".body-rate-star i")[index];
-            $(that).parent().children().removeClass("review-add-stars-hover");
-            $(that).prevAll().addClass("review-add-stars-hover");
-            $(that).addClass("review-add-stars-hover");
-            if (index == 0) {
-                $(".review-add-stars span").text("讨厌");
-                $(".body-rate-text").text("讨厌");
-            } else if (index == 1) {
-                $(".review-add-stars span").text("不喜欢");
-                $(".body-rate-text").text("不喜欢");
-            } else if (index == 2) {
-                $(".review-add-stars span").text("还可以");
-                $(".body-rate-text").text("还可以");
-            } else if (index == 3) {
-                $(".review-add-stars span").text("很不错")
-                $(".body-rate-text").text("很不错");
-            } else if (index == 4) {
-                $(".review-add-stars span").text("棒极了");
-                $(".body-rate-text").text("棒极了");
-            }
-        });
-
-        $(".review-add-stars p i").click(function () {
-            $('#comment-modal').modal("show");
-        });
-        $(".comment-btn-reply").click(function () {
-            $('#reply-modal').modal("show");
-            var path = $(this).parent().parent().parent().parent().prev().children()[0].src;
-            var name = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[1].innerText;
-            var commentId = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[3].innerText;
-            $(".reply-img-right").attr('src', path);
-            $(".reply-p-right").text(name);
-            $("#comment-id").html(commentId);
-        });
-        $(".reply-btn-reply").click(function () {
-            $('#reply-modal').modal("show");
-            var path = $(this).parent().parent().parent().parent().prev().children()[0].src;
-            var name = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[0].innerText;
-            var commentId = $(this).parent().parent().parent().parent().parent().parent().parent().parent().children()[0].childNodes[1].childNodes[3].innerText;
-            $("#comment-id").html(commentId);
-            $(".reply-img-right").attr('src', path);
-            $(".reply-p-right").text(name);
-        });
-//        $(".review-add-stars p i").mouseleave(function () {
-//            $(this).parent().children().removeClass("review-add-stars-hover");
-//            $(".review-add-stars span").text("");
-//        });
-
-        $(".body-rate-star i").click(function () {
-            var index = $(this).index();
-            $(this).parent().children().removeClass("review-add-stars-hover");
-            $(this).prevAll().addClass("review-add-stars-hover");
-            $(this).addClass("review-add-stars-hover");
-            var that = $(".review-add-stars p i")[index];
-            $(that).parent().children().removeClass("review-add-stars-hover");
-            $(that).prevAll().addClass("review-add-stars-hover");
-            $(that).addClass("review-add-stars-hover");
-            if (index == 0) {
-                $(".review-add-stars span").text("讨厌");
-                $(".body-rate-text").text("讨厌");
-            } else if (index == 1) {
-                $(".review-add-stars span").text("不喜欢");
-                $(".body-rate-text").text("不喜欢");
-            } else if (index == 2) {
-                $(".review-add-stars span").text("还可以");
-                $(".body-rate-text").text("还可以");
-            } else if (index == 3) {
-                $(".review-add-stars span").text("很不错")
-                $(".body-rate-text").text("很不错");
-            } else if (index == 4) {
-                $(".review-add-stars span").text("棒极了");
-                $(".body-rate-text").text("棒极了");
-            }
-        });
-
-//        $(".body-rate-star i").mouseleave(function () {
-//            $(this).prevAll().removeClass("review-add-stars-hover");
-//            $(this).removeClass("review-add-stars-hover");
-//            $(".body-rate-text").text("");
-//        });
-    });
-</script>
-
+<script src="/js/dropdown-menu.js"></script>
+<script src="/js/game-detail.js"></script>
 </body>
 
 </html>

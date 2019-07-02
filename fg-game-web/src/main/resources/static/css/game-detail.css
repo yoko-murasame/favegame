@@ -1,5 +1,5 @@
 body {
-    background-color: #f2f2f2!important;
+    background-color: #f2f2f2 !important;
 }
 
 a {
@@ -736,28 +736,170 @@ body {
     top: -30px;
 }
 
-.review-title{
-    height: 60px!important;
+.review-title {
+    height: 60px !important;
 }
 
-ul{
-    padding:0!important;
+ul {
+    padding: 0 !important;
 }
 
-.review-ratings-detail ul{
-    padding-left: 20px!important;
-}
-.spread-wechat-divide{
-    margin-bottom: 0px!important;
+.review-ratings-detail ul {
+    padding-left: 20px !important;
 }
 
-.dropdown-toggle{
-    margin-top: 7px!important;
+.spread-wechat-divide {
+    margin-bottom: 0px !important;
 }
 
-.social-spread-wechat{
-    padding-top: 0px!important;
+.dropdown-toggle {
+    margin-top: 7px !important;
 }
-.show-side-body{
-    margin-bottom: 0px!important;
+
+.social-spread-wechat {
+    padding-top: 0px !important;
+}
+
+.show-side-body {
+    margin-bottom: 0px !important;
+}
+
+/*回复模态框样式*/
+.modal-dialog {
+    margin: 8% auto;
+    width: 500px;
+    transition: all .3s ease-out;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .3);
+}
+
+.modal-content {
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+.modal-header {
+    position: relative;
+    color: #fff;
+    background: #14B9C8;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    box-sizing: border-box;
+}
+
+.modal-header-user {
+    box-sizing: border-box;
+    display: block;
+    color: #fff;
+    line-height: 20px;
+    font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.modal-header-user p {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    margin: 0;
+    font-size: 16px;
+}
+
+.img-circle {
+    display: inline-block;
+    padding: 2px;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    vertical-align: middle;
+    border-radius: 50%;
+    border: 0;
+    color: #fff;
+    line-height: 20px;
+}
+
+.switch-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    box-sizing: border-box;
+    display: block;
+}
+
+.btn-exit {
+    width: 20px;
+    height: 20px;
+    background: url(/images/cont/detail-exit.png) no-repeat;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.modal-body {
+    padding: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.modal-body-app {
+    float: left;
+    max-width: 90px;
+    box-sizing: border-box;
+}
+
+.modal-body-app img {
+    vertical-align: middle;
+    width: 90px;
+}
+
+.review-modal-right {
+    margin: 0 0 0 105px;
+    box-sizing: border-box;
+    display: block;
+}
+
+.modal-body-rate {
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+    font-weight: 400;
+}
+
+.body-rate-star {
+    margin-right: 12px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.body-rate-star i {
+    cursor: pointer;
+    float: left;
+    display: block;
+    padding: 0 14px 0 0;
+    width: 44px;
+    height: 30px;
+    background: url(/images/iconfont/star-score.png) no-repeat;
+}
+
+.reply-img-right, .reply-p-right {
+    float: right;
+}
+
+.reply-p-left, .reply-img-left {
+    float: left;
+}
+
+.reply-p-right, .reply-p-left {
+    padding-top: 15px;
+}
+
+.modal-header-user {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
 }

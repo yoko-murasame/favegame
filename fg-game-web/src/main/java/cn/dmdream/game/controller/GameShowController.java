@@ -5,10 +5,7 @@ import cn.dmdream.entity.Game;
 import cn.dmdream.entity.Reply;
 import cn.dmdream.entity.User;
 import cn.dmdream.entity.vo.GameVo;
-import cn.dmdream.game.service.CommentService;
-import cn.dmdream.game.service.GameService;
-import cn.dmdream.game.service.ReplyService;
-import cn.dmdream.game.service.UserService;
+import cn.dmdream.game.service.*;
 import cn.dmdream.search.service.GameSearchService;
 import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -40,6 +37,9 @@ public class GameShowController {
     @Reference
     private ReplyService replyService;
 
+    @Reference
+    private OrderService orderService;
+
     @GetMapping("recommend/{keyword}/{page}/{pageSize}")
     public ModelAndView showGame(@PathVariable("keyword") String keyword, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
         ModelAndView modelAndView = new ModelAndView();
@@ -62,10 +62,37 @@ public class GameShowController {
         return modelAndView;
     }
 
+    @GetMapping("game/order/{id}")
+    public ModelAndView showOrder(@PathVariable("id")Integer id) {
+        ModelAndView modelAndView = new ModelAndView();
+        JsonMsg user = userService.findUserVoById(20);
+        JsonMsg orders = orderService.findUserAllOrders(1, 100, id);
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("user-order");
+        return modelAndView;
+    }
+
     @GetMapping("game/login")
     public ModelAndView showGameDetailLogin() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
+    @GetMapping("game/detail")
+    public ModelAndView showGameDet() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("detailspage");
+        return modelAndView;
+    }
+
+    @GetMapping("game/userMain")
+    public ModelAndView showUserMain() {
+        ModelAndView modelAndView = new ModelAndView();
+        JsonMsg user = userService.findUserVoById(20);
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("user-center");
         return modelAndView;
     }
 
@@ -123,13 +150,13 @@ public class GameShowController {
 
     @GetMapping("gameVo/test")
     public JsonMsg getTest() {
-        JsonMsg commentVoById = commentService.findAllByPage(43, 1, 2);
+        JsonMsg commentVoById = gameService.findGameVoById(43);
         return commentVoById;
     }
 
     @GetMapping("gameVo/test1")
     public JsonMsg getTest1() {
-        JsonMsg user = commentService.findAllByPage(43, 1, 100);
+        JsonMsg user = orderService.findUserAllOrders(1,100,1);
         return user;
     }
 }

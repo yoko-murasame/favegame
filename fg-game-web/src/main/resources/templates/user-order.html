@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/recommend.css">
+    <link rel="stylesheet" type="text/css" href="/css/game-detail.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/game-comments.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <style>
+        .content_style {
+            line-height: 20px;
+            background-color: #f2f2f2;
+            transition: all .3s ease-in-out 0s;
+            position: relative;
+        }
+
+        .pc .container {
+            width: 1070px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .row {
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        .col-sm-12 {
+            position: static;
+        }
+
+        section {
+            display: block;
+        }
+
+        .section-title > h3 {
+            float: left;
+            margin: 0 0 10px;
+            padding: 0 0 0 8px;
+            line-height: 20px;
+            font-size: 18px;
+            border-left: 4px solid #14B9C8;
+        }
+
+        .h3_style {
+            display: block;
+            font-size: 1.17em;
+            -webkit-margin-before: 1em;
+            -webkit-margin-after: 1em;
+            -webkit-margin-start: 0px;
+            -webkit-margin-end: 0px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            margin: 0 0 15px;
+            border-bottom: 1px solid #ddd;
+            display: table;
+            width: 100%;
+        }
+
+        section.payment-orders .payment-orders-list {
+            margin-bottom: 30px;
+        }
+
+        .order-item-header > span + span {
+            margin-left: 5px;
+            color: #999;
+        }
+
+        li,
+        ul {
+            margin-top: 0;
+            list-style: none;
+        }
+
+        .list-inline,
+        .list-unstyled {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        section.payment-orders .payment-orders-list > li {
+            margin-bottom: 15px;
+            padding: 10px 0 0;
+            background: #fff;
+            border-radius: 3px;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+        }
+
+        .glyphicon-option-vertical:before {
+            content: "\e235";
+        }
+
+        .glyphicon {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-family: Glyphicons Halflings;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /*li {
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }*/
+
+        section.payment-orders .payment-orders-list > li .order-item-body {
+            padding: 20px;
+            display: -webkit-box;
+            display: flex;
+        }
+
+        section.payment-orders .payment-orders-list > li .order-item-body .item-body-icon > img {
+            display: block;
+            width: 60px;
+        }
+
+        section.payment-orders .payment-orders-list > li .order-item-body .item-body-text {
+            -webkit-box-flex: 1;
+            flex: auto;
+        }
+
+        /*ul,*/
+        menu,
+        dir {
+            display: block;
+            list-style-type: disc;
+            -webkit-margin-before: 1em;
+            -webkit-margin-after: 1em;
+            -webkit-margin-start: 0px;
+            -webkit-margin-end: 0px;
+            -webkit-padding-start: 40px;
+        }
+
+        /**,
+         :after,
+         :before {
+            box-sizing: border-box;
+        }*/
+
+        header::after {
+            content: "";
+            clear: both;
+        }
+
+        section.payment-orders .payment-orders-list > li .order-item-header .dropdown {
+            display: inline-block;
+            float: right;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        section.payment-orders .payment-orders-list > li .order-item-header {
+            padding: 0 0 10px;
+            margin: 0 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .btn-link,
+        .btn-link:active,
+        .btn-link:focus,
+        .btn-link:hover {
+            border-color: transparent;
+        }
+
+        /*a {
+            color: #333;
+            text-decoration: none;
+            background-color: transparent;
+        }*/
+
+        /*a:-webkit-any-link {
+            cursor: pointer;
+        }*/
+
+        .item-body-icon {
+            display: block;
+            padding-right: 10px;
+        }
+
+        .mobile-class {
+            white-space: nowrap;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .item-body-text > a {
+            display: -webkit-box;
+            display: flex;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .item-body-text > p {
+            margin-bottom: 0;
+            line-height: 20px;
+        }
+
+        .p_style {
+            margin: 0 0 10px;
+            display: block;
+            -webkit-margin-before: 1em;
+            -webkit-margin-after: 1em;
+            -webkit-margin-start: 0px;
+            -webkit-margin-end: 0px;
+        }
+
+        .taptap-breadcrumb .breadcrumb > li + li:before {
+            color: #666;
+            content: "\00bb";
+        }
+
+        .taptap-breadcrumb .breadcrumb > li:nth-child(2):before {
+            content: "  ";
+        }
+
+        .breadcrumb > li {
+            display: inline-block;
+        }
+
+        .breadcrumb > li + li:before {
+            padding: 0 5px;
+            color: #ccc;
+            content: "/\00a0";
+        }
+
+        .row:before {
+            display: table;
+            content: " ";
+        }
+
+        .taptap-breadcrumb {
+            margin-bottom: 20px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .breadcrumb {
+            padding: 8px 15px;
+            margin-bottom: 0px;
+            list-style: none;
+            background-color: white;
+            border-radius: 4px;
+        }
+
+        section.payment-orders .payment-orders-list > li .order-item-body .item-body-text > p > i.type-1,
+        section.payment-orders .payment-orders-list > li .order-item-body .item-body-text > p > i.type-2 {
+            display: inline-block;
+            background: url(/images/wechat.png) 0;
+            background-size: 21px;
+        }
+
+        section.payment-orders .payment-orders-list > li .order-item-body .item-body-text > p > i {
+            position: relative;
+            display: none;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .btn-default {
+            border: 1px solid deepskyblue;
+            color: dodgerblue;
+            font-weight: 700;
+        }
+
+        .modal-body {
+            border: 0px;
+        }
+
+        #close-btn {
+            margin-right: 50%;
+            border: 0px;
+        }
+
+        .consult {
+            margin-left: 30%;
+            font-weight: 500;
+            font-size: large;
+        }
+
+        #main-container {
+            mso-grid-top: 0px !important;
+        }
+    </style>
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner body-width">
+        <a href="#" class="logo"></a>
+        <div class="recommend-search">
+            <input type="text" class="recommend-search-text" placeholder="Seach here...">
+            <button class="recommend-search-btn"><i class="recommend-icon-search"></i></button>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <!--<li>-->
+                <!--<span class="line"></span>-->
+                <!--<a href="#" class="dreamer">tang生活家</a>-->
+                <!--<i class="icon-text__pink icon-new">new</i>-->
+                <!--</li>-->
+                <li style="display: none;">
+                    <span class="line"></span>
+                    <a href="login.html">登录</a>
+                </li>
+                <li class="dropdown open">
+                    <span class="line"></span>
+                    <span class="user-pic"></span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="recommend-dropdown-menu-switch">
+                        <img alt="" class="img-circle" th:src="${user.data.userPic}" width="38px" height="38px"/>
+                        <span style="color: #000;font-size: 15px">
+                                <i th:text="${user.data.gmUsername}">username</i>
+                            </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div id="recommend-dropdown-menu" class="recommend-dropdown-hide">
+    <div id="recommend-dropdown-img-container">
+        <div id="recommend-dropdown-img">
+            <img class="img-circle" th:src="${user.data.userPic}"/>
+        </div>
+        <div id="recommend-dropdown-img-username">
+            <span th:text="${user.data.gmUsername}">username</span>
+        </div>
+        <div class="recommend-dropdown-row">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-user-center.png"/></a>
+                <p>个人中心</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-user-account.png"/></a>
+                <p>账号管理</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-change-password.png"/></a>
+                <p>密码修改</p>
+            </div>
+        </div>
+
+        <div class="recommend-dropdown-row">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-nic-pic-change.png"/></a>
+                <p>修改头像</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-message.png"/></a>
+                <p>消息</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-help.png"/></a>
+                <p>帮助中心</p>
+            </div>
+        </div>
+        <div id="recommend-dropdown-quit">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img"/>退出登录</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-container">
+    <div class="content_style">
+        <!--<section class="taptap-breadcrumb">-->
+        <!--<div class="container">-->
+        <!--<div class="row">-->
+        <!--<ol class="breadcrumb">-->
+        <!--<li><span>你的位置:</span></li>-->
+        <!--<li>-->
+        <!--<a href="https://www.taptap.com">首页</a>-->
+        <!--</li>-->
+
+        <!--<li class="active"><span>我的订单</span></li>-->
+
+        <!--</ol>-->
+        <!--<span class="breadcrumb-end"></span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</section>-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="payment-orders">
+                        <div class="section-title">
+                            <h3 class="h3_style">我的订单</h3>
+                        </div>
+                        <ul class="list-unstyled payment-orders-list">
+                            <li th:each="order : ${orders.data.records}">
+                                <div class="order-item-header">
+                                    <span th:text="${#dates.format(order.createTime,'yyyy-MM-dd')}">2019-06-20</span>
+                                    <span>订单编号: 5d0b3e4eaa4ab</span>
+                                </div>
+                                <div class="order-item-body">
+                                    <a href="https://www.taptap.com/app/39836" class="item-body-icon">
+                                        <img src="https://img.tapimg.com/market/lcs/df7e134447d20dcbeeae1c7c9f54447b_360.png?imageView2/1/w/100/q/40/interlace/1/ignore-error/1"
+                                             alt="南瓜先生大冒险（付费版）">
+                                    </a>
+                                    <div class="item-body-text">
+                                        <a href="https://www.taptap.com/app/39836">
+                                            <span class="game-name">南瓜先生大冒险（付费版） </span>
+                                            <span class="mobile-class">(Android版)</span>
+                                        </a>
+                                        <p class="p_style">
+                                            <i class="type-2"></i>
+                                            <span>微信支付</span>
+                                        </p>
+                                    </div>
+                                    <div class="item-body-status">
+                                        <span style="font-weight: 800; font-size: large;">￥3</span>
+                                        <p style="color: gray;">完成支付</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <!--<div class="order-contact">-->
+                        <!--<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#myModal">联系我们-->
+                        <!--</button>-->
+                        <!--</div>-->
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer ">
+    <div class="footer-container ">
+        <div class="footer-link ">
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">关于我们</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">联系我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">标签集</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">商务合作</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">免责声明</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">手机应用</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <div class="footer-orcode "><img src="/images/app_qrcode.png " alt="# "></div>
+                <div class="orcode-text ">
+                    <p>扫描二维码</p>
+                    <p>下载tang手机客户端</p>
+                </div>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">关注我们</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">友情链接</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fopter-copyright ">
+            <p>©2019 favegame 版权所有。</p>
+        </div>
+        <!--<div style="display: none" th:text="${user.data.id}" id="user-id"></div>-->
+        <!--<div style="display: none" th:text="${game.data.id}" id="game-id"></div>-->
+    </div>
+</footer>
+
+
+<script src="/js/jquery.min.js "></script>
+<script src="/js/bootstrap.js "></script>
+<script src="/js/dropdown-menu.js "></script>
+</body>
+
+</html>

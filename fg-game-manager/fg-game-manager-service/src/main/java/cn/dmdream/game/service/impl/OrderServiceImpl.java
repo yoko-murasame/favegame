@@ -1,9 +1,11 @@
 package cn.dmdream.game.service.impl;
 
 import cn.dmdream.entity.Order;
+import cn.dmdream.entity.vo.OrderVo;
 import cn.dmdream.game.service.OrderService;
 import cn.dmdream.mapper.OrderMapper;
 import cn.dmdream.utils.EmptyUtils;
+import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -28,6 +30,15 @@ public class OrderServiceImpl implements OrderService {
         IPage<Order> orderIPage = orderMapper.selectPage(new Page<Order>(page, pageSize), orderQueryWrapper);
         System.out.println("----" + orderIPage.toString());
         return orderIPage;
+    }
+
+    @Override
+    public JsonMsg findUserAllOrders(Integer page, Integer pageSize, Integer userId) {
+//        QueryWrapper<Order> orderQueryWrapper = new QueryWrapper<Order>();
+//        orderQueryWrapper.eq("gmPurchaserId", userId);
+        List<OrderVo> orders = orderMapper.findUserAllOrderByPage(userId, page - 1, pageSize);
+        JsonMsg jsonMsg = JsonMsg.makeSuccess("成功", orders);
+        return jsonMsg;
     }
 
     @Override

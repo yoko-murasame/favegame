@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/recommend.css">
+    <link rel="stylesheet" type="text/css" href="/css/game-detail.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/game-comments.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner body-width">
+        <a href="#" class="logo"></a>
+        <div class="recommend-search">
+            <input type="text" class="recommend-search-text" placeholder="Seach here...">
+            <button class="recommend-search-btn"><i class="recommend-icon-search"></i></button>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <!--<li>-->
+                <!--<span class="line"></span>-->
+                <!--<a href="#" class="dreamer">tang生活家</a>-->
+                <!--<i class="icon-text__pink icon-new">new</i>-->
+                <!--</li>-->
+                <li style="display: none;">
+                    <span class="line"></span>
+                    <a href="login.html">登录</a>
+                </li>
+                <li class="dropdown open">
+                    <span class="line"></span>
+                    <span class="user-pic"></span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="recommend-dropdown-menu-switch">
+                        <img alt="" class="img-circle" th:src="${user.data.userPic}" width="38px" height="38px"/>
+                        <span style="color: #000;font-size: 15px">
+                                <i th:text="${user.data.gmUsername}">username</i>
+                            </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div id="recommend-dropdown-menu" class="recommend-dropdown-hide">
+    <div id="recommend-dropdown-img-container">
+        <div id="recommend-dropdown-img">
+            <img class="img-circle" th:src="${user.data.userPic}"/>
+        </div>
+        <div id="recommend-dropdown-img-username">
+            <span th:text="${user.data.gmUsername}">username</span>
+        </div>
+        <div class="recommend-dropdown-row">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-user-center.png"/></a>
+                <p>个人中心</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-user-account.png"/></a>
+                <p>账号管理</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-change-password.png"/></a>
+                <p>密码修改</p>
+            </div>
+        </div>
+
+        <div class="recommend-dropdown-row">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-nic-pic-change.png"/></a>
+                <p>修改头像</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-message.png"/></a>
+                <p>消息</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-help.png"/></a>
+                <p>帮助中心</p>
+            </div>
+        </div>
+        <div id="recommend-dropdown-quit">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img"/>退出登录</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-container">
+</div>
+
+<footer class="footer ">
+    <div class="footer-container ">
+        <div class="footer-link ">
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">关于我们</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">联系我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">标签集</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">商务合作</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">免责声明</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">手机应用</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <div class="footer-orcode "><img src="/images/app_qrcode.png " alt="# "></div>
+                <div class="orcode-text ">
+                    <p>扫描二维码</p>
+                    <p>下载tang手机客户端</p>
+                </div>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">关注我们</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">友情链接</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fopter-copyright ">
+            <p>©2019 favegame 版权所有。</p>
+        </div>
+        <!--<div style="display: none" th:text="${user.data.id}" id="user-id"></div>-->
+        <!--<div style="display: none" th:text="${game.data.id}" id="game-id"></div>-->
+    </div>
+</footer>
+
+
+<script src="/js/jquery.min.js "></script>
+<script src="/js/bootstrap.js "></script>
+<script src="/js/dropdown-menu.js "></script>
+</body>
+
+</html>

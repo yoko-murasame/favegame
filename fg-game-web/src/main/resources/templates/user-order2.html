@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/recommend.css">
+    <link rel="stylesheet" type="text/css" href="/css/game-detail.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/game-comments.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <style>
+        body {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+            background-color: #f2f2f2;
+        }
+
+        #main-container{
+            width: 1040px;
+            min-width: 1040px;
+        }
+
+        #header-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            margin: 0 0 10px;
+            display: block;
+            line-height: 20px;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+        }
+
+        #header-section {
+            display: block;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #header-section-top {
+            background-color: white;
+            padding: 20px 35px;
+            height: 85px;
+        }
+
+        #header-section-top a img{
+            float: left;
+            margin-right: 15px;
+        }
+
+        #header-section-bottom span{
+            margin-right: 20px;
+        }
+
+        #header-section-top-game-name {
+            width: 910px;
+        }
+
+        #header-section-bottom {
+            padding: 20px 35px;
+            background: #fafafa;
+            border-top: 1px solid #eee;
+        }
+
+        #header-section-bottom-select {
+            margin-right: 20px;
+        }
+
+        #footer-section {
+            padding: 35px;
+            background-color: #FFFFFF;
+            border-radius: 3px;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+            display: block;
+            box-sizing: border-box;
+        }
+
+        #footer-section-payNub {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            line-height: 25px;
+            border-bottom: 1px solid #eee;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        #footer-section-payType {
+            padding-bottom: 22px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        #footer-section-button {
+            width: 300px;
+            height: 50px;
+            font-size: 16px;
+            border-radius: 3px;
+            box-shadow: none;
+            border-color: #12A7B4;
+            background: #12A7B4;
+        }
+
+        #footer-section-button:hover {
+            color: #12A7B4;
+            border-color: #b4ebfa !important;
+            background: #b4ebfa !important;
+        }
+
+        #footer-section-payNub-number {
+            font-size: 24px;
+            color: #E60012;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+
+<body>
+<header class="header">
+    <div class="header-inner body-width">
+        <a href="#" class="logo"></a>
+        <div class="recommend-search">
+            <input type="text" class="recommend-search-text" placeholder="Seach here...">
+            <button class="recommend-search-btn"><i class="recommend-icon-search"></i></button>
+        </div>
+        <nav class="header-nav">
+            <ul>
+                <!--<li>-->
+                <!--<span class="line"></span>-->
+                <!--<a href="#" class="dreamer">tang生活家</a>-->
+                <!--<i class="icon-text__pink icon-new">new</i>-->
+                <!--</li>-->
+                <li style="display: none;">
+                    <span class="line"></span>
+                    <a href="login.html">登录</a>
+                </li>
+                <li class="dropdown open">
+                    <span class="line"></span>
+                    <span class="user-pic"></span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="recommend-dropdown-menu-switch">
+                        <img alt="" class="img-circle" th:src="${user.data.userPic}" width="38px" height="38px"/>
+                        <span style="color: #000;font-size: 15px">
+                                <i th:text="${user.data.gmUsername}">username</i>
+                            </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div id="recommend-dropdown-menu" class="recommend-dropdown-hide">
+    <div id="recommend-dropdown-img-container">
+        <div id="recommend-dropdown-img">
+            <img class="img-circle" th:src="${user.data.userPic}"/>
+        </div>
+        <div id="recommend-dropdown-img-username">
+            <span th:text="${user.data.gmUsername}">username</span>
+        </div>
+        <div class="recommend-dropdown-row">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-user-center.png"/></a>
+                <p>个人中心</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-user-account.png"/></a>
+                <p>账号管理</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-change-password.png"/></a>
+                <p>密码修改</p>
+            </div>
+        </div>
+
+        <div class="recommend-dropdown-row">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-nic-pic-change.png"/></a>
+                <p>修改头像</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-message.png"/></a>
+                <p>消息</p>
+            </div>
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-help.png"/></a>
+                <p>帮助中心</p>
+            </div>
+        </div>
+        <div id="recommend-dropdown-quit">
+            <div>
+                <a href="#"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img"/>退出登录</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-container">
+    <div>
+        <section id="header-section">
+            <p id="header-title">确定订单</p>
+            <div id="header-section-top">
+                <a>
+                    <img src="/img/game/50-50/1.jpg"/>
+                </a>
+                <a>星际争霸2</a>
+                <span>Android版</span>
+            </div>
+            <div id="header-section-bottom">
+                <span id="header-section-bottom-select">购买目的:</span>
+                <input type="radio" name="buy-aim"/>
+                <span>买给自己</span>
+                <input type="radio" name="buy-aim"/>
+                <span>送给朋友</span>
+            </div>
+        </section>
+        <section id="footer-section">
+            <div id="footer-section-payNub">
+                应付金额：
+                <span id="footer-section-payNub-number">¥12</span>
+            </div>
+            <div id="footer-section-payType">
+                <input type="radio" name="payType"/>
+                <span class="pay-pic">
+						<i><img src="/img/alipay.jpg"/></i>
+					</span>
+                <input type="radio" name="payType"/>
+                <span class="pay-pic">
+						<i><img src="/img/wechat.jpg"/></i>
+					</span>
+            </div>
+            <button id="footer-section-button" data-toggle="modal" data-target="#payModel">提交订单</button>
+        </section>
+
+        <!--
+        提交支付模态框
+        -->
+        <div class="modal fade" id="payModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+                    </div>
+                    <div class="modal-body">在这里添加一些文本</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">提交更改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer ">
+    <div class="footer-container ">
+        <div class="footer-link ">
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">关于我们</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">联系我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">标签集</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">商务合作</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">免责声明</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">手机应用</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <div class="footer-orcode "><img src="/images/app_qrcode.png " alt="# "></div>
+                <div class="orcode-text ">
+                    <p>扫描二维码</p>
+                    <p>下载tang手机客户端</p>
+                </div>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">关注我们</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">加入我们</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-link__item ">
+                <h4 class="footer-title ">友情链接</h4>
+                <ul class="footer-list ">
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">关于我们</a>
+                    </li>
+                    <li class="item ">
+                        <a href="# ">帮助中心</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fopter-copyright ">
+            <p>©2019 favegame 版权所有。</p>
+        </div>
+        <!--<div style="display: none" th:text="${user.data.id}" id="user-id"></div>-->
+        <!--<div style="display: none" th:text="${game.data.id}" id="game-id"></div>-->
+    </div>
+</footer>
+
+
+<script src="/js/jquery.min.js "></script>
+<script src="/js/bootstrap.js "></script>
+<script src="/js/dropdown-menu.js "></script>
+</body>
+
+</html>
