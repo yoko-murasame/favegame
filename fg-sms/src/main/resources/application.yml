@@ -1,6 +1,16 @@
 server:
   port: 8090
-#activeMQ
 spring:
+  #activeMQ
   activemq:
     broker-url: tcp://193.112.41.124:61616
+  #配置Redis
+  redis:
+    host: 193.112.41.124
+    port: 6379
+    password: s18334435420
+    database: 0
+    #最大空闲连接数
+    jedis:
+      pool:
+        max-idle: 10

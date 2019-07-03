@@ -1,286 +1,31 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Fave Game Admin Game</title>
-    <meta name="description" content="后台-游戏管理">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Fave Game"/>
-    <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/assets/css/app.css">
-    <link rel="stylesheet" href="/assets/css/amazeui.page.css">
-    <link rel="stylesheet" type="text/css" href="/js/gritter/css/jquery.gritter.css"/>
-    <link rel="stylesheet" href="/js/multifile/css/mui.css"/>
+<head th:replace="commons/common::commonHeader('Fave Game Admin',~{::title},~{::link})">
+    <title>游戏管理</title>
+    <!--当前页面css-->
+    <!--<link rel="stylesheet" href="/js/multifile/css/mui.css"/>-->
     <link rel="stylesheet" href="/js/multifile/css/news.css"/>
-
 </head>
-
 <body data-type="generalComponents">
-
-<header class="am-topbar am-topbar-inverse admin-header">
-    <div class="am-topbar-brand">
-        <a href="javascript:;" class="tpl-logo">
-            <img src="/assets/img/logo.png" alt="">
-        </a>
-    </div>
-    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
-
-    </div>
-
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-            class="am-icon-bars"></span></button>
-
-    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                    <span class="am-icon-bell-o"></span> 提醒 <span
-                        class="am-badge tpl-badge-success am-round">5</span></span>
-                </a>
-                <ul class="am-dropdown-content tpl-dropdown-content">
-                    <li class="tpl-dropdown-content-external">
-                        <h3>你有 <span class="tpl-color-success">5</span> 条提醒</h3><a href="###">全部</a></li>
-                    <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span
-                            class="am-icon-btn am-icon-plus tpl-dropdown-ico-btn-size tpl-badge-success"></span>
-                        【预览模块】移动端 查看时 手机、电脑框隐藏。</a>
-                        <span class="tpl-dropdown-list-fr">3小时前</span>
-                    </li>
-                    <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span
-                            class="am-icon-btn am-icon-check tpl-dropdown-ico-btn-size tpl-badge-danger"></span>
-                        移动端，导航条下边距处理</a>
-                        <span class="tpl-dropdown-list-fr">15分钟前</span>
-                    </li>
-                    <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span
-                            class="am-icon-btn am-icon-bell-o tpl-dropdown-ico-btn-size tpl-badge-warning"></span>
-                        追加统计代码</a>
-                        <span class="tpl-dropdown-list-fr">2天前</span>
-                    </li>
-                </ul>
-            </li>
-            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                    <span class="am-icon-comment-o"></span> 消息 <span
-                        class="am-badge tpl-badge-danger am-round">9</span></span>
-                </a>
-                <ul class="am-dropdown-content tpl-dropdown-content">
-                    <li class="tpl-dropdown-content-external">
-                        <h3>你有 <span class="tpl-color-danger">9</span> 条新消息</h3><a href="###">全部</a></li>
-                    <li>
-                        <a href="#" class="tpl-dropdown-content-message">
-                                <span class="tpl-dropdown-content-photo">
-                      <img src="/assets/img/user02.png" alt=""> </span>
-                            <span class="tpl-dropdown-content-subject">
-                      <span class="tpl-dropdown-content-from"> 禁言小张 </span>
-                                <span class="tpl-dropdown-content-time">10分钟前 </span>
-                                </span>
-                            <span class="tpl-dropdown-content-font"> Fave Game 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Fave Game 的成长，则离不开用户的支持。 </span>
-                        </a>
-                        <a href="#" class="tpl-dropdown-content-message">
-                                <span class="tpl-dropdown-content-photo">
-                      <img src="/assets/img/user03.png" alt=""> </span>
-                            <span class="tpl-dropdown-content-subject">
-                      <span class="tpl-dropdown-content-from"> Steam </span>
-                                <span class="tpl-dropdown-content-time">18分钟前</span>
-                                </span>
-                            <span class="tpl-dropdown-content-font"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                    <span class="am-icon-calendar"></span> 进度 <span
-                        class="am-badge tpl-badge-primary am-round">4</span></span>
-                </a>
-                <ul class="am-dropdown-content tpl-dropdown-content">
-                    <li class="tpl-dropdown-content-external">
-                        <h3>你有 <span class="tpl-color-primary">4</span> 个任务进度</h3><a href="###">全部</a></li>
-                    <li>
-                        <a href="javascript:;" class="tpl-dropdown-content-progress">
-                                <span class="task">
-                        <span class="desc">Fave Game 用户中心 v1.2 </span>
-                                <span class="percent">45%</span>
-                                </span>
-                            <span class="progress">
-                        <div class="am-progress tpl-progress am-progress-striped"><div
-                                class="am-progress-bar am-progress-bar-success" style="width:45%"></div></div>
-                    </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" class="tpl-dropdown-content-progress">
-                                <span class="task">
-                        <span class="desc">新闻内容页 </span>
-                                <span class="percent">30%</span>
-                                </span>
-                            <span class="progress">
-                       <div class="am-progress tpl-progress am-progress-striped"><div
-                               class="am-progress-bar am-progress-bar-secondary" style="width:30%"></div></div>
-                    </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;" class="tpl-dropdown-content-progress">
-                                <span class="task">
-                        <span class="desc">管理中心 </span>
-                                <span class="percent">60%</span>
-                                </span>
-                            <span class="progress">
-                        <div class="am-progress tpl-progress am-progress-striped"><div
-                                class="am-progress-bar am-progress-bar-warning" style="width:60%"></div></div>
-                    </span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
-                    class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
-
-            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                    <span class="tpl-header-list-user-nick">禁言小张</span><span class="tpl-header-list-user-ico"> <img
-                        src="/assets/img/user01.png"></span>
-                </a>
-                <ul class="am-dropdown-content">
-                    <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
-                    <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
-                    <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
-                </ul>
-            </li>
-            <li><a href="###" class="tpl-header-list-link"><span
-                    class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
-        </ul>
-    </div>
-</header>
-
-
-<div class="tpl-page-container tpl-page-header-fixed" style="margin-top: 0;">
-
-    <div class="tpl-left-nav tpl-left-nav-hover">
-        <div class="tpl-left-nav-title">
-            Fave Game 列表
-        </div>
-        <div class="tpl-left-nav-list">
-            <ul class="tpl-left-nav-menu">
-                <li class="tpl-left-nav-item">
-                    <a href="index.html" class="nav-link">
-                        <i class="am-icon-home"></i>
-                        <span>首页</span>
-                    </a>
-                </li>
-                <li class="tpl-left-nav-item">
-                    <a href="chart.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-bar-chart"></i>
-                        <span>数据表</span>
-                        <i class="tpl-left-nav-content tpl-badge-danger">
-                            12
-                        </i>
-                    </a>
-                </li>
-
-                <li class="tpl-left-nav-item">
-                    <!-- 打开状态 a 标签添加 active 即可   -->
-                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list active">
-                        <i class="am-icon-table"></i>
-                        <span>表格</span>
-                        <!-- 列表打开状态的i标签添加 tpl-left-nav-more-ico-rotate 图表即90°旋转  -->
-                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
-                    </a>
-                    <ul class="tpl-left-nav-sub-menu" style="display:block">
-                        <li>
-                            <a href="table-font-list.html">
-                                <i class="am-icon-angle-right"></i>
-                                <span>文字表格</span>
-                                <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
-                            </a>
-                            <!-- 打开状态 a 标签添加 active 即可   -->
-                            <a href="table-images-list.html" class="active">
-                                <i class="am-icon-angle-right"></i>
-                                <span>图片表格</span>
-                                <i class="tpl-left-nav-content tpl-badge-success">
-                                    18
-                                </i>
-
-                                <a href="form-news.html">
-                                    <i class="am-icon-angle-right"></i>
-                                    <span>消息列表</span>
-                                    <i class="tpl-left-nav-content tpl-badge-primary">
-                                        5
-                                    </i>
-                                </a>
-
-                                <a href="form-news-list.html">
-                                    <i class="am-icon-angle-right"></i>
-                                    <span>文字列表</span>
-                                </a>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="tpl-left-nav-item">
-                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-wpforms"></i>
-                        <span>表单</span>
-                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
-                    </a>
-                    <ul class="tpl-left-nav-sub-menu">
-                        <li>
-                            <a href="form-amazeui.html">
-                                <i class="am-icon-angle-right"></i>
-                                <span>Fave Game 表单</span>
-                                <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
-                            </a>
-
-                            <a href="form-line.html">
-                                <i class="am-icon-angle-right"></i>
-                                <span>线条表单</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="tpl-left-nav-item">
-                    <a href="login.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-key"></i>
-                        <span>登录</span>
-
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
+<!--公共导航条-->
+<div th:replace="commons/common::commonBar"></div>
+<!--页面主内容-->
+<div class="tpl-page-container tpl-page-header-fixed">
+    <!--公共内容左侧边栏-->
+    <div th:replace="commons/common::commonLeftBar"></div>
+    <!--页面自定义内容-->
     <div class="tpl-content-wrapper">
         <div class="tpl-content-page-title">
-            Fave Game 文字列表
+            Fave Game 游戏管理
         </div>
-        <ol class="am-breadcrumb">
-            <li><a href="#" class="am-icon-home">首页</a></li>
-            <li><a href="#">Fave Game </a></li>
+        <div th:replace="commons/common::commonMiniNavi(~{::li.am-active})">
             <li class="am-active">游戏管理</li>
-        </ol>
+        </div>
         <div class="tpl-portlet-components">
             <div class="portlet-title">
                 <div class="caption font-green bold">
                     游戏列表
                 </div>
-
-
-
             </div>
             <div class="tpl-block">
                 <div class="am-g">
@@ -326,7 +71,7 @@
                 <div class="am-g">
                     <div class="tpl-table-images">
                         <div class="am-u-sm-12 am-u-md-6 am-u-lg-4" th:each="game:${gamePageModelJsm.data.list}">
-                            <div class="tpl-table-images-content" style="height: 510px;">
+                            <div class="tpl-table-images-content" style="padding-bottom: 1px;">
                                 <div class="tpl-table-images-content-i-time">发布时间：<span
                                         th:text="${#dates.format(game.gmPubdate,'yyyy-mm-dd')}">2016-09-12</span></div>
                                 <div class="tpl-i-title" th:text="${game.gmName}">
@@ -355,7 +100,7 @@
                                             <li><span class="am-icon-heart am-text-success"> 预约数<span
                                                     th:text="${game.countAttentrion}">123</span>+</span></li>
                                             <li><span class="am-icon-github font-green"> 价格<span
-                                                    th:text="${game.gmPrice}">123</span>+</span></li>
+                                                    th:text="${game.gmPrice>0?game.gmPrice:0}">123</span>+</span></li>
                                         </ul>
                                     </div>
                                     <div class="am-btn-toolbar">
@@ -397,7 +142,6 @@
         </div>
 
     </div>
-
     <!--新增/修改模态框saveOrUpdate-->
     <div class="am-popup" id="saveOrUpdate">
         <div class="am-popup-inner">
@@ -420,9 +164,11 @@
 
                         <div class="am-g">
                             <div class="tpl-form-body tpl-form-line">
-                                <form class="am-form tpl-form-line-form" id="id-form-saveOrUpdate" action="/admin/game/saveOrUpdate" method="post">
+                                <form class="am-form tpl-form-line-form" id="id-form-saveOrUpdate"
+                                      action="/admin/game/saveOrUpdate" method="post">
                                     <input th:type="hidden" th:id="id-id" th:name="id"/><!--隐藏域用于更新操作-->
-                                    <input th:type="hidden" th:id="id-isValid" th:value="0" th:name="isValid"/><!--隐藏域用于更新操作-->
+                                    <input th:type="hidden" th:id="id-isValid" th:value="0" th:name="isValid"/>
+                                    <!--隐藏域用于更新操作-->
                                     <!--游戏名-->
                                     <div class="am-form-group">
                                         <label for="id-gmName" class="am-u-sm-3 am-form-label">游戏名 <span
@@ -529,7 +275,8 @@
                                                 class="tpl-form-line-small-title">Android</span></label>
                                         <div class="am-u-sm-9" style="display: flex;">
                                             <div class="tpl-switch">
-                                                <input th:name="gmPlatformIsAndroid" th:value="0" id="id-gmPlatformIsAndroid"
+                                                <input th:name="gmPlatformIsAndroid" th:value="0"
+                                                       id="id-gmPlatformIsAndroid"
                                                        type="checkbox" class="ios-switch bigswitch tpl-switch-btn"
                                                        style="width: 100%;height: 100%;"/>
                                                 <div class="tpl-switch-btn-view">
@@ -556,7 +303,8 @@
                                                 class="tpl-form-line-small-title">IOS</span></label>
                                         <div class="am-u-sm-9">
                                             <div class="tpl-switch">
-                                                <input th:name="gmPlatformIsIOS" th:value="0" id="id-gmPlatformIsIOS" type="checkbox"
+                                                <input th:name="gmPlatformIsIOS" th:value="0" id="id-gmPlatformIsIOS"
+                                                       type="checkbox"
                                                        class="ios-switch bigswitch tpl-switch-btn"
                                                        style="width: 100%;height: 100%;"/>
                                                 <div class="tpl-switch-btn-view">
@@ -599,7 +347,7 @@
                                             <div class="am-form-group am-form-file">
                                                 <div class="tpl-form-file-img">
                                                     <img id="id-reShow-img"
-                                                         src="http://pspq953ox.bkt.clouddn.com/214.jpg" alt="">
+                                                         src="http://img.dmdream.cn/214.jpg" alt="">
                                                 </div>
                                                 <button type="button" class="am-btn am-btn-danger am-btn-sm"
                                                         id="id-btn-addIcon">
@@ -621,7 +369,8 @@
                                                 <div class="release_up_pic">
                                                     <div class="up_pic">
                                                         <span id="chose_pic_btn" style="">
-                                                            <input id="id-upload-multifile" type="file" accept="image/*,video/mp4"/>
+                                                            <input id="id-upload-multifile" type="file"
+                                                                   accept="image/*,video/*"/>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -658,7 +407,6 @@
             </div>
         </div>
     </div>
-
     <!--审核模态框-->
     <div class="am-modal am-modal-prompt" tabindex="-1" id="id-game-check">
         <div class="am-modal-dialog">
@@ -673,7 +421,6 @@
             </div>
         </div>
     </div>
-
     <!--删除模态框-->
     <div class="am-modal am-modal-prompt" tabindex="1" id="id-game-delete">
         <div class="am-modal-dialog">
@@ -688,494 +435,488 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
-<script src="/assets/js/jquery.min.js"></script>
-<!--我自己引用的js插件-->
-<script src="/js/jquery.form.min.js"></script>
-<script src="/assets/js/amazeui.min.js"></script>
-<script type="text/javascript" src="/assets/js/amazeui.page.js"></script>
-<script src="/assets/js/app.js"></script>
-<script type="text/javascript" src="/js/gritter/js/jquery.gritter.js"></script>
-<script src="https://unpkg.com/qiniu-js@2.5.4/dist/qiniu.min.js"></script>
-<script src="/js/common.js"></script>
-<!--多文件上传,yoko修改版,依赖了common.js-->
-<script type="text/javascript" src="/js/multifile/js/localResizeIMG.js"></script>
-<script type="text/javascript" src="/js/multifile/js/patch/mobileBUGFix.mini.js"></script>
-
-<!--分页控件和监听函数,用到了thymeleaf,因此最好放在body标签中-->
-<script th:inline="javascript">
-
-    //初始化跳转路径,处理分页多条件组合逻辑
-    var url = "/admin/game?page=%page%";
-    //处理跳转逻辑,组合查询条件
-    var gethandleSearchUrl = function (url) {
-        //判断已审核和未审核
-        if ([[${queryGame.isValid}]] != 1 && url.indexOf("&isValid=0") == -1) {
-            url = url + "&isValid=0";
-        }
-        //判断游戏类型
-        if ([[${queryGame.gmTypeId}]] != null && url.indexOf("gmTypeId") == -1) {
-            url = url + "&gmTypeId=" + [[${queryGame.gmTypeId}]];
-        }
-        //判断用于搜索的游戏名称
-        if ([[${queryGame.gmName}]] != null && [[${queryGame.gmName}]] != "" && url.indexOf("gmName") == -1) {
-            url = url + "&gmName=" + [[${queryGame.gmName}]];
-        }
-        return url;
-    }
-
-    //分页控件
-    var page = $("#pageBar").page({
-        pages: [[${gamePageModelJsm.data.totalPage}]],
-        curr: [[${gamePageModelJsm.data.currPage}]],
-        groups: 5,
-        prev: false,
-        next: false,
-        first: "‹‹",
-        last: "››",
-        before: function (context, next) {
-            //指定跳转路径
-            this.jump = gethandleSearchUrl(url);
-            next();
-        },
-        jump: url,
-        theme: "am-pagination tpl-pagination",
-    });
-
-    <!--当前页的所有监听函数,需要依赖以上全部js-->
-    $(function () {
-        // 搜索触发事件
-        //搜索已审核
-        $("#btn-checked-list").click(function () {
-            var innerUrl = "/admin/game?isValid=1";
-            innerUrl = gethandleSearchUrl(innerUrl);
-            window.location.href = innerUrl;
-        });
-        //搜索未审核
-        $("#btn-unchecked-list").click(function () {
-            var innerUrl = "/admin/game?isValid=0";
-            innerUrl = gethandleSearchUrl(innerUrl);
-            window.location.href = innerUrl;
-        });
-        //搜索类型
-        $("#btn-type-list").on("change", function () {
-            //console.log(this.value);
-            var innerUrl = "/admin/game?gmTypeId=" + this.value;
-            innerUrl = gethandleSearchUrl(innerUrl);
-            window.location.href = innerUrl;
-        });
-        //搜索名称
-        $("#btn-title-list").on("click", function () {
-            var gmName = $("#input-search-title").val();
-            var innerUrl = "/admin/game?gmName=" + gmName;
-            innerUrl = gethandleSearchUrl(innerUrl);
-            window.location.href = innerUrl;
-        });
-
-        //预先查询发布者列表和运营商列表
-        handlePublisher();
-        handleOperator();
-        //模态窗口按钮监听处理
-        var $modal = $('#saveOrUpdate');
-
-        //siblings用于选择样式绑定的事件处理
-        $(".am-btn").siblings().on("click", function (e) {
-            var $target = $(e.target);
-            //console.log($target);
-            //处理新增操作
-            if (($target).hasClass('js-modal-new')) {
-                //取消父modal关闭监听,用于子modal的打开关闭操作
-                $modal.modal({
-                    closeOnConfirm: false,
-                    closeOnCancel: false,
-                    closeViaDimmer: false,
-                });
-                handlePublisher();
-                handleOperator();
+<!--公共JS+当前页面JS-->
+<div th:replace="commons/common::commonJS(~{::script})">
+    <!--自己的js-->
+    <!--多文件上传,yoko修改版,依赖了common.js-->
+    <script type="text/javascript" src="/js/multifile/js/localResizeIMG.js"></script>
+    <script type="text/javascript" src="/js/multifile/js/patch/mobileBUGFix.mini.js"></script>
+    <!--分页控件和监听函数,用到了thymeleaf,因此最好放在body标签中-->
+    <script th:inline="javascript">
+        //初始化跳转路径,处理分页多条件组合逻辑
+        var url = "/admin/game?page=%page%";
+        //处理跳转逻辑,组合查询条件
+        var gethandleSearchUrl = function (url) {
+            //判断已审核和未审核
+            if ([[${queryGame.isValid}]] != 1 && url.indexOf("&isValid=0") == -1) {
+                url = url + "&isValid=0";
             }
-            //处理编辑操作
-            else if (($target).hasClass('js-modal-edit')) {
-                console.log("编辑触发,id:" + $target.context.value);
-                //handlePublisher();
-                //handleOperator();
-                //回填数据
-                getAjaxPromise("/admin/game/one/"+$target.context.value, null, "get").then(function (value) {
+            //判断游戏类型
+            if ([[${queryGame.gmTypeId}]] != null && url.indexOf("gmTypeId") == -1) {
+                url = url + "&gmTypeId=" + [[${queryGame.gmTypeId}]];
+            }
+            //判断用于搜索的游戏名称
+            if ([[${queryGame.gmName}]] != null && [[${queryGame.gmName}]] != "" && url.indexOf("gmName") == -1) {
+                url = url + "&gmName=" + [[${queryGame.gmName}]];
+            }
+            return url;
+        }
+
+        //分页控件
+        var page = $("#pageBar").page({
+            pages: [[${gamePageModelJsm.data.totalPage}]],
+            curr: [[${gamePageModelJsm.data.currPage}]],
+            groups: 5,
+            prev: false,
+            next: false,
+            first: "‹‹",
+            last: "››",
+            before: function (context, next) {
+                //指定跳转路径
+                this.jump = gethandleSearchUrl(url);
+                next();
+            },
+            jump: url,
+            theme: "am-pagination tpl-pagination",
+        });
+
+        <!--当前页的所有监听函数,需要依赖以上全部js-->
+        $(function () {
+            // 搜索触发事件
+            //搜索已审核
+            $("#btn-checked-list").click(function () {
+                var innerUrl = "/admin/game?isValid=1";
+                innerUrl = gethandleSearchUrl(innerUrl);
+                window.location.href = innerUrl;
+            });
+            //搜索未审核
+            $("#btn-unchecked-list").click(function () {
+                var innerUrl = "/admin/game?isValid=0";
+                innerUrl = gethandleSearchUrl(innerUrl);
+                window.location.href = innerUrl;
+            });
+            //搜索类型
+            $("#btn-type-list").on("change", function () {
+                //console.log(this.value);
+                var innerUrl = "/admin/game?gmTypeId=" + this.value;
+                innerUrl = gethandleSearchUrl(innerUrl);
+                window.location.href = innerUrl;
+            });
+            //搜索名称
+            $("#btn-title-list").on("click", function () {
+                var gmName = $("#input-search-title").val();
+                var innerUrl = "/admin/game?gmName=" + gmName;
+                innerUrl = gethandleSearchUrl(innerUrl);
+                window.location.href = innerUrl;
+            });
+
+            //预先查询发布者列表和运营商列表
+            handlePublisher();
+            handleOperator();
+            //模态窗口按钮监听处理
+            var $modal = $('#saveOrUpdate');
+
+            //siblings用于选择样式绑定的事件处理
+            $(".am-btn").siblings().on("click", function (e) {
+                var $target = $(e.target);
+                //console.log($target);
+                //处理新增操作
+                if (($target).hasClass('js-modal-new')) {
+                    //取消父modal关闭监听,用于子modal的打开关闭操作
+                    $modal.modal({
+                        closeOnConfirm: false,
+                        closeOnCancel: false,
+                        closeViaDimmer: false,
+                    });
+                    handlePublisher();
+                    handleOperator();
+                }
+                //处理编辑操作
+                else if (($target).hasClass('js-modal-edit')) {
+                    console.log("编辑触发,id:" + $target.context.value);
+                    //handlePublisher();
+                    //handleOperator();
+                    //回填数据
+                    getAjaxPromise("/admin/game/one/" + $target.context.value, null, "get").then(function (value) {
+                        if (value.status == 200) {
+                            var g = value.data;
+                            console.log(g);
+                            $("#id-id").val(g.id);
+                            $("#id-isValid").val(g.isValid);
+                            $("#id-gmName").val(g.gmName);
+                            $("#id-gmVersion").val(g.gmVersion);
+                            //游戏类型回选
+                            $("#id-gmTypeId").val(g.gmTypeId);
+                            var option = $("#id-gmTypeId").find('option[value="+g.gmTypeId+"]')[0];
+                            $(option).attr('selected', true);
+                            $("#id-gmTypeId").trigger('changed.selected.amui');
+                            //发布者回选
+                            $("#id-gmPublisherId").val(g.gmPublisherId);
+                            option = $("#id-gmPublisherId").find('option[value="+g.gmPublisherId+"]')[0];
+                            $(option).attr('selected', true);
+                            $("#id-gmPublisherId").trigger('changed.selected.amui');
+                            //发布日期回填
+                            $("#id-gmPubdate").val(g.gmPubdate);
+                            //运营商回选
+                            $("#id-gmOperatorId").val(g.gmOperatorId);
+                            option = $("#id-gmOperatorId").find('option[value="+g.gmOperatorId+"]')[0];
+                            $(option).attr('selected', true);
+                            $("#id-gmOperatorId").trigger('changed.selected.amui');
+                            //免费付费回选
+                            $("#id-gmFree").val(g.gmFree);
+                            var flag = g.gmFree == 1 ? true : false;
+                            $("#id-gmFree").prop("checked", flag);
+                            $("#id-gmPrice").val(g.gmPrice);
+                            //安卓按钮回选
+                            $("#id-gmPlatformIsAndroid").val(g.gmPlatformIsAndroid);
+                            var flag = g.gmPlatformIsAndroid == 1 ? true : false;
+                            $("#id-gmPlatformIsAndroid").prop("checked", flag);
+                            $("#id-gmAndroidUrl").val(g.gmAndroidUrl);
+                            //IOS按钮回选
+                            $("#id-gmPlatformIsIOS").val(g.gmPlatformIsIOS);
+                            var flag = g.gmPlatformIsIOS == 1 ? true : false;
+                            $("#id-gmPlatformIsIOS").prop("checked", flag);
+                            $("#id-gmIOSUrl").val(g.gmIOSUrl);
+                            //运行环境
+                            $("#id-gmRunenv").val(g.gmRunenv);
+                            //图片回显
+                            $("#id-gmIcon").val(g.gmIcon);
+                            $("#id-reShow-img").attr("src", g.gmIcon);
+                            //介绍视频和图片回填
+                            $("#id-gmIntroMedia").val(g.gmIntroMedia);
+                            //picArr = g.gmIntroMedia.split(",");//每次修改需要重新上传，不需要回选，要不无法进行删除
+                            $("#id-gmDetail").val(g.gmDetail);
+                            //取消父modal关闭监听,用于子modal的打开关闭操作
+                            $modal.modal({
+                                closeOnConfirm: false,
+                                closeOnCancel: false,
+                                closeViaDimmer: false,
+                            });
+
+                        } else {
+                            showGritter("消息", value.msg);
+                        }
+                    })
+                }
+                //处理审核操作
+                else if (($target).hasClass('js-modal-check')) {
+                    console.log("审核触发,id:" + $target.context.value);
+                    var id = $target.context.value;
+                    var $checkModal = $("#id-game-check");
+                    $checkModal.modal({
+                        relatedTarget: this,
+                        onConfirm: function (e) {
+                            console.log(e);
+                            if (e.data == "确定") {
+                                getAjaxPromise("/admin/game/checkPass/" + id, null, "post").then(function (value) {
+                                    if (value.status == 200) {
+                                        showGritter("消息", "成功通过审核~");
+                                        setTimeout(function () {
+                                            window.location.reload();
+                                        }, 1000);
+                                    } else {
+                                        showGritter("消息", value.msg);
+                                    }
+                                });
+                            } else {
+                                showGritter("消息", "没输入‘确定'哦~");
+                            }
+                        },
+                        onCancel: function (e) {
+                            showGritter("消息", "你取消了~");
+                        },
+                    });
+
+                }
+                //处理删除
+                else if (($target).hasClass('js-modal-delete')) {
+                    console.log("删除触发,id:" + $target.context.value);
+                    var id = $target.context.value;
+                    var $deleteModal = $("#id-game-delete");
+                    $deleteModal.modal({
+                        relatedTarget: this,
+                        onConfirm: function (e) {
+                            console.log(e);
+                            if (e.data == "确定") {
+                                getAjaxPromise("/admin/game/delete/" + id, null, "post").then(function (value) {
+                                    if (value.status == 200) {
+                                        showGritter("消息", "删除成功~");
+                                        setTimeout(function () {
+                                            window.location.reload();
+                                        }, 1000);
+                                    } else {
+                                        showGritter("消息", value.msg);
+                                    }
+                                });
+                            } else {
+                                showGritter("消息", "没输入‘确定'哦~");
+                            }
+                        },
+                        onCancel: function (e) {
+                            showGritter("消息", "不删了不删了=v=");
+                        },
+                    });
+                }
+
+            });
+
+            //处理游戏发行商列表
+            function handlePublisher() {
+                getAjaxPromise("/admin/game/publisher").then(function (value) {
                     if (value.status == 200) {
-                        var g = value.data;
-                        console.log(g);
-                        $("#id-id").val(g.id);
-                        $("#id-isValid").val(g.isValid);
-                        $("#id-gmName").val(g.gmName);
-                        $("#id-gmVersion").val(g.gmVersion);
-                        //游戏类型回选
-                        $("#id-gmTypeId").val(g.gmTypeId);
-                        var option = $("#id-gmTypeId").find('option[value="+g.gmTypeId+"]')[0];
-                        $(option).attr('selected', true);
-                        $("#id-gmTypeId").trigger('changed.selected.amui');
-                        //发布者回选
-                        $("#id-gmPublisherId").val(g.gmPublisherId);
-                        option = $("#id-gmPublisherId").find('option[value="+g.gmPublisherId+"]')[0];
-                        $(option).attr('selected', true);
-                        $("#id-gmPublisherId").trigger('changed.selected.amui');
-                        //发布日期回填
-                        $("#id-gmPubdate").val(g.gmPubdate);
-                        //运营商回选
-                        $("#id-gmOperatorId").val(g.gmOperatorId);
-                        option = $("#id-gmOperatorId").find('option[value="+g.gmOperatorId+"]')[0];
-                        $(option).attr('selected', true);
-                        $("#id-gmOperatorId").trigger('changed.selected.amui');
-                        //免费付费回选
-                        $("#id-gmFree").val(g.gmFree);
-                        var flag = g.gmFree == 1 ? true:false;
-                        $("#id-gmFree").prop("checked",flag);
-                        $("#id-gmPrice").val(g.gmPrice);
-                        //安卓按钮回选
-                        $("#id-gmPlatformIsAndroid").val(g.gmPlatformIsAndroid);
-                        var flag = g.gmPlatformIsAndroid == 1 ? true:false;
-                        $("#id-gmPlatformIsAndroid").prop("checked",flag);
-                        $("#id-gmAndroidUrl").val(g.gmAndroidUrl);
-                        //IOS按钮回选
-                        $("#id-gmPlatformIsIOS").val(g.gmPlatformIsIOS);
-                        var flag = g.gmPlatformIsIOS == 1 ? true:false;
-                        $("#id-gmPlatformIsIOS").prop("checked",flag);
-                        $("#id-gmIOSUrl").val(g.gmIOSUrl);
-                        //运行环境
-                        $("#id-gmRunenv").val(g.gmRunenv);
-                        //图片回显
-                        $("#id-gmIcon").val(g.gmIcon);
-                        $("#id-reShow-img").attr("src",g.gmIcon);
-                        //介绍视频和图片回填
-                        $("#id-gmIntroMedia").val(g.gmIntroMedia);
-                        //picArr = g.gmIntroMedia.split(",");//每次修改需要重新上传，不需要回选，要不无法进行删除
-                        $("#id-gmDetail").val(g.gmDetail);
-                        //取消父modal关闭监听,用于子modal的打开关闭操作
-                        $modal.modal({
-                            closeOnConfirm: false,
-                            closeOnCancel: false,
-                            closeViaDimmer: false,
-                        });
-
-                    }else{
-                        showGritter("消息", value.msg);
+                        var list = value.data;
+                        console.log(list);
+                        var $publisherSelect = $("#id-gmPublisherId");
+                        $publisherSelect.empty();
+                        $publisherSelect.append("<option value='-1'>请选择发行商</option>");
+                        for (var i in list) {
+                            var option = "<option value=" + list[i].id + ">" + list[i].gmPublisherName + "</option>";
+                            $publisherSelect.append(option);
+                        }
+                    } else {
+                        showGritter("消息", "发行商列表查询失败,请检查网络!");
                     }
+                });
+            }
+
+            //处理运营商列表
+            function handleOperator() {
+                getAjaxPromise("/admin/game/operator").then(function (value) {
+                    if (value.status == 200) {
+                        var list = value.data;
+                        console.log(list);
+                        var $operatorSelect = $("#id-gmOperatorId");
+                        $operatorSelect.empty();
+                        $operatorSelect.append("<option value='-1'>无</option>");
+                        for (var i in list) {
+                            var option = "<option value=" + list[i].id + ">" + list[i].gmOperatorName + "</option>";
+                            $operatorSelect.append(option);
+                        }
+                    } else {
+                        showGritter("消息", "运营商列表查询失败,请检查网络!");
+                    }
+                });
+            }
+
+            //付费开关
+            $("#id-gmFree").on("change", function () {
+                var $switchBtn = $(this);
+                if ($switchBtn.prop("checked")) {
+                    $('#id-gmPrice-modal').modal({
+                        relatedTarget: this,
+                        onConfirm: function (e) {
+                            $switchBtn.val(1);//表示收费状态
+                            $switchBtn.parent().after("<span style='position: absolute;left:101px;top:3px;'>￥" + e.data + "</span>");//确认后将金额回显
+                        },
+                        onCancel: function (e) {
+                            $switchBtn.removeAttr("checked");
+                            $switchBtn.val(0);//表示免费状态
+                            $("#id-gmPrice").val("");//将价格置空
+                        }
+                    });
+                } else {
+                    console.log("免费了");
+                    $("#id-gmPrice").val("");//将价格置空
+                    $switchBtn.val(0);//表示免费状态
+                    $switchBtn.parent().parent().children("span").remove();
+                }
+            });
+            //安卓开关
+            $("#id-gmPlatformIsAndroid").on("change", function () {
+                var $switchBtn = $(this);
+                $("#id-android-upload").parent().toggleClass("my-hidden");//开启/关闭安卓下载地址显示
+                //取消选择清空下载地址
+                if (!$switchBtn.prop("checked")) {
+                    console.log("无安卓版本");
+                    $("#id-gmAndroidUrl").val("");//将下载地址置空
+                    $switchBtn.val(0);//表示不存在安卓版本
+                } else {
+                    $switchBtn.val(1);//表示存在安卓版本
+                }
+            });
+            //监听安卓文件上传
+            $("#id-android-upload").on("change", function () {
+                var fileName = $(this).val();
+                if (fileName == null || fileName == "") return;
+                var promiseObj = handleUploadUrl("/admin/game/QiniuUpToken", this, $("#id-fileupload-rename"), null, $("#id-gmAndroidUrl"));
+                promiseObj.then(function (value) {
+                    console.log(value);
+                    console.log("安卓地址已设置:" + $("#id-gmAndroidUrl").val());
                 })
-            }
-            //处理审核操作
-            else if (($target).hasClass('js-modal-check')) {
-                console.log("审核触发,id:" + $target.context.value);
-                var id = $target.context.value;
-                var $checkModal =  $("#id-game-check");
-                $checkModal.modal({
-                    relatedTarget: this,
-                    onConfirm:function (e) {
-                        console.log(e);
-                        if(e.data == "确定"){
-                            getAjaxPromise("/admin/game/checkPass/" + id, null, "post").then(function (value) {
-                                if (value.status == 200) {
-                                    showGritter("消息", "成功通过审核~");
-                                    setTimeout(function(){window.location.reload();},1000);
-                                } else {
-                                    showGritter("消息", value.msg);
-                                }
-                            });
-                        }else{
-                            showGritter("消息", "没输入‘确定'哦~");
+            });
+            //IOS开关
+            $("#id-gmPlatformIsIOS").on("change", function () {
+                var $switchBtn = $(this);
+                if ($switchBtn.prop("checked")) {
+                    $('#id-gmIOSUrl-modal').modal({
+                        relatedTarget: this,
+                        onConfirm: function (e) {
+                            $switchBtn.val(1);//表示存在IOS版本
+                            $switchBtn.parent().after("<span style='position: absolute;left:101px;top:3px;'>IOS地址已设置</span>");//确认后将IOS地址
+                        },
+                        onCancel: function (e) {
+                            $switchBtn.removeAttr("checked");
+                            $switchBtn.val(0);//表示不存在IOS版本
+                            $("#id-gmIOSUrl").val("");//将IOS地址置空
                         }
-                    },
-                    onCancel:function (e) {
-                        showGritter("消息", "你取消了~");
-                    },
-                });
-
-            }
-            //处理删除
-            else if (($target).hasClass('js-modal-delete')) {
-                console.log("删除触发,id:" + $target.context.value);
-                var id = $target.context.value;
-                var $deleteModal =  $("#id-game-delete");
-                $deleteModal.modal({
-                    relatedTarget: this,
-                    onConfirm:function (e) {
-                        console.log(e);
-                        if(e.data == "确定"){
-                            getAjaxPromise("/admin/game/delete/" + id, null, "post").then(function (value) {
-                                if (value.status == 200) {
-                                    showGritter("消息", "删除成功~");
-                                    setTimeout(function(){window.location.reload();},1000);
-                                } else {
-                                    showGritter("消息", value.msg);
-                                }
-                            });
-                        }else{
-                            showGritter("消息", "没输入‘确定'哦~");
-                        }
-                    },
-                    onCancel:function (e) {
-                        showGritter("消息", "不删了不删了=v=");
-                    },
-                });
-            }
-
-        });
-
-        //处理游戏发行商列表
-        function handlePublisher() {
-            getAjaxPromise("/admin/game/publisher").then(function (value) {
-                if (value.status == 200) {
-                    var list = value.data;
-                    console.log(list);
-                    var $publisherSelect = $("#id-gmPublisherId");
-                    $publisherSelect.empty();
-                    $publisherSelect.append("<option value='-1'>请选择发行商</option>");
-                    for (var i in list) {
-                        var option = "<option value=" + list[i].id + ">" + list[i].gmPublisherName + "</option>";
-                        $publisherSelect.append(option);
-                    }
+                    });
                 } else {
-                    showGritter("消息", "发行商列表查询失败,请检查网络!");
+                    console.log("无IOS版本");
+                    $switchBtn.val(0);//表示不存在IOS版本
+                    $("#id-gmIOSUrl").val("");//将IOS地址置空
+                    $switchBtn.parent().parent().children("span").remove();
                 }
             });
-        }
 
-        //处理运营商列表
-        function handleOperator() {
-            getAjaxPromise("/admin/game/operator").then(function (value) {
-                if (value.status == 200) {
-                    var list = value.data;
-                    console.log(list);
-                    var $operatorSelect = $("#id-gmOperatorId");
-                    $operatorSelect.empty();
-                    $operatorSelect.append("<option value='-1'>无</option>");
-                    for (var i in list) {
-                        var option = "<option value=" + list[i].id + ">" + list[i].gmOperatorName + "</option>";
-                        $operatorSelect.append(option);
+            //监听Icon图片上传
+            $("#id-upload-icon").on("change", function () {
+                var fileName = $(this).val();
+                if (fileName == null || fileName == "") return;
+                var promiseObj = handleUploadUrl("/admin/game/QiniuUpToken", this, null, $("#id-reShow-img"), $("#id-gmIcon"));
+                promiseObj.then(function (value) {
+                    //隐藏上传按钮
+                    $("#id-btn-addIcon").addClass("my-hidden");
+                    //$("#id-btn-addIcon").attr("disabled", true);
+                    $("#id-upload-icon").attr("disabled", true);
+                    console.log(value);
+                    console.log("游戏Icon地址已设置:" + $("#id-gmIcon").val());
+                })
+            });
+
+            //监听多文件(图片/视频)上传
+            var picArr = new Array();// 存储图片
+            $('#id-upload-multifile').localResizeIMG({
+                width: 400,// 宽度
+                quality: 1, // 压缩参数 1 不压缩 越小清晰度越低
+                success: function (result) {
+                    console.log(result);
+                    if (result.type == "video") {
+                        //result.videoUrl = "http://pspq953ox.bkt.clouddn.com/06_ActiveMQ%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E7%89%B9%E7%82%B9.mp4";
+                        var _str = "<span class='pic_look'><video width='100%' height='100%' src='" + result.videoUrl + "'></video><em id='delete_pic'>-</em></span>"
+                        $('#chose_pic_btn').before(_str);
+                        var _i = picArr.length
+                        picArr[_i] = result.videoUrl;
+                        console.log(picArr)
+                    } else {
+                        var img = new Image();
+                        img.src = result.base64;
+                        var _str = "<span class='pic_look' style='background-image: url(" + img.src + ")'><em id='delete_pic'>-</em></span>"
+                        $('#chose_pic_btn').before(_str);
+                        var _i = picArr.length
+                        picArr[_i] = result.imgUrl;
+                        console.log(picArr)
                     }
-                } else {
-                    showGritter("消息", "运营商列表查询失败,请检查网络!");
+                    //同步处理input标签的value
+                    handleUrlListSyncToIntroMedia(picArr, $("#id-gmIntroMedia"));
                 }
             });
-        }
-
-        //付费开关
-        $("#id-gmFree").on("change", function () {
-            var $switchBtn = $(this);
-            if ($switchBtn.prop("checked")) {
-                $('#id-gmPrice-modal').modal({
-                    relatedTarget: this,
-                    onConfirm: function (e) {
-                        $switchBtn.val(1);//表示收费状态
-                        $switchBtn.parent().after("<span style='position: absolute;left:101px;top:3px;'>￥" + e.data + "</span>");//确认后将金额回显
-                    },
-                    onCancel: function (e) {
-                        $switchBtn.removeAttr("checked");
-                        $switchBtn.val(0);//表示免费状态
-                        $("#id-gmPrice").val("");//将价格置空
-                    }
-                });
-            } else {
-                console.log("免费了");
-                $("#id-gmPrice").val("");//将价格置空
-                $switchBtn.val(0);//表示免费状态
-                $switchBtn.parent().parent().children("span").remove();
-            }
-        });
-        //安卓开关
-        $("#id-gmPlatformIsAndroid").on("change", function () {
-            var $switchBtn = $(this);
-            $("#id-android-upload").parent().toggleClass("my-hidden");//开启/关闭安卓下载地址显示
-            //取消选择清空下载地址
-            if (!$switchBtn.prop("checked")) {
-                console.log("无安卓版本");
-                $("#id-gmAndroidUrl").val("");//将下载地址置空
-                $switchBtn.val(0);//表示不存在安卓版本
-            } else {
-                $switchBtn.val(1);//表示存在安卓版本
-            }
-        });
-        //监听安卓文件上传
-        $("#id-android-upload").on("change", function () {
-            var fileName = $(this).val();
-            if (fileName == null || fileName == "") return;
-            var promiseObj = handleUploadUrl("/admin/game/QiniuUpToken", this, $("#id-fileupload-rename"), null, $("#id-gmAndroidUrl"));
-            promiseObj.then(function (value) {
-                console.log(value);
-                console.log("安卓地址已设置:" + $("#id-gmAndroidUrl").val());
-            })
-        });
-        //IOS开关
-        $("#id-gmPlatformIsIOS").on("change", function () {
-            var $switchBtn = $(this);
-            if ($switchBtn.prop("checked")) {
-                $('#id-gmIOSUrl-modal').modal({
-                    relatedTarget: this,
-                    onConfirm: function (e) {
-                        $switchBtn.val(1);//表示存在IOS版本
-                        $switchBtn.parent().after("<span style='position: absolute;left:101px;top:3px;'>IOS地址已设置</span>");//确认后将IOS地址
-                    },
-                    onCancel: function (e) {
-                        $switchBtn.removeAttr("checked");
-                        $switchBtn.val(0);//表示不存在IOS版本
-                        $("#id-gmIOSUrl").val("");//将IOS地址置空
-                    }
-                });
-            } else {
-                console.log("无IOS版本");
-                $switchBtn.val(0);//表示不存在IOS版本
-                $("#id-gmIOSUrl").val("");//将IOS地址置空
-                $switchBtn.parent().parent().children("span").remove();
-            }
-        });
-
-        //监听Icon图片上传
-        $("#id-upload-icon").on("change", function () {
-            var fileName = $(this).val();
-            if (fileName == null || fileName == "") return;
-            var promiseObj = handleUploadUrl("/admin/game/QiniuUpToken", this, null, $("#id-reShow-img"), $("#id-gmIcon"));
-            promiseObj.then(function (value) {
-                //隐藏上传按钮
-                $("#id-btn-addIcon").addClass("my-hidden");
-                //$("#id-btn-addIcon").attr("disabled", true);
-                $("#id-upload-icon").attr("disabled", true);
-                console.log(value);
-                console.log("游戏Icon地址已设置:" + $("#id-gmIcon").val());
-            })
-        });
-
-        //监听多文件(图片/视频)上传
-        var picArr = new Array();// 存储图片
-        $('#id-upload-multifile').localResizeIMG({
-            width:400,// 宽度
-            quality: 1, // 压缩参数 1 不压缩 越小清晰度越低
-            success: function (result) {
-                console.log(result);
-                if(result.type == "video"){
-                    //result.videoUrl = "http://pspq953ox.bkt.clouddn.com/06_ActiveMQ%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E7%89%B9%E7%82%B9.mp4";
-                    var _str = "<span class='pic_look'><video width='100%' height='100%' src='"+result.videoUrl+"'></video><em id='delete_pic'>-</em></span>"
-                    $('#chose_pic_btn').before(_str);
-                    var _i =  picArr.length
-                    picArr[_i] = result.videoUrl;
-                    console.log(picArr)
-                }else{
-                    var img = new Image();
-                    img.src = result.base64;
-                    var _str = "<span class='pic_look' style='background-image: url("+ img.src + ")'><em id='delete_pic'>-</em></span>"
-                    $('#chose_pic_btn').before(_str);
-                    var _i =  picArr.length
-                    picArr[_i] = result.imgUrl;
-                    console.log(picArr)
-                }
+            // 监听多文件上传的删除
+            $(document).on('click', '#delete_pic', function (event) {
+                var aa = $(this).parents(".pic_look").index();
+                picArr.splice(aa, 1);
+                $(this).parents(".pic_look").remove();
+                console.log(picArr);
                 //同步处理input标签的value
-                handleUrlListSyncToIntroMedia(picArr,$("#id-gmIntroMedia"));
-            }
-        });
-        // 监听多文件上传的删除
-        $(document).on('click', '#delete_pic', function(event) {
-            var aa = $(this).parents(".pic_look").index();
-            picArr.splice(aa,1);
-            $(this).parents(".pic_look").remove();
-            console.log(picArr);
-            //同步处理input标签的value
-            handleUrlListSyncToIntroMedia(picArr,$("#id-gmIntroMedia"));
-        });
-        //文件地址列表和gmIntroMedia隐藏表单标签的同步方法
-        function handleUrlListSyncToIntroMedia(list, IntroMediaObj) {
-            var listStr = "";
-            if (list.length == 1) {
-                listStr = list[0];
-            }
-            if (list.length > 1) {
-                listStr = list[0];
-                for(var i=1;i<list.length;i++){
-                    listStr = listStr + "," + list[i];
+                handleUrlListSyncToIntroMedia(picArr, $("#id-gmIntroMedia"));
+            });
+
+            //文件地址列表和gmIntroMedia隐藏表单标签的同步方法
+            function handleUrlListSyncToIntroMedia(list, IntroMediaObj) {
+                var listStr = "";
+                if (list.length == 1) {
+                    listStr = list[0];
                 }
+                if (list.length > 1) {
+                    listStr = list[0];
+                    for (var i = 1; i < list.length; i++) {
+                        listStr = listStr + "," + list[i];
+                    }
+                }
+                $(IntroMediaObj).val(listStr);
+                console.log("当前处理过后的url字符串-已同步到input:" + $(IntroMediaObj).val());
             }
-            $(IntroMediaObj).val(listStr);
-            console.log("当前处理过后的url字符串-已同步到input:" + $(IntroMediaObj).val());
-        }
 
-        //监听form表单提交
-        $("#id-form-btn-saveOrUpdate").on("click",function () {
-            $("#id-form-saveOrUpdate").ajaxSubmit({
-                //提交前的回调函数
-                beforeSubmit: function (formData, jqForm, options) {
-                    //formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]
-                    //jqForm:   jQuery对象，封装了表单的元素
-                    //options:  options对象
-                    var queryString = $.param(formData);   //name=1&address=2
-                    var formElement = jqForm[0];              //将jqForm转换为DOM对象
-                    console.log(formElement);//输出表单对象,可以用于获取表单值
-                    console.log(queryString);//输出拼接的字符串id=&gmName=&gmVersion=&gmTypeId=-1...
+            //监听form表单提交
+            $("#id-form-btn-saveOrUpdate").on("click", function () {
+                $("#id-form-saveOrUpdate").ajaxSubmit({
+                    //提交前的回调函数
+                    beforeSubmit: function (formData, jqForm, options) {
+                        //formData: 数组对象，提交表单时，Form插件会以Ajax方式自动提交这些数据，格式如：[{name:user,value:val },{name:pwd,value:pwd}]
+                        //jqForm:   jQuery对象，封装了表单的元素
+                        //options:  options对象
+                        var queryString = $.param(formData);   //name=1&address=2
+                        var formElement = jqForm[0];              //将jqForm转换为DOM对象
+                        console.log(formElement);//输出表单对象,可以用于获取表单值
+                        console.log(queryString);//输出拼接的字符串id=&gmName=&gmVersion=&gmTypeId=-1...
 
-                    //处理所有的必填参数
-                    var gmName = formElement.gmName.value;
-                    var gmVersion = formElement.gmVersion.value;
-                    var gmType = formElement.gmTypeId.value;
-                    var gmPublisher = formElement.gmPublisherId.value;
-                    var gmPubdate = formElement.gmPubdate.value;
-                    var gmIcon = formElement.gmIcon.value;
-                    var gmIntroMedia = formElement.gmIntroMedia.value;
-                    var gmDetail = formElement.gmDetail.value;
-                    if(gmName == null || gmName == ""){
-                        showGritter("消息","游戏名不能为空!");
-                        return false;
-                    }
-                    if(gmVersion == null || gmVersion == ""){
-                        showGritter("消息","游戏版本号不能为空!");
-                        return false;
-                    }
-                    if(gmType == -1 || gmType == null){
-                        showGritter("消息","请选择游戏类型!");
-                        return false;
-                    }
-                    if(gmPublisher == -1 || gmPublisher == null){
-                        showGritter("消息","请选择游戏发布商!");
-                        return false;
-                    }
-                    if(gmPubdate == null || gmPubdate == ""){
-                        showGritter("消息","请选择发布时间!");
-                        return false;
-                    }
-                    if(gmIcon == null || gmIcon == ""){
-                        showGritter("消息","请上传游戏Icon!");
-                        return false;
-                    }
-                    if(gmIntroMedia == null || gmIntroMedia == ""){
-                        showGritter("消息","请上传游戏简介视频或图片!");
-                        return false;
-                    }
-                    if(gmDetail == null || gmDetail == ""){
-                        showGritter("消息","请完善游戏详情介绍!");
-                        return false;
-                    }
-                    //console.log(gmName,gmVersion,gmType,gmPublisher,gmPubdate,gmIcon,gmIntroMedia,gmDetail);
-                    return true;  //只要不返回false，表单都会提交,在这里可以对表单元素进行验证
-                },
-                //成功后的回调函数
-                success:function (res) {
-                    console.log("inner");
-                    console.log(res);
-                    if (res.status == 200) {
-                        showGritter("消息",res.msg);
-                        setTimeout(function(){window.location.reload();},1000);
-                    }else{
-                        showGritter("消息",res.msg);
-                    }
-                },
-                //这里要是json,要不无success回调
-                dataType: 'json',           //html(默认), xml, script, json...接受服务端返回的类型
-                //clearForm: true,          //成功提交后，清除所有表单元素的值
-                //resetForm: true,          //成功提交后，重置所有表单元素的值
-                timeout: 3000,               //限制请求的时间，当请求大于3秒后，跳出请求
-            })
+                        //处理所有的必填参数
+                        var gmName = formElement.gmName.value;
+                        var gmVersion = formElement.gmVersion.value;
+                        var gmType = formElement.gmTypeId.value;
+                        var gmPublisher = formElement.gmPublisherId.value;
+                        var gmPubdate = formElement.gmPubdate.value;
+                        var gmIcon = formElement.gmIcon.value;
+                        var gmIntroMedia = formElement.gmIntroMedia.value;
+                        var gmDetail = formElement.gmDetail.value;
+                        if (gmName == null || gmName == "") {
+                            showGritter("消息", "游戏名不能为空!");
+                            return false;
+                        }
+                        if (gmVersion == null || gmVersion == "") {
+                            showGritter("消息", "游戏版本号不能为空!");
+                            return false;
+                        }
+                        if (gmType == -1 || gmType == null) {
+                            showGritter("消息", "请选择游戏类型!");
+                            return false;
+                        }
+                        if (gmPublisher == -1 || gmPublisher == null) {
+                            showGritter("消息", "请选择游戏发布商!");
+                            return false;
+                        }
+                        if (gmPubdate == null || gmPubdate == "") {
+                            showGritter("消息", "请选择发布时间!");
+                            return false;
+                        }
+                        if (gmIcon == null || gmIcon == "") {
+                            showGritter("消息", "请上传游戏Icon!");
+                            return false;
+                        }
+                        if (gmIntroMedia == null || gmIntroMedia == "") {
+                            showGritter("消息", "请上传游戏简介视频或图片!");
+                            return false;
+                        }
+                        if (gmDetail == null || gmDetail == "") {
+                            showGritter("消息", "请完善游戏详情介绍!");
+                            return false;
+                        }
+                        //console.log(gmName,gmVersion,gmType,gmPublisher,gmPubdate,gmIcon,gmIntroMedia,gmDetail);
+                        return true;  //只要不返回false，表单都会提交,在这里可以对表单元素进行验证
+                    },
+                    //成功后的回调函数
+                    success: function (res) {
+                        console.log("inner");
+                        console.log(res);
+                        if (res.status == 200) {
+                            showGritter("消息", res.msg);
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            showGritter("消息", res.msg);
+                        }
+                    },
+                    //这里要是json,要不无success回调
+                    dataType: 'json',           //html(默认), xml, script, json...接受服务端返回的类型
+                    //clearForm: true,          //成功提交后，清除所有表单元素的值
+                    //resetForm: true,          //成功提交后，重置所有表单元素的值
+                    timeout: 3000,               //限制请求的时间，当请求大于3秒后，跳出请求
+                })
+            });
+
         });
-
-    });
-
-</script>
-
+    </script>
+</div>
 </body>
-
 </html>

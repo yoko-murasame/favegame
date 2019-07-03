@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--公共页首部分,不带style-->
+<head th:fragment="commonHeader(description,title,links)">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title th:replace="${title}">Fave Game Admin</title>
+    <meta name="description" content="后台-游戏管理" th:content="${description}">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Fave Game"/>
+    <!--公共css-->
+    <link rel="stylesheet" type="text/css" href="/js/gritter/css/jquery.gritter.css"/>
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="stylesheet" href="/assets/css/amazeui.page.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <!--当前页css-->
+    <th:block th:replace="${links}"></th:block>
+</head>
+<!--公共页首部分,带style-->
+<head th:fragment="commonHeaderWithStyle(description,title,links,style)">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title th:replace="${title}">Fave Game Admin</title>
+    <meta name="description" content="后台-游戏管理" th:content="${description}">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Fave Game"/>
+    <!--公共css-->
+    <link rel="stylesheet" type="text/css" href="/js/gritter/css/jquery.gritter.css"/>
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="stylesheet" href="/assets/css/amazeui.page.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <!--当前页css-->
+    <th:block th:replace="${links}"></th:block>
+    <!--当前页自定义style-->
+    <th:block th:replace="${style}"></th:block>
+</head>
+<body>
+<!--公共导航条-->
+<header th:fragment="commonBar" class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+        <a href="javascript:;" class="tpl-logo">
+            <img src="/assets/img/logo.png" alt="">
+        </a>
+    </div>
+    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+            class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                    <span class="am-icon-bell-o"></span> 提醒 <span
+                        class="am-badge tpl-badge-success am-round">5</span></span>
+                </a>
+                <ul class="am-dropdown-content tpl-dropdown-content">
+                    <li class="tpl-dropdown-content-external">
+                        <h3>你有 <span class="tpl-color-success">5</span> 条提醒</h3><a href="###">全部</a></li>
+                    <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span
+                            class="am-icon-btn am-icon-plus tpl-dropdown-ico-btn-size tpl-badge-success"></span>
+                        【预览模块】移动端 查看时 手机、电脑框隐藏。</a>
+                        <span class="tpl-dropdown-list-fr">3小时前</span>
+                    </li>
+                    <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span
+                            class="am-icon-btn am-icon-check tpl-dropdown-ico-btn-size tpl-badge-danger"></span>
+                        移动端，导航条下边距处理</a>
+                        <span class="tpl-dropdown-list-fr">15分钟前</span>
+                    </li>
+                    <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span
+                            class="am-icon-btn am-icon-bell-o tpl-dropdown-ico-btn-size tpl-badge-warning"></span>
+                        追加统计代码</a>
+                        <span class="tpl-dropdown-list-fr">2天前</span>
+                    </li>
+                </ul>
+            </li>
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                    <span class="am-icon-comment-o"></span> 消息 <span
+                        class="am-badge tpl-badge-danger am-round">9</span></span>
+                </a>
+                <ul class="am-dropdown-content tpl-dropdown-content">
+                    <li class="tpl-dropdown-content-external">
+                        <h3>你有 <span class="tpl-color-danger">9</span> 条新消息</h3><a href="###">全部</a></li>
+                    <li>
+                        <a href="#" class="tpl-dropdown-content-message">
+                                <span class="tpl-dropdown-content-photo">
+                      <img src="/assets/img/user02.png" alt=""> </span>
+                            <span class="tpl-dropdown-content-subject">
+                      <span class="tpl-dropdown-content-from"> yoko </span>
+                                <span class="tpl-dropdown-content-time">10分钟前 </span>
+                                </span>
+                            <span class="tpl-dropdown-content-font"> Fave Game 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Fave Game 的成长，则离不开用户的支持。 </span>
+                        </a>
+                        <a href="#" class="tpl-dropdown-content-message">
+                                <span class="tpl-dropdown-content-photo">
+                      <img src="/assets/img/user03.png" alt=""> </span>
+                            <span class="tpl-dropdown-content-subject">
+                      <span class="tpl-dropdown-content-from"> Steam </span>
+                                <span class="tpl-dropdown-content-time">18分钟前</span>
+                                </span>
+                            <span class="tpl-dropdown-content-font"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                    <span class="am-icon-calendar"></span> 进度 <span
+                        class="am-badge tpl-badge-primary am-round">4</span></span>
+                </a>
+                <ul class="am-dropdown-content tpl-dropdown-content">
+                    <li class="tpl-dropdown-content-external">
+                        <h3>你有 <span class="tpl-color-primary">4</span> 个任务进度</h3><a href="###">全部</a></li>
+                    <li>
+                        <a href="javascript:;" class="tpl-dropdown-content-progress">
+                                <span class="task">
+                        <span class="desc">Fave Game 用户中心 v1.2 </span>
+                                <span class="percent">45%</span>
+                                </span>
+                            <span class="progress">
+                        <div class="am-progress tpl-progress am-progress-striped"><div
+                                class="am-progress-bar am-progress-bar-success" style="width:45%"></div></div>
+                    </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="tpl-dropdown-content-progress">
+                                <span class="task">
+                        <span class="desc">新闻内容页 </span>
+                                <span class="percent">30%</span>
+                                </span>
+                            <span class="progress">
+                       <div class="am-progress tpl-progress am-progress-striped"><div
+                               class="am-progress-bar am-progress-bar-secondary" style="width:30%"></div></div>
+                    </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="tpl-dropdown-content-progress">
+                                <span class="task">
+                        <span class="desc">管理中心 </span>
+                                <span class="percent">60%</span>
+                                </span>
+                            <span class="progress">
+                        <div class="am-progress tpl-progress am-progress-striped"><div
+                                class="am-progress-bar am-progress-bar-warning" style="width:60%"></div></div>
+                    </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
+                    class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+
+            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                    <span class="tpl-header-list-user-nick">yoko</span><span class="tpl-header-list-user-ico"> <img
+                        src="http://img.dmdream.cn/214.jpg"></span>
+                </a>
+                <ul class="am-dropdown-content">
+                    <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
+                    <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                    <li><a href="/logout"><span class="am-icon-power-off"></span> 退出</a></li>
+                </ul>
+            </li>
+            <li><a href="/logout" class="tpl-header-list-link"><span
+                    class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
+        </ul>
+    </div>
+</header>
+<!--公共内容左侧边栏-->
+<div th:fragment="commonLeftBar" class="tpl-left-nav tpl-left-nav-hover">
+    <div class="tpl-left-nav-title">
+        Fave Game 导航
+    </div>
+    <div class="tpl-left-nav-list">
+        <ul class="tpl-left-nav-menu">
+            <li class="tpl-left-nav-item">
+                <a href="/admin" class="nav-link" id="id-index">
+                    <i class="am-icon-home"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li class="tpl-left-nav-item">
+                <!-- 打开状态 a 标签添加 active 即可   -->
+                <a href="javascript:;" id="id-manager" class="nav-link tpl-left-nav-link-list active">
+                    <i class="am-icon-table"></i>
+                    <span>管理</span>
+                    <!-- 列表打开状态的i标签添加 tpl-left-nav-more-ico-rotate 图表即90°旋转  -->
+                    <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                </a>
+                <ul class="tpl-left-nav-sub-menu" style="display:block">
+                    <li>
+                        <a href="/admin/game" id="id-manager-game">
+                            <i class="am-icon-angle-right"></i>
+                            <span>游戏管理</span>
+                            <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                        </a>
+                        <!-- 打开状态 a 标签添加 active 即可   -->
+                        <a href="/admin/userManage" id="id-manager-user">
+                            <i class="am-icon-angle-right"></i>
+                            <span>用户管理</span>
+                            <i class="tpl-left-nav-content tpl-badge-success">
+                                16
+                            </i>
+                        </a>
+                        <!-- 打开状态 a 标签添加 active 即可   -->
+                        <a href="/type/toType" id="id-manager-type">
+                            <i class="am-icon-angle-right"></i>
+                            <span>游戏类型管理</span>
+                            <i class="tpl-left-nav-content tpl-badge-success">
+                                18
+                            </i>
+                        </a>
+                        <a href="/publisher/all" id="id-manager-publisher">
+                            <i class="am-icon-angle-right"></i>
+                            <span>发布商管理</span>
+                            <i class="tpl-left-nav-content tpl-badge-primary">
+                                10
+                            </i>
+                        </a>
+                        <a href="/operator/findAll" id="id-manager-operator">
+                            <i class="am-icon-angle-right"></i>
+                            <span>运营商管理</span>
+                            <i class="tpl-left-nav-content tpl-badge-success">
+                                11
+                            </i>
+                        </a>
+                        <a href="/order/finshed" id="id-manager-order">
+                            <i class="am-icon-angle-right"></i>
+                            <span>订单管理</span>
+                            <i class="tpl-left-nav-content tpl-badge-primary">
+                                22
+                            </i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+    <!--判断active标签-->
+    <script>
+        var path = window.location.pathname;
+        //首页判断
+        var indexPage = /admin$/;
+        if (indexPage.test(path)) {
+            removeActive("id-manager");
+            addActive("id-index");
+        }
+        //游戏管理
+        var gamePage = /\/admin\/game/;
+        if (gamePage.test(path)) {
+            addActive("id-manager-game");
+            //alert(gamePage.test(path));
+        }
+        //用户管理
+        var userPage = /\/admin\/userManage/;
+        if (userPage.test(path)) {
+            addActive("id-manager-user");
+        }
+        //用户管理
+        var typePage = /\/type\/toType/;
+        if (typePage.test(path)) {
+            addActive("id-manager-type");
+        }
+        //发布商管理
+        var publisherPage = /\/publisher\/all/;
+        if (publisherPage.test(path)) {
+            addActive("id-manager-publisher");
+        }
+        //运营商管理
+        var operatorPage = /\/operator\/findAll/;
+        if (operatorPage.test(path)) {
+            addActive("id-manager-operator");
+        }
+        //订单管理
+        var orderPage = /\/order\/finshed|order\/classify/;
+        if (orderPage.test(path)) {
+            addActive("id-manager-order");
+        }
+
+        //函数-添加或删除active样式
+        function addActive(objId) {
+            var a = document.getElementById(objId);
+            a.classList.add("active");
+        }
+        function removeActive(objId) {
+            var a = document.getElementById(objId);
+            a.classList.remove("active");
+        }
+
+    </script>
+</div>
+<!--公共面包屑导航-->
+<ol th:fragment="commonMiniNavi(myLi)" class="am-breadcrumb">
+    <li>
+        <a href="/admin" class="am-icon-home">首页</a>
+    </li>
+    <li>
+        <a href="/admin">Fave Game Admin</a>
+    </li>
+    <th:block th:replace="${myLi}"></th:block>
+</ol>
+<!--抽取公共js-->
+<div th:fragment="commonJS(scripts)">
+    <!--公共js-->
+    <script src="/assets/js/jquery.min.js"></script>
+    <!--我自己引用的js插件-->
+    <script src="/js/jquery.form.min.js"></script>
+    <script src="/assets/js/amazeui.min.js"></script>
+    <script type="text/javascript" src="/assets/js/amazeui.page.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script type="text/javascript" src="/js/gritter/js/jquery.gritter.js"></script>
+    <script src="https://unpkg.com/qiniu-js@2.5.4/dist/qiniu.min.js"></script>
+    <script src="/js/common.js"></script>
+    <!--当前页面的js-->
+    <th:block th:replace="${scripts}"/>
+</div>
+
+</body>
+</html>

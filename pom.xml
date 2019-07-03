@@ -16,6 +16,7 @@
         <module>fg-dao</module>
         <module>fg-game-web</module>
         <module>fg-admin-web</module>
+        <module>fg-cas</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -26,7 +26,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<Admin> findAll() {
-        return null;
+        return adminMapper.selectList(null);
     }
 
     @Override

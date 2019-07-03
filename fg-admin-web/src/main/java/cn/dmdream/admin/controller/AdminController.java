@@ -7,6 +7,8 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("admin")
 public class AdminController {
@@ -31,6 +33,18 @@ public class AdminController {
         try {
             Admin admin = adminService.findById(id);
             jsonMsg = JsonMsg.makeSuccess("查询成功!", admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonMsg = JsonMsg.makeFail("查询失败!" + e.getMessage(), null);
+        }
+        return jsonMsg;
+    }
+
+    @GetMapping("all")
+    public JsonMsg findAll() {
+        try {
+            List<Admin> list = adminService.findAll();
+            jsonMsg = JsonMsg.makeSuccess("查询成功!", list);
         } catch (Exception e) {
             e.printStackTrace();
             jsonMsg = JsonMsg.makeFail("查询失败!" + e.getMessage(), null);

@@ -1,753 +1,508 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/common::commonHeaderWithStyle('Fave Game Admin',~{::title},~{::link},~{::style})">
+    <title>发布商管理</title>
+    <!--当前页面css-->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--自定义样式-->
+    <style>
+        .examSuccess {
+            border: 0.2px solid gray;
+            color: black;
+            background-color: white;
+            margin-top: 1px;
+            height: 28px;
+        }
 
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Fave Game Admin index Examples</title>
-		<meta name="description" content="这是一个 index 页面">
-		<meta name="keywords" content="index">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="Cache-Control" content="no-siteapp" />
-		<link rel="icon" type="image/png" href="/assets/i/favicon.png">
-		<link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
-		<meta name="apple-mobile-web-app-title" content="Fave Game" />
-		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-		<link rel="stylesheet" href="/assets/css/amazeui.min.css" />
-		<link rel="stylesheet" href="/assets/css/admin.css">
-		<link rel="stylesheet" href="/assets/css/app.css">
-		<script src="/assets/js/amazeui.page.js"></script>
-		<link rel="stylesheet" href="/assets/css/amazeui.page.css">
-		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-.examSuccess{
-	border: 0.2px solid gray;
-    color: black;
-    background-color: white;
-    margin-top: 1px;
-    height: 28px;
-}
-.examSuccess:hover{
-	color: gray;
-}
-</style>
-	</head>
+        .examSuccess:hover {
+            color: gray;
+        }
+    </style>
+</head>
+<body data-type="generalComponents">
+<!--公共导航条-->
+<div th:replace="commons/common::commonBar"></div>
+<!--页面主体-->
+<div class="tpl-page-container tpl-page-header-fixed">
+    <!--公共内容左侧边栏-->
+    <div th:replace="commons/common::commonLeftBar"></div>
+    <!--页面自定义内容-->
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            Fave Game 发布商管理
+        </div>
+        <div th:replace="commons/common::commonMiniNavi(~{::li#id-user-manager})">
+            <li class="am-active" id="id-user-manager">发布商管理</li>
+        </div>
+        <div class="tpl-portlet-components">
+            <div class="portlet-title">
+                <div class="caption font-green bold">
+                    <!-- <span class="am-icon-code"></span>-->发行商列表
+                </div>
 
-	<body data-type="generalComponents">
-
-		<header class="am-topbar am-topbar-inverse admin-header">
-			<div class="am-topbar-brand">
-				<a href="javascript:;" class="tpl-logo">
-					<img src="/assets/img/logo.png" alt="">
-				</a>
-			</div>
-			<div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
-
-			</div>
-
-			<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-            class="am-icon-bars"></span></button>
-
-			<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-					<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-						<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-							<span class="am-icon-bell-o"></span> 提醒 <span class="am-badge tpl-badge-success am-round">5</span></span>
-						</a>
-						<ul class="am-dropdown-content tpl-dropdown-content">
-							<li class="tpl-dropdown-content-external">
-								<h3>你有 <span class="tpl-color-success">5</span> 条提醒</h3>
-								<a href="###">全部</a>
-							</li>
-							<li class="tpl-dropdown-list-bdbc">
-								<a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-plus tpl-dropdown-ico-btn-size tpl-badge-success"></span> 【预览模块】移动端 查看时 手机、电脑框隐藏。</a>
-								<span class="tpl-dropdown-list-fr">3小时前</span>
-							</li>
-							<li class="tpl-dropdown-list-bdbc">
-								<a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-check tpl-dropdown-ico-btn-size tpl-badge-danger"></span> 移动端，导航条下边距处理
-								</a>
-								<span class="tpl-dropdown-list-fr">15分钟前</span>
-							</li>
-							<li class="tpl-dropdown-list-bdbc">
-								<a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-bell-o tpl-dropdown-ico-btn-size tpl-badge-warning"></span> 追加统计代码
-								</a>
-								<span class="tpl-dropdown-list-fr">2天前</span>
-							</li>
-						</ul>
-					</li>
-					<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-						<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-							<span class="am-icon-comment-o"></span> 消息 <span class="am-badge tpl-badge-danger am-round">9</span></span>
-						</a>
-						<ul class="am-dropdown-content tpl-dropdown-content">
-							<li class="tpl-dropdown-content-external">
-								<h3>你有 <span class="tpl-color-danger">9</span> 条新消息</h3>
-								<a href="###">全部</a>
-							</li>
-							<li>
-								<a href="#" class="tpl-dropdown-content-message">
-									<span class="tpl-dropdown-content-photo">
-                      <img src="/assets/img/user02.png" alt=""> </span>
-									<span class="tpl-dropdown-content-subject">
-                      <span class="tpl-dropdown-content-from"> 禁言小张 </span>
-									<span class="tpl-dropdown-content-time">10分钟前 </span>
-									</span>
-									<span class="tpl-dropdown-content-font"> Fave Game 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Fave Game 的成长，则离不开用户的支持。 </span>
-								</a>
-								<a href="#" class="tpl-dropdown-content-message">
-									<span class="tpl-dropdown-content-photo">
-                      <img src="/assets/img/user03.png" alt=""> </span>
-									<span class="tpl-dropdown-content-subject">
-                      <span class="tpl-dropdown-content-from"> Steam </span>
-									<span class="tpl-dropdown-content-time">18分钟前</span>
-									</span>
-									<span class="tpl-dropdown-content-font"> 为了能最准确的传达所描述的问题， 建议你在反馈时附上演示，方便我们理解。 </span>
-								</a>
-							</li>
-
-						</ul>
-					</li>
-					<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-						<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-							<span class="am-icon-calendar"></span> 进度 <span class="am-badge tpl-badge-primary am-round">4</span></span>
-						</a>
-						<ul class="am-dropdown-content tpl-dropdown-content">
-							<li class="tpl-dropdown-content-external">
-								<h3>你有 <span class="tpl-color-primary">4</span> 个任务进度</h3>
-								<a href="###">全部</a>
-							</li>
-							<li>
-								<a href="javascript:;" class="tpl-dropdown-content-progress">
-									<span class="task">
-                        <span class="desc">Fave Game 用户中心 v1.2 </span>
-									<span class="percent">45%</span>
-									</span>
-									<span class="progress">
-                        <div class="am-progress tpl-progress am-progress-striped"><div
-                                class="am-progress-bar am-progress-bar-success" style="width:45%"></div></div>
-                    </span>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:;" class="tpl-dropdown-content-progress">
-									<span class="task">
-                        <span class="desc">新闻内容页 </span>
-									<span class="percent">30%</span>
-									</span>
-									<span class="progress">
-                       <div class="am-progress tpl-progress am-progress-striped"><div
-                               class="am-progress-bar am-progress-bar-secondary" style="width:30%"></div></div>
-                    </span>
-								</a>
-							</li>
-							<li>
-								<a href="javascript:;" class="tpl-dropdown-content-progress">
-									<span class="task">
-                        <span class="desc">管理中心 </span>
-									<span class="percent">60%</span>
-									</span>
-									<span class="progress">
-                        <div class="am-progress tpl-progress am-progress-striped"><div
-                                class="am-progress-bar am-progress-bar-warning" style="width:60%"></div></div>
-                    </span>
-								</a>
-							</li>
-
-						</ul>
-					</li>
-					<li class="am-hide-sm-only">
-						<a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a>
-					</li>
-
-					<li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-						<a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-							<span class="tpl-header-list-user-nick">禁言小张</span><span class="tpl-header-list-user-ico"> <img
-                        src="/assets/img/user01.png"></span>
-						</a>
-						<ul class="am-dropdown-content">
-							<li>
-								<a href="#"><span class="am-icon-bell-o"></span> 资料</a>
-							</li>
-							<li>
-								<a href="#"><span class="am-icon-cog"></span> 设置</a>
-							</li>
-							<li>
-								<a href="#"><span class="am-icon-power-off"></span> 退出</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="###" class="tpl-header-list-link"><span class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a>
-					</li>
-				</ul>
-			</div>
-		</header>
-
-		<div class="tpl-page-container tpl-page-header-fixed">
-
-			<div class="tpl-left-nav tpl-left-nav-hover">
-				<div class="tpl-left-nav-title">
-					Fave Game 列表
-				</div>
-				<div class="tpl-left-nav-list">
-					<ul class="tpl-left-nav-menu">
-						<li class="tpl-left-nav-item">
-							<a href="index.html" class="nav-link active">
-								<i class="am-icon-home"></i>
-								<span>首页</span>
-							</a>
-						</li>
-						<li class="tpl-left-nav-item">
-							<a href="chart.html" class="nav-link tpl-left-nav-link-list">
-								<i class="am-icon-bar-chart"></i>
-								<span>数据表</span>
-								<i class="tpl-left-nav-content tpl-badge-danger">
-                            12
-                        </i>
-							</a>
-						</li>
-
-						<li class="tpl-left-nav-item">
-							<!-- 打开状态 a 标签添加 active 即可   -->
-							<a href="javascript:;" class="nav-link tpl-left-nav-link-list active">
-								<i class="am-icon-table"></i>
-								<span>表格</span>
-								<!-- 列表打开状态的i标签添加 tpl-left-nav-more-ico-rotate 图表即90°旋转  -->
-								<i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
-							</a>
-							<ul class="tpl-left-nav-sub-menu" style="display:block">
-								<li>
-									<!-- 打开状态 a 标签添加 active 即可   -->
-									<a href="table-font-list.html" class="active">
-										<i class="am-icon-angle-right"></i>
-										<span>文字表格</span>
-										<i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
-									</a>
-
-									<a href="table-images-list.html">
-										<i class="am-icon-angle-right"></i>
-										<span>图片表格</span>
-										<i class="tpl-left-nav-content tpl-badge-success"> 18 </i>
-
-										<a href="form-news.html">
-											<i class="am-icon-angle-right"></i>
-											<span>消息列表</span>
-											<i class="tpl-left-nav-content tpl-badge-primary">5 </i>
-											<a href="form-news-list.html">
-												<i class="am-icon-angle-right"></i>
-												<span>文字列表</span>
-
-											</a>
-										</a>
-									</a>
-
-								</li>
-							</ul>
-						</li>
-
-						<li class="tpl-left-nav-item">
-							<a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-								<i class="am-icon-wpforms"></i>
-								<span>表单</span>
-								<i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
-							</a>
-							<ul class="tpl-left-nav-sub-menu">
-								<li>
-									<a href="form-amazeui.html">
-										<i class="am-icon-angle-right"></i>
-										<span>Fave Game 表单</span>
-										<i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
-									</a>
-
-									<a href="form-line.html">
-										<i class="am-icon-angle-right"></i>
-										<span>线条表单</span>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="tpl-left-nav-item">
-							<a href="login.html" class="nav-link tpl-left-nav-link-list">
-								<i class="am-icon-key"></i>
-								<span>登录</span>
-
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="tpl-content-wrapper">
-				<div class="tpl-content-page-title">
-					Fave Game 文字列表
-				</div>
-				<ol class="am-breadcrumb">
-					<li>
-						<a href="#" class="am-icon-home">首页</a>
-					</li>
-					<li>
-						<a href="#">Fave Game CSS</a>
-					</li>
-					<li class="am-active">文字列表</li>
-				</ol>
-				<div class="tpl-portlet-components">
-					<div class="portlet-title">
-						<div class="caption font-green bold">
-							<!-- <span class="am-icon-code"></span>-->发行商列表
-						</div>
-
-					</div>
-					<div class="tpl-block">
-						<div class="am-g">
-							<div class="am-u-sm-12 am-u-md-6">
-								<div class="am-btn-toolbar">
-									<div class="am-btn-group am-btn-group-xs">
-										<button type="button" class="am-btn am-btn-default am-btn-success" data-toggle="modal" data-target="#myModal"> <span  class="am-icon-plus"></span>新增
-                               </button>
-										<button type="button" class="am-btn am-btn-default am-btn-warning"><span
-                                        class="am-icon-archive"></span> <span class="examined">已审核</span><span class="examining" hidden="hidden">待审核</span>
+            </div>
+            <div class="tpl-block">
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-6">
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button type="button" class="am-btn am-btn-default am-btn-success" data-toggle="modal"
+                                        data-target="#myModal"><span class="am-icon-plus"></span>新增
                                 </button>
-										<button type="button" class="am-btn am-btn-default am-btn-danger"><span
+                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span
+                                        class="am-icon-archive"></span> <span class="examined">已审核</span><span
+                                        class="examining" hidden="hidden">待审核</span>
+                                </button>
+                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span
                                         class="am-icon-trash-o"></span> 删除
                                 </button>
-									</div>
-								</div>
-							</div>
+                            </div>
+                        </div>
+                    </div>
 
-							<div class="am-u-sm-12 am-u-md-3">
-								<div class="am-input-group am-input-group-sm">
-									<input type="text" class="am-form-field">
-									<span class="am-input-group-btn">
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <div class="am-input-group am-input-group-sm">
+                            <input type="text" class="am-form-field">
+                            <span class="am-input-group-btn">
             <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
                     type="button"></button>
           </span>
-								</div>
-							</div>
-						</div>
-						<div class="am-g">
-							<div class="am-u-sm-12">
-								<form class="am-form">
-									<table class="am-table am-table-striped am-table-hover table-main">
-										<thead>
-											<tr>
-												<th class="table-check"></th>
-												<th class="table-id">ID</th>
-												<th class="table-title">发行时间</th>
-												<th class="table-title">发行商名称</th>
-												<th class="table-type">发行商联系人姓名</th>
-												<th class="table-author am-hide-sm-only">发行商地址</th>
-												<th class="table-date am-hide-sm-only">发行商联系人电话</th>
-												<th class="table-set">操作</th>
-											</tr>
-										</thead>
-										<tbody>
-											<div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-g">
+                    <div class="am-u-sm-12">
+                        <form class="am-form">
+                            <table class="am-table am-table-striped am-table-hover table-main">
+                                <thead>
+                                <tr>
+                                    <th class="table-check"></th>
+                                    <th class="table-id">ID</th>
+                                    <th class="table-title">发行时间</th>
+                                    <th class="table-title">发行商名称</th>
+                                    <th class="table-type">发行商联系人姓名</th>
+                                    <th class="table-author am-hide-sm-only">发行商地址</th>
+                                    <th class="table-date am-hide-sm-only">发行商联系人电话</th>
+                                    <th class="table-set">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <div>
 
-												<tr th:each="list : ${pageInfo.getRecords()}">
+                                    <tr th:each="list : ${pageInfo.getRecords()}">
 
-													<td><input type="checkbox"></td>
-													<td th:text="${list.id}"></td>
-													<td th:text="${#dates.format(list.createTime, 'yyyy-MM-dd')}"></td>
-													<td th:text="${list.gmPublisherName}"></td>
-													<td th:text="${list.gmPublisherLinkman}"></td>
-													<td  th:text="${list.gmPublisherAddress}"></td>
-													<td  th:text="${list.gmPublisherPhone}"></td>
-													<td>
-														<div class="am-btn-toolbar">
-															<div class="am-btn-group am-btn-group-xs">
-																<button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary" data-toggle="modal" data-target="#myModal1"> 编辑</button>
-																<button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" th:value="${list.id}">删除</button>
-																<button class="examSuccess" hidden="hidden"><span class="am-icon-copy" ></span> 审核通过</button>
+                                        <td><input type="checkbox"></td>
+                                        <td th:text="${list.id}"></td>
+                                        <td th:text="${#dates.format(list.createTime, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${list.gmPublisherName}"></td>
+                                        <td th:text="${list.gmPublisherLinkman}"></td>
+                                        <td th:text="${list.gmPublisherAddress}"></td>
+                                        <td th:text="${list.gmPublisherPhone}"></td>
+                                        <td>
+                                            <div class="am-btn-toolbar">
+                                                <div class="am-btn-group am-btn-group-xs">
+                                                    <button type="button"
+                                                            class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                                            data-toggle="modal" data-target="#myModal1"> 编辑
+                                                    </button>
+                                                    <button type="button"
+                                                            class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"
+                                                            th:value="${list.id}">删除
+                                                    </button>
+                                                    <button class="examSuccess" hidden="hidden"><span
+                                                            class="am-icon-copy"></span> 审核通过
+                                                    </button>
 
-															</div>
-														</div>
-													</td>
+                                                </div>
+                                            </div>
+                                        </td>
 
-												</tr>
-											</div>
+                                    </tr>
+                                </div>
 
-										</tbody>
-									</table>
-								
-									<div id="Page" style="margin:0 auto;display:table;"></div>
-									<hr>
+                                </tbody>
+                            </table>
 
-								</form>
-							</div>
+                            <div id="Page" style="margin:0 auto;display:table;"></div>
+                            <hr>
 
-						</div>
-					</div>
-					<div class="tpl-alert"></div>
-				</div>
+                        </form>
+                    </div>
 
-			</div>
+                </div>
+            </div>
+            <div class="tpl-alert"></div>
+        </div>
 
-		</div>
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <input style="width: 100%;" class="modal-body" placeholder="发行商名称" id="gmPublisherName"
+                       name="gmPublisherName"/>
+                <input style="width: 100%;" class="modal-body" placeholder="联系人姓名" id="gmPublisherLinkman"
+                       name="gmPublisherLinkman"/>
+                <input style="width: 100%;" class="modal-body" placeholder="联系号码" id="gmPublisherPhone"
+                       name="gmPublisherPhone"/>
+                <input style="width: 100%;" class="modal-body" placeholder="发行商网址" id="gmPublisherWebsite"
+                       name="gmPublisherWebsite"/>
+                <input style="width: 100%;" class="modal-body" placeholder="厂商地址" id="gmPublisherAddress"
+                       name="gmPublisherAddress"/>
+                <input style="width: 100%;" class="modal-body" placeholder="联系人微信" id="gmPublisherWechat"
+                       name="gmPublisherWechat"/>
+                <input style="width: 100%;" class="modal-body" placeholder="联系人支付宝" id="gmPublisherAlipay"
+                       name="gmPublisherAlipay"/>
+                <input style="width: 100%;" class="modal-body" placeholder="银行卡号" id="gmPublisherCredit"
+                       name="gmPublisherCredit"/>
+                <input style="width: 100%;" class="modal-body" placeholder="厂商简介" id="gmPublisherIntro"
+                       name="gmPublisherIntro"/>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">提交更改</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body" id="gmPublisherId1" name="gmPublisherName"></div>
+                <input style="width: 100%;" class="modal-body" placeholder="发行商名称" id="gmPublisherName1"
+                       name="gmPublisherName"/>
+                <input style="width: 100%;" class="modal-body" placeholder="联系人姓名" id="gmPublisherLinkman1"
+                       name="gmPublisherLinkman"/>
+                <input style="width: 100%;" class="modal-body" placeholder="联系号码" id="gmPublisherPhone1"
+                       name="gmPublisherPhone"/>
+                <input style="width: 100%;" class="modal-body" placeholder="厂商地址" id="gmPublisherAddress1"
+                       name="gmPublisherAddress"/>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary1">提交更改</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal -->
+    </div>
+</div>
+<!--js-->
+<div th:replace="commons/common::commonJS(~{::script})">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script th:inline="javascript">
+        $(".am-btn-warning").click(function () {
+            if ([[${flag}]] != true) {
+                window.location.href = "/publisher/valid";
+            }
+            else {
+                window.location.href = "/publisher/all";
+            }
+        });
 
-		<!-- 模态框（Modal） -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<input style="width: 100%;" class="modal-body" placeholder="发行商名称" id="gmPublisherName" name="gmPublisherName" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系人姓名" id="gmPublisherLinkman" name="gmPublisherLinkman" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系号码" id="gmPublisherPhone" name="gmPublisherPhone" />
-					<input style="width: 100%;" class="modal-body" placeholder="发行商网址" id="gmPublisherWebsite" name="gmPublisherWebsite" />
-					<input style="width: 100%;" class="modal-body" placeholder="厂商地址" id="gmPublisherAddress" name="gmPublisherAddress" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系人微信" id="gmPublisherWechat" name="gmPublisherWechat" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系人支付宝" id="gmPublisherAlipay" name="gmPublisherAlipay" />
-					<input style="width: 100%;" class="modal-body" placeholder="银行卡号" id="gmPublisherCredit" name="gmPublisherCredit" />
-					<input style="width: 100%;" class="modal-body" placeholder="厂商简介" id="gmPublisherIntro" name="gmPublisherIntro" />
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">提交更改</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
-		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body" id="gmPublisherId1" name="gmPublisherName"></div>
-					<input style="width: 100%;" class="modal-body" placeholder="发行商名称" id="gmPublisherName1" name="gmPublisherName" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系人姓名" id="gmPublisherLinkman1" name="gmPublisherLinkman" />
-					<input style="width: 100%;" class="modal-body" placeholder="联系号码" id="gmPublisherPhone1" name="gmPublisherPhone" />
-					<input style="width: 100%;" class="modal-body" placeholder="厂商地址" id="gmPublisherAddress1" name="gmPublisherAddress" />
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary1">提交更改</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
+        $(function () {
+            if ([[${flag}]] == true) {
+                $(".examined").hide();
+                $(".examining").show();
+                $(".examSuccess").show();
 
-		<!--<script src="/assets/js/jquery.min.js"></script>-->
-		<script src="/assets/js/amazeui.min.js"></script>
-		<script src="/assets/js/app.js"></script>
-		<script th:inline="javascript">
-			
-			$(".am-btn-warning").click(function(){
-				if([[${flag}]]!=true){
-				window.location.href="/publisher/valid";
-				}
-				else{
-					window.location.href="/publisher/all";
-				}
-		
-			});
-			
-			
-			$(function() {
-				if([[${flag}]]==true){
-					$(".examined").hide();
-					$(".examining").show();
-					$(".examSuccess").show();
-					
-				}else{
-					$(".examined").show();
-					$(".examining").hide();
-					$(".examSuccess").hide();
-				}
-				
+            } else {
+                $(".examined").show();
+                $(".examining").hide();
+                $(".examSuccess").hide();
+            }
 
-				var flag = false;
-				
-				$("#Page").page({
-					pages: [[${pageInfo.pages}]], //总页码数(后台返回字段可以给出)
-					first: "首页", //设置false则不显示，默认为false
-					last: "尾页", //设置false则不显示，默认为false
-					prev: '<', //若不显示，设置false即可，默认为上一页
-					next: '>', //若不显示，设置false即可，默认为下一页
-					groups: 4, //连续显示分页数
-					curr: [[${pageInfo.current}]], //当前页(后台返回当前页码数)
-					jump: function(context, first) {
-						if(flag) {
-							var pageNum = String(context.option.curr);
-							if([[${flag}]]==true){
-							window.location.href = "http://localhost:8080/publisher/valid/" + pageNum;
-							}else{
-								window.location.href = "http://localhost:8080/publisher/all/" + pageNum;
-							}
-						}
-						flag=true;
-					}
 
-				});
+            var flag = false;
 
-			})
-			$(".examSuccess").click(function(){
-				var url=window.location.href;
-				var e = $(this).parent();
-				var son=e.children("button");
-					var id=$(son[1]).val();
-					var paramArray=url.split("/");
-				    var length=paramArray.length;
-				    var current=paramArray[length-1];
-				    if(current.indexOf("all")!=-1||current.indexOf("valid")!=-1){
-					   current=1;
-				     }
-				    $.ajax({
-					type: "GET",
-					url: "http://localhost:8080/publisher/examine",
-					data: {
-						id: id
-					},
-					dataType: "json",
-					async: true,
-					success: function(data) {	
-						if(data.status == 200) {
-								window.location.href="http://localhost:8080/publisher/valid/"+current;
-						} else if(data.status == 400) {
-							alert("审核失敗");
-						} else {
+            $("#Page").page({
+                pages: [[${pageInfo.pages}]], //总页码数(后台返回字段可以给出)
+                first: "首页", //设置false则不显示，默认为false
+                last: "尾页", //设置false则不显示，默认为false
+                prev: '<', //若不显示，设置false即可，默认为上一页
+                next: '>', //若不显示，设置false即可，默认为下一页
+                groups: 4, //连续显示分页数
+                curr: [[${pageInfo.current}]], //当前页(后台返回当前页码数)
+                jump: function (context, first) {
+                    if (flag) {
+                        var pageNum = String(context.option.curr);
+                        if ([[${flag}]] == true) {
+                            window.location.href = "http://localhost:8080/publisher/valid/" + pageNum;
+                        } else {
+                            window.location.href = "http://localhost:8080/publisher/all/" + pageNum;
+                        }
+                    }
+                    flag = true;
+                }
 
-							alert("服务器错误");
-						}
-					}
+            });
 
-				})
-				  
-					
-					
-			})
-			$(".am-btn-danger").click(function() {
-				var id = new Array();
-				var url = window.location.href;
-				var paramArray=url.split("/");
-				var length=paramArray.length;
-				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1){
-					current=1;
-				}
-				var e = $("tbody").children("tr");
-				for(var i = 0; i <= e.length - 1; i++) {
-					if($($(e[i]).children().get(0)).children(":first").is(":checked")) {
-						id.push($($(e[i]).children().get(1)).text());
-					}
+        })
+        $(".examSuccess").click(function () {
+            var url = window.location.href;
+            var e = $(this).parent();
+            var son = e.children("button");
+            var id = $(son[1]).val();
+            var paramArray = url.split("/");
+            var length = paramArray.length;
+            var current = paramArray[length - 1];
+            if (current.indexOf("all") != -1 || current.indexOf("valid") != -1) {
+                current = 1;
+            }
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/publisher/examine",
+                data: {
+                    id: id
+                },
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    if (data.status == 200) {
+                        window.location.href = "http://localhost:8080/publisher/valid/" + current;
+                    } else if (data.status == 400) {
+                        alert("审核失敗");
+                    } else {
 
-				}
+                        alert("服务器错误");
+                    }
+                }
 
-				$.ajax({
-					type: "Post",
-					url: "http://localhost:8080/publisher/deleteBatch",
-					data: JSON.stringify(id),
-					async: true,
-					dataType: "application/json",
-					cache: false,
-					contentType: "application/json; charset=utf-8", // 不可缺
-					processData: false, // 不可缺
-					success: function(data) {
-						if(data.status == 200) {
-						   if([[${flag}]]==true){
-									window.location.href="http://localhost:8080/publisher/valid/"+current;
-									}
-								    else{
-								    	window.location.href="http://localhost:8080/publisher/all/"+current;
-								    }
-							
-						} else if(data.status == 400) {
-							alert("删除失敗");
-						} else {
-							alert("服务器错误");
-						}
+            })
 
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						console.log(XMLHttpRequest, textStatus, errorThrown);
-						location.reload();
-					}
-				});
 
-			})
-			$(".am-text-secondary").click(function() {
-				var url = window.location.href;
-				var paramArray=url.split("/");
-				var length=paramArray.length;
-				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1||current.indexOf("valid")!=-1){
-					current=1;
-				}
-				var e = $(this).parent().parent().parent().parent();
-				var son = e.children("td");
-				$("#gmPublisherName1").val($(son[3]).text());
-				$("#gmPublisherLinkman1").val($(son[4]).text());
-				$("#gmPublisherAddress1").val($(son[5]).text());
-				$("#gmPublisherPhone1").val($(son[6]).text());
-				$("#gmPublisherId1").html("ID:<span class='GetId'>" + $(son[1]).text() + "</span>");
+        })
+        $(".am-btn-danger").click(function () {
+            var id = new Array();
+            var url = window.location.href;
+            var paramArray = url.split("/");
+            var length = paramArray.length;
+            var current = paramArray[length - 1];
+            if (current.indexOf("all") != -1) {
+                current = 1;
+            }
+            var e = $("tbody").children("tr");
+            for (var i = 0; i <= e.length - 1; i++) {
+                if ($($(e[i]).children().get(0)).children(":first").is(":checked")) {
+                    id.push($($(e[i]).children().get(1)).text());
+                }
 
-			});
-			$(".btn-primary1").click(function() {
-				var url = window.location.href;
-				var paramArray=url.split("/");
-				var length=paramArray.length;
-				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1||current.indexOf("valid")!=-1){
-					current=1;
-				}
-				var publisher = {};
-				publisher.gmPublisherName = $("#gmPublisherName1").val();
-				publisher.gmPublisherLinkman = $("#gmPublisherLinkman1").val();
-				publisher.gmPublisherPhone = $("#gmPublisherPhone1").val();
-				publisher.gmPublisherAddress = $("#gmPublisherAddress1").val();
-				publisher.id = $(".GetId").text();
-				if([[${flag}]]){
-					publisher.isValid=0;
-				}else{
-					publisher.isValid=1;
-				}
-				alert([[${flag}]]);
-				alert(publisher.isValid);
-				console.log(publisher);
-				$.ajax({
-					type: "GET",
-					url: "http://localhost:8080/publisher/update",
-					data: publisher,
-					async: true,
-					dataType: "json",
-					success: function(data) {
-						if(data.status == 200) {
-							if([[${flag}]]==true){
-							window.location.href="http://localhost:8080/publisher/valid/"+current;
-							}else{
-							window.location.href="http://localhost:8080/publisher/all/"+current;
+            }
 
-							}
-					
-						} else if(data.status == 400) {
-							alert("更新失敗");
-						} else {
-							alert("服务器错误");
-						}
+            $.ajax({
+                type: "Post",
+                url: "http://localhost:8080/publisher/deleteBatch",
+                data: JSON.stringify(id),
+                async: true,
+                dataType: "application/json",
+                cache: false,
+                contentType: "application/json; charset=utf-8", // 不可缺
+                processData: false, // 不可缺
+                success: function (data) {
+                    if (data.status == 200) {
+                        if ([[${flag}]] == true) {
+                            window.location.href = "http://localhost:8080/publisher/valid/" + current;
+                        }
+                        else {
+                            window.location.href = "http://localhost:8080/publisher/all/" + current;
+                        }
 
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						console.log(XMLHttpRequest, textStatus, errorThrown);
-						location.reload();
-					}
-				});
-			})
-			
-			$(".am-hide-sm-only").click(function() {
-				var id = $(this).val();
-				var url = window.location.href;
-				var paramArray=url.split("/");
-				var length=paramArray.length;
-				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1){
-					current=1;
-				}
-				$.ajax({
-					type: "GET",
-					url: "http://localhost:8080/publisher/delete",
-					data: {
-						id: id,
-						current:current
-					},
-					dataType: "json",
-					async: true,
-					success: function(data) {					
-						if(data.status == 200) {
-							if([[${flag}]]==true){
-								window.location.href="http://localhost:8080/publisher/valid/"+current;
-							}else{
-								window.location.href="http://localhost:8080/publisher/all/"+current;
-							}
-							
-							
-						} else if(data.status == 400) {
+                    } else if (data.status == 400) {
+                        alert("删除失敗");
+                    } else {
+                        alert("服务器错误");
+                    }
 
-							alert("刪除失敗");
-						} else {
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest, textStatus, errorThrown);
+                    location.reload();
+                }
+            });
 
-							alert("服务器错误");
-						}
+        })
+        $(".am-text-secondary").click(function () {
+            var url = window.location.href;
+            var paramArray = url.split("/");
+            var length = paramArray.length;
+            var current = paramArray[length - 1];
+            if (current.indexOf("all") != -1 || current.indexOf("valid") != -1) {
+                current = 1;
+            }
+            var e = $(this).parent().parent().parent().parent();
+            var son = e.children("td");
+            $("#gmPublisherName1").val($(son[3]).text());
+            $("#gmPublisherLinkman1").val($(son[4]).text());
+            $("#gmPublisherAddress1").val($(son[5]).text());
+            $("#gmPublisherPhone1").val($(son[6]).text());
+            $("#gmPublisherId1").html("ID:<span class='GetId'>" + $(son[1]).text() + "</span>");
 
-					}
+        });
+        $(".btn-primary1").click(function () {
+            var url = window.location.href;
+            var paramArray = url.split("/");
+            var length = paramArray.length;
+            var current = paramArray[length - 1];
+            if (current.indexOf("all") != -1 || current.indexOf("valid") != -1) {
+                current = 1;
+            }
+            var publisher = {};
+            publisher.gmPublisherName = $("#gmPublisherName1").val();
+            publisher.gmPublisherLinkman = $("#gmPublisherLinkman1").val();
+            publisher.gmPublisherPhone = $("#gmPublisherPhone1").val();
+            publisher.gmPublisherAddress = $("#gmPublisherAddress1").val();
+            publisher.id = $(".GetId").text();
+            if ([[${flag}]]) {
+                publisher.isValid = 0;
+            } else {
+                publisher.isValid = 1;
+            }
+            alert([[${flag}]]);
+            alert(publisher.isValid);
+            console.log(publisher);
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/publisher/update",
+                data: publisher,
+                async: true,
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 200) {
+                        if ([[${flag}]] == true) {
+                            window.location.href = "http://localhost:8080/publisher/valid/" + current;
+                        } else {
+                            window.location.href = "http://localhost:8080/publisher/all/" + current;
 
-				})
+                        }
 
-			})
+                    } else if (data.status == 400) {
+                        alert("更新失敗");
+                    } else {
+                        alert("服务器错误");
+                    }
 
-			$(".btn-primary").click(function() {
-				
-				var url = window.location.href;
-				var paramArray=url.split("/");
-				var length=paramArray.length;
-				var current=paramArray[length-1];
-				if(current.indexOf("all")!=-1||current.indexOf("valid")!=-1){
-					current=1;
-				}
-				var publisher = {};
-				publisher.gmPublisherName = $("#gmPublisherName").val();
-				publisher.gmPublisherLinkman = $("#gmPublisherLinkman").val();
-				publisher.gmPublisherPhone = $("#gmPublisherPhone").val();
-				publisher.gmPublisherAddress = $("#gmPublisherAddress").val();
-				publisher.gmPublisherWebsite = $("#gmPublisherWebsite").val();
-				publisher.gmPublisherWechat = $("#gmPublisherWechat").val();
-				publisher.gmPublisherAlipay = $("#gmPublisherAlipay").val();
-				publisher.gmPublisherCredit = $("#gmPublisherCredit").val();
-				publisher.gmPublisherIntro = $("#gmPublisherIntro").val();
-				console.log(publisher);
-				if(publisher.gmPublisherName == "") {
-					alert("厂商名称不能为空");
-				} else if(publisher.gmPublisherLinkman == "") {
-					alert("联系人姓名不能为空");
-				} else if(!(/^1[34578]\d{9}$/.test(publisher.gmPublisherPhone))) {
-					alert("手机号格式不正确");
-				} else if(publisher.gmPublisherAddress == "") {
-					alert("发行商地址不能为空");
-				} else if(publisher.gmPublisherWechat == "") {
-					alert("联系人微信不能为空");
-				} else if(publisher.gmPublisherCredit == "") {
-					alert("银行卡号不能为空");
-				} else {
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest, textStatus, errorThrown);
+                    location.reload();
+                }
+            });
+        })
 
-					$.ajax({
-						type: "GET",
-						url: "http://localhost:8080/publisher/add",
-						data: publisher,
-						async: true,
-						dataType: "json",
-						success: function(data) {
-							if(data.status == 200) {
-								    if([[${flag}]]==true){
-									window.location.href="http://localhost:8080/publisher/valid/"+current;
-									}
-								    else{
-								    	window.location.href="http://localhost:8080/publisher/all/"+current;
-								    }
-								
-							} else if(data.status == 400) {
-								alert("添加失敗");
-							} else {
-								alert("服务器错误");
-							}
+        $(".am-hide-sm-only").click(function () {
+            var id = $(this).val();
+            var url = window.location.href;
+            var paramArray = url.split("/");
+            var length = paramArray.length;
+            var current = paramArray[length - 1];
+            if (current.indexOf("all") != -1) {
+                current = 1;
+            }
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/publisher/delete",
+                data: {
+                    id: id,
+                    current: current
+                },
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    if (data.status == 200) {
+                        if ([[${flag}]] == true) {
+                            window.location.href = "http://localhost:8080/publisher/valid/" + current;
+                        } else {
+                            window.location.href = "http://localhost:8080/publisher/all/" + current;
+                        }
 
-						},
-						error: function(XMLHttpRequest, textStatus, errorThrown) {
-							console.log(XMLHttpRequest, textStatus, errorThrown);
-							location.reload();
-						}
-					});
-				}
-			});
-			
-		
-		</script>
-	</body>
 
-	</html>
+                    } else if (data.status == 400) {
+
+                        alert("刪除失敗");
+                    } else {
+
+                        alert("服务器错误");
+                    }
+
+                }
+
+            })
+
+        })
+
+        $(".btn-primary").click(function () {
+
+            var url = window.location.href;
+            var paramArray = url.split("/");
+            var length = paramArray.length;
+            var current = paramArray[length - 1];
+            if (current.indexOf("all") != -1 || current.indexOf("valid") != -1) {
+                current = 1;
+            }
+            var publisher = {};
+            publisher.gmPublisherName = $("#gmPublisherName").val();
+            publisher.gmPublisherLinkman = $("#gmPublisherLinkman").val();
+            publisher.gmPublisherPhone = $("#gmPublisherPhone").val();
+            publisher.gmPublisherAddress = $("#gmPublisherAddress").val();
+            publisher.gmPublisherWebsite = $("#gmPublisherWebsite").val();
+            publisher.gmPublisherWechat = $("#gmPublisherWechat").val();
+            publisher.gmPublisherAlipay = $("#gmPublisherAlipay").val();
+            publisher.gmPublisherCredit = $("#gmPublisherCredit").val();
+            publisher.gmPublisherIntro = $("#gmPublisherIntro").val();
+            console.log(publisher);
+            if (publisher.gmPublisherName == "") {
+                alert("厂商名称不能为空");
+            } else if (publisher.gmPublisherLinkman == "") {
+                alert("联系人姓名不能为空");
+            } else if (!(/^1[34578]\d{9}$/.test(publisher.gmPublisherPhone))) {
+                alert("手机号格式不正确");
+            } else if (publisher.gmPublisherAddress == "") {
+                alert("发行商地址不能为空");
+            } else if (publisher.gmPublisherWechat == "") {
+                alert("联系人微信不能为空");
+            } else if (publisher.gmPublisherCredit == "") {
+                alert("银行卡号不能为空");
+            } else {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8080/publisher/add",
+                    data: publisher,
+                    async: true,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 200) {
+                            if ([[${flag}]] == true) {
+                                window.location.href = "http://localhost:8080/publisher/valid/" + current;
+                            }
+                            else {
+                                window.location.href = "http://localhost:8080/publisher/all/" + current;
+                            }
+
+                        } else if (data.status == 400) {
+                            alert("添加失敗");
+                        } else {
+                            alert("服务器错误");
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest, textStatus, errorThrown);
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+
+    </script>
+</div>
+</body>
+</html>
