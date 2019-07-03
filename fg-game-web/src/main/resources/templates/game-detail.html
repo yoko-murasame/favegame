@@ -398,9 +398,21 @@
                     <div class="text-download-text">
                         <div class="app-data-wrap">
                             <button class=" taptap-button-friendship-simple js-taptap-button-friendship"
-                                    data-taptap-ajax="follow" type="button">
-                                <i class="app"><img src="/images/iconfont/notice.png"/></i>
-                                <span class="follow">关注</span></button>
+                                    data-taptap-ajax="follow" type="button" id="btn-cancle-collection"
+                                    th:if="${!isCollect.data}"/>
+                            <i class="app" th:if="${!isCollect.data}">
+                                <img src="/images/iconfont/notice-blue.png">
+                            </i>
+                            <span class="follow" th:if="${!isCollect.data}">已关注</span>
+                            </button>
+                            <button class=" taptap-button-friendship-simple js-taptap-button-friendship"
+                                    data-taptap-ajax="follow" type="button" id="btn-collection"
+                                    th:if="${isCollect.data}"/>
+                            <i class="app" th:if="${isCollect.data}">
+                                <img src="/images/iconfont/notice.png"/>
+                            </i>
+                            <span class="follow" th:if="${isCollect.data}">关注</span>
+                            </button>
                             <p class="description">
                                 <span class="count-stats" th:text="${game.data.countCollector}"></span> 0人关注
                             </p>
@@ -1013,6 +1025,7 @@
         </div>
         <div style="display: none" th:text="${user.data.id}" id="user-id"></div>
         <div style="display: none" th:text="${game.data.id}" id="game-id"></div>
+        <div style="display: none" th:text="${game.data.gmName}" id="game-name"></div>
     </div>
 
     <!--添加回复模态框-->
@@ -1057,6 +1070,48 @@
 <script src="/js/bootstrap.js "></script>
 <script src="/js/dropdown-menu.js"></script>
 <script src="/js/game-detail.js"></script>
+<script>
+    $(function () {
+        $("#btn-collection").click(function () {
+            var path = window.location.pathname;
+            var collection = {};
+            collection.gmCollectorId = $("#user-id").html();
+            collection.gmGameId = $("#game-id").html();
+            collection.gmGameName = $("#game-name").html();
+            $.ajax({
+                type: "post",
+                url: "addCollection",
+                data: collection,
+                success: function (back) {
+                    location.reload();
+//                    console.log(back);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("error");
+
+                }
+            });
+        });
+        $("#btn-cancle-collection").click(function () {
+            var collection = {};
+            collection.gmCollectorId = $("#user-id").html();
+            collection.gmGameId = $("#game-id").html();
+            $.ajax({
+                type: "post",
+                url: "cancleCollect",
+                data: collection,
+                success: function (back) {
+                    location.reload();
+//                    console.log(back);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("error");
+
+                }
+            });
+        });
+    })
+</script>
 </body>
 
 </html>

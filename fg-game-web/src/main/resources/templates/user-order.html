@@ -401,29 +401,32 @@
                             <h3 class="h3_style">我的订单</h3>
                         </div>
                         <ul class="list-unstyled payment-orders-list">
-                            <li th:each="order : ${orders.data.records}">
+                            <li th:each="order : ${orders.data}">
                                 <div class="order-item-header">
                                     <span th:text="${#dates.format(order.createTime,'yyyy-MM-dd')}">2019-06-20</span>
-                                    <span>订单编号: 5d0b3e4eaa4ab</span>
+                                    <span th:text="${'订单编号:'+order.gmOrderId}">订单编号: 5d0b3e4eaa4ab</span>
                                 </div>
                                 <div class="order-item-body">
                                     <a href="https://www.taptap.com/app/39836" class="item-body-icon">
-                                        <img src="https://img.tapimg.com/market/lcs/df7e134447d20dcbeeae1c7c9f54447b_360.png?imageView2/1/w/100/q/40/interlace/1/ignore-error/1"
-                                             alt="南瓜先生大冒险（付费版）">
+                                        <img th:src="${order.gmIcon}">
                                     </a>
                                     <div class="item-body-text">
                                         <a href="https://www.taptap.com/app/39836">
-                                            <span class="game-name">南瓜先生大冒险（付费版） </span>
+                                            <span class="game-name" th:text="${order.gmName}">南瓜先生大冒险（付费版） </span>
                                             <span class="mobile-class">(Android版)</span>
                                         </a>
-                                        <p class="p_style">
+                                        <p class="p_style" style="display: inline;cursor: pointer;position: relative;top: 5px;">
                                             <i class="type-2"></i>
                                             <span>微信支付</span>
                                         </p>
                                     </div>
                                     <div class="item-body-status">
-                                        <span style="font-weight: 800; font-size: large;">￥3</span>
-                                        <p style="color: gray;">完成支付</p>
+                                        <span style="font-weight: 800; font-size: large;"
+                                              th:text="${'￥'+order.gmOrderPrice}">￥3</span>
+                                        <p style="color: gray;text-align: right"
+                                           th:text="${'已完成'}" th:if="${order.gmOrderPerformance==1}">完成支付</p>
+                                        <p style="color: gray;text-align: right"
+                                           th:text="${'已超时'}" th:if="${order.gmOrderPerformance==2}">完成支付</p>
                                     </div>
                                 </div>
                             </li>

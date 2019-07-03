@@ -1,9 +1,6 @@
 package cn.dmdream.game.controller;
 
-import cn.dmdream.entity.Comment;
-import cn.dmdream.entity.Game;
-import cn.dmdream.entity.Reply;
-import cn.dmdream.entity.User;
+import cn.dmdream.entity.*;
 import cn.dmdream.entity.vo.GameVo;
 import cn.dmdream.game.service.*;
 import cn.dmdream.search.service.GameSearchService;
@@ -40,6 +37,9 @@ public class GameShowController {
     @Reference
     private OrderService orderService;
 
+    @Reference
+    private CollectionService collectionService;
+
     @GetMapping("recommend/{keyword}/{page}/{pageSize}")
     public ModelAndView showGame(@PathVariable("keyword") String keyword, @PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
         ModelAndView modelAndView = new ModelAndView();
@@ -55,97 +55,11 @@ public class GameShowController {
         return modelAndView;
     }
 
-    @GetMapping("game")
-    public ModelAndView showGameDetail() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("game-detail");
-        return modelAndView;
-    }
-
-    @GetMapping("game/order/{id}")
-    public ModelAndView showOrder(@PathVariable("id")Integer id) {
-        ModelAndView modelAndView = new ModelAndView();
-        JsonMsg user = userService.findUserVoById(20);
-        JsonMsg orders = orderService.findUserAllOrders(1, 100, id);
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("orders", orders);
-        modelAndView.setViewName("user-order");
-        return modelAndView;
-    }
-
     @GetMapping("game/login")
     public ModelAndView showGameDetailLogin() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         return modelAndView;
-    }
-
-    @GetMapping("game/detail")
-    public ModelAndView showGameDet() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("detailspage");
-        return modelAndView;
-    }
-
-    @GetMapping("game/userMain")
-    public ModelAndView showUserMain() {
-        ModelAndView modelAndView = new ModelAndView();
-        JsonMsg user = userService.findUserVoById(20);
-        modelAndView.addObject("user", user);
-        modelAndView.setViewName("user-center");
-        return modelAndView;
-    }
-
-    @GetMapping("gameVo/{id}")
-    public ModelAndView showGameDetailInfo(@PathVariable("id") Integer id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("game-detail");
-        JsonMsg game = gameService.findGameVoById(id);
-        JsonMsg user = userService.findUserVoById(20);
-        JsonMsg comments = commentService.findAllByPage(id, 1, 100);
-        GameVo gameVo = (GameVo) game.getData();
-        List<Game> pubAllGames = (List<Game>) gameService.findAll().getData();
-        pubAllGames = pubAllGames.stream().filter((temp) -> temp.getGmPublisherId() == gameVo.getGmPublisherId()).collect(Collectors.toList());
-        JsonMsg pubGames = new JsonMsg();
-        pubGames.setData(pubAllGames);
-//        pubAllGames.forEach(System.out::println);
-        modelAndView.addObject("game", game);
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("comments", comments);
-        modelAndView.addObject("pubGames", pubGames);
-//        System.out.println(game.getData());
-//        System.out.println(user.getData());
-//        System.out.println(games.getData());
-        return modelAndView;
-    }
-
-    @PostMapping("gameVo/{id}/addComment")
-    public JsonMsg showGameDetailAddComment(Comment comment) {
-        System.out.println(comment);
-        JsonMsg back = null;
-//        commentService.
-        try {
-            back = commentService.save(comment);
-            JsonMsg.makeSuccess("成功", back);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonMsg.makeFail("失败", e);
-        }
-        return back;
-    }
-
-    @PostMapping("gameVo/{id}/addReply")
-    public JsonMsg showGameDetailAddComment(Reply reply) {
-        System.out.println(reply);
-        JsonMsg back = null;
-        try {
-            back = replyService.save(reply);
-            JsonMsg.makeSuccess("成功", back);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return JsonMsg.makeFail("失败", e);
-        }
-        return back;
     }
 
     @GetMapping("gameVo/test")
@@ -156,7 +70,19 @@ public class GameShowController {
 
     @GetMapping("gameVo/test1")
     public JsonMsg getTest1() {
-        JsonMsg user = orderService.findUserAllOrders(1,100,1);
-        return user;
+        JsonMsg isCollect = JsonMsg.makeSuccess("成功", collectionService.isCollect(20, 47));
+        return isCollect;
+    }
+
+    @GetMapping("gameVo/test2")
+    public JsonMsg getTest2() {
+        JsonMsg collections = collectionService.findAllByPage(20, 1, 100);
+        return collections;
+    }
+
+    @GetMapping("gameVo/test3")
+    public JsonMsg getTest3() {
+        JsonMsg collections = collectionService.cancleCollect(20, 47);
+        return collections;
     }
 }
