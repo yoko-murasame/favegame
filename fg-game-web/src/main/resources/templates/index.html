@@ -1,10 +1,350 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-	</head>
-	<body>
-		
-	</body>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- css -->
+    <link href="/css/index.css" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" property=""/>
+    <link href="/css/index-style.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--// css -->
+    <!-- font -->
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,100,100italic,300,300italic,400italic,600,600italic,700,700italic'
+          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
+          rel='stylesheet' type='text/css'>
+    <!-- //font -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+
+</head>
+<style type="text/css">
+    .img-circle {
+        width: 128px;
+        height: 128px;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .1);
+        border-radius: 50%;
+        vertical-align: middle;
+    }
+
+    .img-circle-top {
+        padding: 0;
+        width: 46px;
+        height: 46px;
+        text-align: center;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+</style>
+<body>
+<!-- Header -->
+<div class="header">
+    <!-- Navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container">
+
+            <div class="navbar-header">
+                <a href="index.html">
+                    <h1>Fave&nbsp; <img src="/images/c1.png" alt=" "/> Game</h1></a>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hover-effect" style="margin-top: 12px;">
+                        <a href="">主页</a>
+                    </li>
+                    <li class="hover-effect" style="margin-top: 12px;">
+                        <a href="">游戏列表</a>
+                    </li>
+                    <li class="hover-effect" style="margin-top: 12px;">
+                        <a href="">有关我们</a>
+                    </li>
+                    <li class="hover-effect">
+                        <a th:href="'../userCenter/'+${user.data.id}">个人中心<img th:src="${user.data.userPic}" alt=""
+                                                                               class="img-circle-top"/></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <!-- //Navbar -->
+
+    <!-- Slider -->
+    <div class="slider">
+        <ul class="rslides" id="slider">
+            <li>
+                <a href=""><img src="/images/banner3.jpg" alt=""/></a>
+            </li>
+            <li>
+                <a href=""><img src="/images/banner2.jpg" alt=""/></a>
+            </li>
+            <li>
+                <a href=""><img src="/images/banner1.jpg" alt=""/></a>
+            </li>
+        </ul>
+    </div>
+    <!-- //Slider -->
+
+</div>
+<!-- Banner-Slider-JavaScript -->
+<script src="/js/responsiveslides.min.js"></script>
+<script>
+    $(function () {
+        $("#slider").responsiveSlides({
+            auto: true,
+            nav: true,
+            speed: 800,
+            namespace: "callbacks",
+            pager: true,
+        });
+    });
+</script>
+<!-- //Banner-Slider-JavaScript -->
+<!-- //Header -->
+
+<!-- trend -->
+<div class="trend-w3layouts">
+    <div class="container">
+        <h2>游戏分类推荐</h2>
+        <ul id="flexiselDemo1">
+            <li th:each="type:${types.data}">
+                <div class="trend-grid">
+                    <a href="">
+                        <h4 th:text="${type.gmTypeChName}">策略游戏</h4>
+                        <img th:src="${type.gmImgDemo}" alt=" " class="img-responsive"/>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $("#flexiselDemo1").flexisel({
+                    visibleItems: 4,
+                    animationSpeed: 1000,
+                    autoPlay: true,
+                    autoPlaySpeed: 3000,
+                    pauseOnHover: true,
+                    enableResponsiveBreakpoints: true,
+                    responsiveBreakpoints: {
+                        portrait: {
+                            changePoint: 480,
+                            visibleItems: 2
+                        },
+                        landscape: {
+                            changePoint: 640,
+                            visibleItems: 3
+                        },
+                        tablet: {
+                            changePoint: 768,
+                            visibleItems: 4
+                        }
+                    }
+                });
+
+            });
+        </script>
+        <script type="text/javascript" src="/js/jquery.flexisel.js"></script>
+    </div>
+</div>
+<!-- //trend -->
+
+<!-- services-->
+<div class="services-agileits-w3layouts">
+    <div class="container">
+        <h3>推荐玩家</h3>
+        <div class="col-md-3 service-grid-agileits service-grid-agileits-top">
+            <img src="/images/yuanfang.png" class="img-circle">
+            <h4>元芳不看了</h4>
+            <p>很厉害很厉害的用户，毒蛇用户</p>
+            <a href="">了解玩家</a>
+        </div>
+        <div class="col-md-3 service-grid-agileits">
+            <img src="/images/taptap.png" class="img-circle">
+            <h4>taptap编辑</h4>
+            <p>资深游戏用户，游戏网站编辑。</p>
+            <a href="">了解玩家</a>
+        </div>
+        <div class="col-md-3 service-grid-agileits service-grid-agileits-bottom">
+            <img src="/images/star.jpg" class="img-circle">
+            <h4>千寻</h4>
+            <p>可爱就完事了。管他厉不厉害。</p>
+            <a href="">了解玩家</a>
+        </div>
+        <div class="col-md-3 service-grid-agileits service-grid-agileits-bottom">
+            <img src="/images/ng1.jpg" class="img-circle">
+            <h4>小丑先生</h4>
+            <p>一位神秘的玩家</p>
+            <a href="">了解玩家</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- //services-->
+
+<!-- new games -->
+<div class="new-w3-agile">
+    <div class="container">
+        <h3>最新上线游戏推荐</h3>
+        <div class="col-md-3 new-grid-w3l view view-eighth">
+            <img src="/images/ng1.jpg" alt=" "/>
+            <div class="mask">
+                <a href="">
+                    <h4></h4></a>
+                <p>To learn more about this</p>
+            </div>
+        </div>
+        <div class="col-md-3 new-grid-w3l view view-eighth">
+            <img src="/images/ng2.jpg" alt=" "/>
+            <div class="mask">
+                <a href="">
+                    <h4>Click here</h4></a>
+                <p>To learn more about this</p>
+            </div>
+        </div>
+        <div class="col-md-3 new-grid-w3l view view-eighth">
+            <img src="/images/ng3.jpg" alt=" "/>
+            <div class="mask">
+                <a href="">
+                    <h4>Click here</h4></a>
+                <p>To learn more about this</p>
+            </div>
+        </div>
+        <div class="col-md-3 new-grid-w3l view view-eighth">
+            <img src="/images/ng4.jpg" alt=" "/>
+            <div class="mask">
+                <a href="">
+                    <h4>Click here</h4></a>
+                <p>To learn more about this</p>
+            </div>
+        </div>
+        <div class="col-md-3 new-grid-agile view view-eighth">
+            <img src="/images/ng5.jpg" alt=" "/>
+            <div class="mask">
+                <a href="">
+                    <h4>Click here</h4></a>
+                <p>To learn more about this</p>
+            </div>
+        </div>
+        <div class="col-md-3 new-grid-agile view view-eighth">
+            <img src="/images/ng6.jpg" alt=" "/>
+            <div class="mask">
+                <a href="">
+                    <h4>Click here</h4></a>
+                <p>To learn more about this</p>
+            </div>
+        </div>
+        <div class="col-md-3 new-grid-agile view view-eighth">
+            <img src="/images/ng7.jpg" alt=" "/>
+            <div class="mask">
+                <a href="">
+                    <h4>Click here</h4></a>
+                <p>To learn more about this</p>
+            </div>
+        </div>
+        <div class="col-md-3 new-grid-agile view view-eighth">
+            <img src="/images/ng8.jpg" alt=" "/>
+            <div class="mask">
+                <a href="">
+                    <h4>Click here</h4></a>
+                <p>To learn more about this</p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- //new games-->
+
+
+<!-- footer -->
+<div class="footer">
+    <div class="container">
+        <div class="col-md-3 footer-left-w3">
+            <h4>加入我们</h4>
+            <ul>
+                <li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></li>
+                <li>
+                    <a href="">
+                        <h6>ex@mail.com</h6></a>
+                </li>
+            </ul>
+            <ul>
+                <li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></li>
+                <li>
+                    <h6>18045678834</h6></li>
+            </ul>
+            <ul>
+                <li><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></li>
+                <li>
+                    <h6>浙江水利水电学院</h6></li>
+            </ul>
+            <ul>
+                <li><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span></li>
+                <li>
+                    <h6>05718852110</h6></li>
+            </ul>
+        </div>
+        <div class="col-md-5 footer-middle-w3">
+            <h4>广告位游戏</h4>
+            <div class="col-md-3 img-w3-agile">
+                <a href=""><img src="/images/ng1.jpg" alt=" "/></a>
+            </div>
+            <div class="col-md-3 img-w3-agile">
+                <a href=""><img src="/images/ng2.jpg" alt=" "/></a>
+            </div>
+            <div class="col-md-3 img-w3-agile">
+                <a href=""><img src="/images/ng3.jpg" alt=" "/></a>
+            </div>
+            <div class="col-md-3 img-w3-agile">
+                <a href=""><img src="/images/ng4.jpg" alt=" "/></a>
+            </div>
+            <div class="col-md-3 img-w3-agile footer-middle-wthree">
+                <a href=""><img src="/images/ng5.jpg" alt=" "/></a>
+            </div>
+            <div class="col-md-3 img-w3-agile footer-middle-wthree">
+                <a href=""><img src="/images/ng6.jpg" alt=" "/></a>
+            </div>
+            <div class="col-md-3 img-w3-agile footer-middle-wthree">
+                <a href=""><img src="/images/ng7.jpg" alt=" "/></a>
+            </div>
+            <div class="col-md-3 img-w3-agile footer-middle-wthree">
+                <a href=""><img src="/images/ng8.jpg" alt=" "/></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-4 footer-right-w3">
+            <a href="index.html">
+                <h4>Fave&nbsp;<img src="/images/f1.png" alt=" "/>&nbsp;Game</h4></a>
+            <p>我们致力于，发现有趣有灵魂的游戏，我们偏爱那些会窃取我们灵魂的游戏，我们想让游戏使你变成Fave</p>
+            <p class="agileinfo">如果你没有坠入这些游戏，那就是我们的过失。</p>
+        </div>
+        <div class="clearfix"></div>
+        <div class="copyright">
+            <p>FaveGam &copy; 2019.FaveGame Creation Success
+                <a target="_blank" href="http://guantaow.taobao.com/">吴彦组小组</a>
+                <a target="_blank" href="http://www.moobnn.com">客官进来坐</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- //footer -->
+</body>
+
 </html>

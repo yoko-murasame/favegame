@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<style type="text/css">
+		.body {
+			line-height: 20px;
+			background-color: #f2f2f2;
+			transition: all .3s ease-in-out 0s;
+			position: relative;
+		}
+		
+		.container {
+			width: 1070px;
+			padding-left: 15px;
+			padding-right: 15px;
+			margin-right: auto;
+			margin-left: auto;
+			box-sizing: border-box;
+			display: block;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.row {
+			margin-right: -15px;
+			margin-left: -15px;
+			box-sizing: border-box;
+			display: block;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.col-sm-12 {
+			position: static;
+			width: 100%;
+			float: left;
+			min-height: 1px;
+			padding-right: 15px;
+			padding-left: 15px;
+			box-sizing: border-box;
+			display: block;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		section.user-page-header {
+			padding: 15px 20px;
+			position: relative;
+			display: block;
+		}
+		
+		.common-card {
+			height: 176px;
+			margin-bottom: 15px;
+			background: #fff;
+			border-radius: 3px;
+			box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.page-header-left {
+			float: left;
+			box-sizing: border-box;
+			display: block;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color:
+		}
+		
+		.header-left-avatar {
+			float: left;
+			width: 146px;
+			height: 146px;
+			border: 3px solid #fff;
+			overflow: hidden;
+			border-radius: 50%;
+			color: #333;
+			text-decoration: none;
+			background-color: transparent;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.header-left-avatar>img {
+			width: 100%;
+			vertical-align: middle;
+			border: 0;
+			box-sizing: border-box;
+			color: #333;
+			cursor: pointer;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.header-left-text {
+			margin: 0 0 0 166px;
+			padding: 25px 0 0;
+			width: 425px;
+			box-sizing: border-box;
+			display: block;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.user-all-info {
+			display: flex;
+			-webkit-box-align: center;
+			align-items: center;
+			flex-wrap: wrap;
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.user-all-info-h1 {
+			display: inline-block;
+			margin: 0;
+			line-height: 30px;
+			font-size: 24px;
+			vertical-align: middle;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			color: inherit;
+			box-sizing: border-box;
+			margin-inline-start: 0px;
+			margin-inline-end: 0px;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.user-all-info-span {
+			display: inline-block;
+			vertical-align: inherit;
+			margin-left: 6px;
+			font-size: 12px;
+			line-height: 20px;
+			color: #999;
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.passed-etiquette-exam {
+			background-color: #ccc;
+			color: #fff;
+			display: inline-block;
+			padding: 0 6px;
+			border-radius: 4px;
+			vertical-align: inherit;
+			margin-left: 6px;
+			font-size: 12px;
+			line-height: 20px;
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		p.left-text-intro {
+			max-height: 80px;
+			word-wrap: break-word;
+			overflow: hidden;
+			margin: 8px 0 20px;
+			color: #999;
+			box-sizing: border-box;
+			display: block;
+			margin-block-start: 1em;
+			margin-block-end: 1em;
+			margin-inline-start: 0px;
+			margin-inline-end: 0px;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.left-text-btns {
+			display: inline-block;
+			margin-right: 0;
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.btn-left-text-1 {
+			border: 1px solid transparent;
+			margin-right: 5px;
+			border-color: #12A7B4;
+			background: #12A7B4;
+			border-radius: 3px;
+			box-shadow: none;
+			color: #fff;
+			display: inline-block;
+			padding: 6px 12px;
+			margin-bottom: 0;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.42857143;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			touch-action: manipulation;
+			cursor: pointer;
+			user-select: none;
+			text-decoration: none;
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.btn-left-text-1:hover {
+			margin-right: 5px;
+			color: #12A7B4;
+			border-color: #b4ebfa!important;
+			background: #b4ebfa!important;
+			text-decoration: none;
+			outline: 0;
+			border-radius: 3px;
+			box-shadow: none;
+			display: inline-block;
+			padding: 6px 12px;
+			margin-bottom: 0;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.42857143;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			touch-action: manipulation;
+			cursor: pointer;
+			border: 1px solid transparent;
+		}
+		
+		.page-header-right {
+			float: right;
+			padding: 44px 0 0;
+			width: 400px;
+			box-sizing: border-box;
+			display: block;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.header-right-stats {
+			margin: 0 0 25px;
+			display: flex;
+			width: 300px;
+			float: right;
+			box-sizing: border-box;
+			margin-block-start: 1em;
+			margin-block-end: 1em;
+			margin-inline-start: 0px;
+			margin-inline-end: 0px;
+			padding-inline-start: 40px;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.list-unstyled {
+			padding-left: 0;
+			list-style: none;
+		}
+		
+		.header-right-stats>li:first-child {
+			border-left: none;
+		}
+		
+		.header-right-stats>li {
+			float: left;
+			padding: 5px 0;
+			width: 33.3333333333%;
+			border-left: 1px solid #ddd;
+			list-style: none;
+			box-sizing: border-box;
+			display: list-item;
+			text-align: -webkit-match-parent;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+		}
+		
+		.header-right-stats-li-a {
+			color: #333;
+			text-decoration: none;
+			background-color: transparent;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+		}
+		
+		span.right-stats-number {
+			line-height: 30px;
+			font-size: 24px;
+			display: block;
+			text-align: center;
+			color: #14B9C8;
+		}
+		
+		.header-right-stats>li span {
+			display: block;
+			text-align: center;
+			color: #14B9C8;
+		}
+		
+		.admin {
+			margin: 10px 36px 0 0;
+			position: relative;
+			display: flex;
+			-webkit-box-align: center;
+			align-items: center;
+			-webkit-box-pack: end;
+			justify-content: flex-end;
+			clear: both;
+		}
+		
+		.user-badge-entrance {
+			position: absolute;
+			right: 25px;
+			top: 1px;
+			text-decoration: none;
+			color: #333;
+			background-color: transparent;
+		}
+		
+		.icon-badge {
+			color: #0095A3;
+			font-size: 24px;
+		}
+		
+		.icon-font {
+			font-family: iconfont!important;
+			font-style: normal;
+			-webkit-font-smoothing: antialiased;
+		}
+		
+		.user-users-list {
+			width: 100%;
+			margin-bottom: 15px;
+			background: #fff;
+			border-radius: 3px;
+			box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.taptap-page-main {
+			float: left;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+		}
+		
+		.tab-nav-mobile {
+			box-sizing: border-box;
+			display: block;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.nav-tabs {
+			border-color: #eee;
+			border-bottom: 1px solid #ddd;
+			margin-top: 0;
+			box-sizing: border-box;
+			display: block;
+			margin-block-start: 1em;
+			margin-block-end: 1em;
+			margin-inline-start: 0px;
+			margin-inline-end: 0px;
+			padding-inline-start: 40px;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			height: 45.6px;
+		}
+		
+		.nav {
+			padding-left: 0;
+			margin-bottom: 0;
+			list-style: none;
+		}
+		
+		.nav-tabs>li.active {
+			border-bottom: 1px solid #14B9C8;
+		}
+		
+		.nav-tabs>li {
+			margin: 0 16px;
+			text-align: center;
+			float: left
+		}
+		
+		.nav>li {
+			position: relative;
+			display: block;
+		}
+		
+		.nav-tabs>li.active>a {
+			border: 0;
+			border-top: 2px solid #fff;
+			border-bottom: 2px solid #14B9C8;
+			color: #14B9C8;
+			background: 0 0;
+		}
+		
+		.nav-tabs>li>a {
+			display: flex;
+			-webkit-box-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			justify-content: center;
+			padding: 2px 0 0;
+			line-height: 38px;
+			font-size: 16px;
+			margin: 0;
+			cursor: default;
+			border-radius: 4px 4px 0 0;
+			position: relative;
+			text-decoration: none;
+			text-align: center;
+		}
+		
+		.nav-tabs>li.active>a span {
+			color: #14B9C8;
+			font-size: 13px;
+			margin-left: 4px;
+			line-height: 38px;
+			cursor: default;
+			text-align: center;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+		}
+		
+		.nav-tabs>li {
+			margin: 0 16px;
+			text-align: center;
+			float: left;
+		}
+		
+		.nav>li {
+			position: relative;
+			display: block;
+		}
+		
+		.nav-tabs>li>a {
+			display: flex;
+			-webkit-box-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			justify-content: center;
+			padding: 2px 0 0;
+			line-height: 38px;
+			font-size: 16px;
+			color: #666;
+			margin: 0;
+			background: 0 0;
+			border: 0;
+			border-top: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+			cursor: default;
+			border-radius: 4px 4px 0 0;
+			position: relative;
+			text-decoration: none;
+			text-align: center;
+		}
+		
+		.nav-tabs>li>a span {
+			font-size: 13px;
+			margin-left: 4px;
+			color: #999;
+		}
+		
+		.nav-tabs>li:hover>a {
+			color: #14B9C8;
+		}
+		
+		.nav-tabs>li:hover>a span {
+			color: #14B9C8;
+		}
+		
+		.tab-content {
+			padding-top: 20px;
+			padding: 15px 0 0;
+			display: block;
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		
+		.user-apps-new {
+			overflow: hidden;
+			margin: 0 20px;
+			padding-left: 0;
+			list-style: none;
+			box-sizing: border-box;
+			margin-block-start: 1em;
+			margin-block-end: 1em;
+			margin-inline-start: 0px;
+			margin-inline-end: 0px;
+			padding-inline-start: 40px;
+			display: block;
+			line-height: 20px;
+		}
+		
+		.taptap-user-card {
+			width: calc((100% - 82px)/ 2);
+			float: left;
+			display: flex;
+			-webkit-box-pack: justify;
+			justify-content: space-between;
+			margin-bottom: 40px;
+			position: relative;
+			margin-right: 82px;
+		}
+		
+		.app-item-icon {
+			width: 90px;
+			height: 90px;
+			display: block;
+			position: relative;
+			color: #333;
+			text-decoration: none;
+			background-color: transparent;
+			box-sizing: border-box;
+			cursor: pointer;
+		}
+		
+		.app-item-icon img {
+			width: 100%;
+			height: 100%;
+			vertical-align: middle;
+			border: 0;
+			box-sizing: border-box;
+		}
+		
+		.app-item-detail {
+			width: calc(100% - 110px);
+			position: relative;
+			padding-top: 2px;
+			box-sizing: border-box;
+			display: block;
+		}
+		
+		.app-item-title {
+			width: calc(100% - 80px);
+			display: block;
+			overflow: hidden;
+			margin: 0 0 7px;
+			padding: 0;
+			font-size: 18px;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			line-height: 1.1;
+			color: inherit;
+			box-sizing: border-box;
+		}
+		
+		.app-item-title>a {
+			margin: 0 5px 0 0;
+			line-height: 20px;
+			float: left;
+			max-width: calc(100% - 45px);
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			color: #333;
+			text-decoration: none;
+			background-color: transparent;
+			font-size: 18px;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+		}
+		
+		.taptap-app-area {
+			display: block;
+			float: left;
+			font-weight: 400;
+			color: #777;
+			box-sizing: border-box;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			padding: 0 3px;
+			line-height: 18px;
+			vertical-align: middle;
+			font-size: 12px;
+			border: 1px solid #ddd;
+			background: #fafafa;
+			letter-spacing: 1px;
+		}
+		
+		.app-score {
+			display: inline-block;
+			margin: 0 0 16px 1px;
+			font-size: 14px;
+			position: relative;
+			color: #666;
+		}
+		
+		span.app-score::before {
+			content: '';
+			height: 14px;
+			display: inline-block;
+			width: 14px;
+			background: url(../../../../../../../../徐寅杰/user-center-web/img/评分.png) repeat-x;
+			background-size: 14px;
+			position: absolute;
+			right: -17px;
+			top: 50%;
+			margin-top: -7px;
+		}
+		
+		.tags {
+			margin: 0;
+			width: 100%;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			box-sizing: border-box;
+			display: blockfont-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+			font-size: 14px;
+			color: #333;
+		}
+		
+		.tags-span {
+			position: relative;
+			padding-right: 10px;
+			font-size: 14px;
+			color: #666;
+			white-space: nowrap;
+			font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+			font-weight: 400;
+		}
+		
+		.tags span:not(:last-child)::before {
+			content: "";
+			position: absolute;
+			right: 21px;
+			top: -13px;
+			width: 10px;
+			height: 30px;
+			box-sizing: border-box;
+			border-bottom: 1px solid #999;
+			-webkit-transform: rotateZ(-72deg) scale(1.414);
+			transform: rotateZ(-72deg) scale(1.414);
+		}
+		
+		.taptap-user-card-btn {
+			color: #14B9C8;
+			border-color: #14B9C8;
+		}
+		
+		.taptap-user-card-btn.active {
+			color: #999;
+			border-color: #ddd;
+		}
+		
+		.taptap-user-card-btn {
+			border-radius: 3px;
+			background: 0 0;
+			border-color: #14B9C8;
+			margin-right: 5px;
+			color: #14B9C8;
+		}
+		
+		.taptap-user-card-btn {
+			padding: 0 5px;
+			min-width: 70px;
+			display: inline-block;
+			line-height: 28px;
+			height: 30px;
+		}
+		
+		.taptap-user-card-btn {
+			position: absolute;
+			top: 30px;
+			right: 0;
+			min-width: 70px;
+		}
+		
+		.btn {
+			display: inline-block;
+			margin-bottom: 0;
+			font-size: 14px;
+			font-weight: 400;
+			line-height: 1.42857143;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			background-image: none;
+			border: 1px solid transparent;
+			border-radius: 4px;
+		}
+		
+		.following {
+			display: -webkit-box;
+			display: flex;
+			-webkit-box-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			justify-content: center;
+			color: #999;
+			line-height: 28px;
+			font-size: 14px;
+			font-weight: 400;
+			text-align: center;
+			white-space: nowrap;
+			user-select: none;
+			cursor: pointer;
+		}
+		
+		.taptap-user-card-btn:hover .following {
+			display: none;
+		}
+		
+		.taptap-user-card-btn:hover .unfollow {
+			display: block;
+		}
+		
+		.taptap-user-card-btn .unfollow {
+			display: none;
+		}
+	</style>
+
+	<body class="body">
+
+	</body>
+
+</html>

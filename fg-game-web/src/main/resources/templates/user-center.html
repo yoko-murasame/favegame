@@ -10,36 +10,25 @@
     <link rel="stylesheet" type="text/css" href="/css/game-comments.css"/>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <style>
-        body {
+        .body {
             line-height: 20px;
             background-color: #f2f2f2;
             transition: all .3s ease-in-out 0s;
             position: relative;
-            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
-            font-weight: 400;
-        }
-
-        p {
-            display: block;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-        }
-
-        #main-container span {
-            display: block;
-            text-align: center;
-            color: #14B9C8;
         }
 
         .container {
-            font-size: 14px;
             width: 1070px;
             padding-left: 15px;
             padding-right: 15px;
             margin-right: auto;
             margin-left: auto;
+            box-sizing: border-box;
+            display: block;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .row {
@@ -47,6 +36,11 @@
             margin-left: -15px;
             box-sizing: border-box;
             display: block;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .col-sm-12 {
@@ -56,26 +50,44 @@
             min-height: 1px;
             padding-right: 15px;
             padding-left: 15px;
+            box-sizing: border-box;
+            display: block;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
-        .user-page-header {
-            box-sizing: border-box;
+        section.user-page-header {
             padding: 15px 20px;
             position: relative;
             display: block;
-            height: 176px;
         }
 
-        section.common-card {
+        .common-card {
+            height: 176px;
             margin-bottom: 15px;
             background: #fff;
             border-radius: 3px;
             box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .page-header-left {
             float: left;
             box-sizing: border-box;
+            display: block;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color:
         }
 
         .header-left-avatar {
@@ -84,21 +96,42 @@
             height: 146px;
             border: 3px solid #fff;
             overflow: hidden;
+            border-radius: 50%;
             color: #333;
             text-decoration: none;
             background-color: transparent;
+            box-sizing: border-box;
             cursor: pointer;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
-        .img-cirle {
-            border-radius: 50%;
+        .header-left-avatar > img {
+            width: 100%;
+            vertical-align: middle;
+            border: 0;
+            box-sizing: border-box;
+            color: #333;
+            cursor: pointer;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .header-left-text {
             margin: 0 0 0 166px;
             padding: 25px 0 0;
             width: 425px;
+            box-sizing: border-box;
             display: block;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .user-all-info {
@@ -106,6 +139,40 @@
             -webkit-box-align: center;
             align-items: center;
             flex-wrap: wrap;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        .user-all-info-h1 {
+            display: inline-block;
+            margin: 0;
+            line-height: 30px;
+            font-size: 24px;
+            vertical-align: middle;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            color: inherit;
+            box-sizing: border-box;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        .user-all-info-span {
+            display: inline-block;
+            vertical-align: inherit;
+            margin-left: 6px;
+            font-size: 12px;
+            line-height: 20px;
+            color: #999;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .passed-etiquette-exam {
@@ -114,41 +181,53 @@
             display: inline-block;
             padding: 0 6px;
             border-radius: 4px;
-        }
-
-        .user-all-info > span {
             vertical-align: inherit;
             margin-left: 6px;
             font-size: 12px;
             line-height: 20px;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
-        .left-text-intro {
+        p.left-text-intro {
             max-height: 80px;
             word-wrap: break-word;
             overflow: hidden;
-        }
-
-        .header-left-text > p {
             margin: 8px 0 20px;
             color: #999;
+            box-sizing: border-box;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
-        .user-all-info > h1 {
-            display: inline-block;
-            margin: 0;
-            line-height: 30px;
-            font-size: 24px;
-            vertical-align: middle;
-        }
-
-        .left-text-btns .normal {
+        .left-text-btns {
             display: inline-block;
             margin-right: 0;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
-        .btn {
+        .btn-left-text-1 {
+            border: 1px solid transparent;
             margin-right: 5px;
+            border-color: #12A7B4;
+            background: #12A7B4;
+            border-radius: 3px;
+            box-shadow: none;
+            color: #fff;
             display: inline-block;
             padding: 6px 12px;
             margin-bottom: 0;
@@ -160,35 +239,70 @@
             vertical-align: middle;
             touch-action: manipulation;
             cursor: pointer;
-            -ms-user-select: auto;
-            border: 1px solid transparent;
+            user-select: none;
+            text-decoration: none;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
-        .btn-primay {
-            border-color: #12A7B4;
-            background: #12A7B4;
+        .btn-left-text-1:hover {
+            margin-right: 5px;
+            color: #12A7B4;
+            border-color: #b4ebfa !important;
+            background: #b4ebfa !important;
+            text-decoration: none;
+            outline: 0;
             border-radius: 3px;
             box-shadow: none;
-            color: #fff;
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            touch-action: manipulation;
+            cursor: pointer;
+            border: 1px solid transparent;
         }
 
         .page-header-right {
             float: right;
             padding: 44px 0 0;
             width: 400px;
+            box-sizing: border-box;
+            display: block;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .header-right-stats {
+            margin: 0 0 25px;
             display: flex;
             width: 300px;
             float: right;
-            margin: 0 0 25px;
+            box-sizing: border-box;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .list-unstyled {
             padding-left: 0;
             list-style: none;
-            box-sizing: border-box;
         }
 
         .header-right-stats > li:first-child {
@@ -199,11 +313,51 @@
             float: left;
             padding: 5px 0;
             width: 33.3333333333%;
+            border-left: 1px solid #ddd;
+            list-style: none;
+            box-sizing: border-box;
+            display: list-item;
+            text-align: -webkit-match-parent;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .header-right-stats-li-a {
+            color: #333;
+            text-decoration: none;
+            background-color: transparent;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
         }
 
         span.right-stats-number {
             line-height: 30px;
             font-size: 24px;
+            display: block;
+            text-align: center;
+            color: #14B9C8;
+        }
+
+        .header-right-stats > li span {
+            display: block;
+            text-align: center;
+            color: #14B9C8;
+        }
+
+        .admin {
+            margin: 10px 36px 0 0;
+            position: relative;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: end;
+            justify-content: flex-end;
+            clear: both;
         }
 
         .user-badge-entrance {
@@ -215,24 +369,72 @@
             background-color: transparent;
         }
 
+        .icon-badge {
+            color: #0095A3;
+            font-size: 24px;
+        }
+
+        .icon-font {
+            font-family: iconfont !important;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+        }
+
         .user-users-list {
             width: 100%;
+            margin-bottom: 15px;
+            background: #fff;
+            border-radius: 3px;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .taptap-page-main {
             float: left;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .tab-nav-mobile {
+            box-sizing: border-box;
+            display: block;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        .nav-tabs {
+            border-color: #eee;
+            border-bottom: 1px solid #ddd;
+            margin-top: 0;
+            box-sizing: border-box;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            height: 45.6px;
         }
 
         .nav {
             padding-left: 0;
             margin-bottom: 0;
             list-style: none;
-        }
-
-        .nav-tabs {
-            border-color: #eee;
-            border-bottom: 1px solid #ddd;
-            height: 44.6px;
         }
 
         .nav-tabs > li.active {
@@ -242,13 +444,12 @@
         .nav-tabs > li {
             margin: 0 16px;
             text-align: center;
-            float: left;
+            float: left
         }
 
         .nav > li {
             position: relative;
             display: block;
-            box-sizing: border-box;
         }
 
         .nav-tabs > li.active > a {
@@ -269,20 +470,55 @@
             line-height: 38px;
             font-size: 16px;
             margin: 0;
+            cursor: default;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            text-decoration: none;
+            text-align: center;
         }
 
-        .nav-tabs > li.active > a {
+        .nav-tabs > li.active > a span {
+            color: #14B9C8;
+            font-size: 13px;
+            margin-left: 4px;
+            line-height: 38px;
             cursor: default;
+            text-align: center;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+        }
+
+        .nav-tabs > li {
+            margin: 0 16px;
+            text-align: center;
+            float: left;
+        }
+
+        .nav > li {
+            position: relative;
+            display: block;
         }
 
         .nav-tabs > li > a {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            padding: 2px 0 0;
+            line-height: 38px;
+            font-size: 16px;
+            color: #666;
+            margin: 0;
+            background: 0 0;
+            border: 0;
+            border-top: 2px solid #fff;
+            border-bottom: 2px solid #fff;
+            cursor: default;
             border-radius: 4px 4px 0 0;
-        }
-
-        .nav > li > a {
             position: relative;
             text-decoration: none;
-            box-sizing: border-box;
+            text-align: center;
         }
 
         .nav-tabs > li > a span {
@@ -291,30 +527,50 @@
             color: #999;
         }
 
-        .nav-tabs > li.active > a span {
+        .nav-tabs > li:hover > a {
+            color: #14B9C8;
+        }
+
+        .nav-tabs > li:hover > a span {
             color: #14B9C8;
         }
 
         .tab-content {
             padding-top: 20px;
             padding: 15px 0 0;
+            display: block;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         .user-apps-new {
             overflow: hidden;
             margin: 0 20px;
+            padding-left: 0;
+            list-style: none;
+            box-sizing: border-box;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+            display: block;
+            line-height: 20px;
         }
 
-        .user-center-user-card {
-            margin-right: 82px;
+        .taptap-user-card {
             width: calc((100% - 82px) / 2);
             float: left;
             display: flex;
-            margin-left: 20px;
             -webkit-box-pack: justify;
             justify-content: space-between;
             margin-bottom: 40px;
             position: relative;
+            margin-right: 82px;
         }
 
         .app-item-icon {
@@ -322,17 +578,27 @@
             height: 90px;
             display: block;
             position: relative;
+            color: #333;
+            text-decoration: none;
+            background-color: transparent;
+            box-sizing: border-box;
+            cursor: pointer;
         }
 
         .app-item-icon img {
             width: 100%;
             height: 100%;
+            vertical-align: middle;
+            border: 0;
+            box-sizing: border-box;
         }
 
         .app-item-detail {
             width: calc(100% - 110px);
             position: relative;
             padding-top: 2px;
+            box-sizing: border-box;
+            display: block;
         }
 
         .app-item-title {
@@ -342,6 +608,11 @@
             margin: 0 0 7px;
             padding: 0;
             font-size: 18px;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            line-height: 1.1;
+            color: inherit;
+            box-sizing: border-box;
         }
 
         .app-item-title > a {
@@ -352,11 +623,21 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            color: #333;
+            text-decoration: none;
+            background-color: transparent;
+            font-size: 18px;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
         }
 
         .taptap-app-area {
             display: block;
             float: left;
+            font-weight: 400;
+            color: #777;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
             padding: 0 3px;
             line-height: 18px;
             vertical-align: middle;
@@ -374,82 +655,148 @@
             color: #666;
         }
 
+        span.app-score::before {
+            content: '';
+            height: 14px;
+            display: inline-block;
+            width: 14px;
+            background-size: 14px;
+            position: absolute;
+            right: -17px;
+            top: 50%;
+            margin-top: -7px;
+        }
+
         .tags {
             margin: 0;
             width: 100%;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            box-sizing: border-box;
+            display: blockfont-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333;
         }
 
-        .tags span {
+        .tags-span {
             position: relative;
             padding-right: 10px;
-            box-sizing: border-box;
-            width: 40px;
-        }
-
-        .app-item-detail span {
             font-size: 14px;
-            position: relative;
             color: #666;
-            box-sizing: border-box;
-        }
-
-        .taptap-button-friendship {
-            margin-right: 0;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            margin-top: -15px;
-            text-decoration: none;
-        }
-
-        .btn-default {
-            border-radius: 3px;
-            background: 0 0;
-            display: block;
-        }
-
-        .taptap-button-friendship {
-            padding: 0 5px;
-            min-width: 70px;
-            line-height: 28px;
-            height: 30px;
-            margin-bottom: 0;
-            font-size: 14px;
-            font-weight: 400;
-            text-align: center;
             white-space: nowrap;
-            vertical-align: middle;
-            touch-action: manipulation;
-            cursor: pointer;
+            font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+            font-weight: 400;
+        }
+
+        .tags span:not(:last-child)::before {
+            content: "";
+            position: absolute;
+            right: 21px;
+            top: -13px;
+            width: 10px;
+            height: 30px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #999;
+            -webkit-transform: rotateZ(-72deg) scale(1.414);
+            transform: rotateZ(-72deg) scale(1.414);
+        }
+
+        .taptap-user-card-btn {
+            color: #14B9C8;
+            border-color: #14B9C8;
+        }
+
+        .taptap-user-card-btn.active {
+            color: #999;
+            border-color: #ddd;
+        }
+
+        .taptap-user-card-btn {
             border-radius: 3px;
             background: 0 0;
             border-color: #14B9C8;
             margin-right: 5px;
             color: #14B9C8;
-            font-family: inherit;
-            text-transform: none;
-            overflow: visible;
-            margin: 0;
-            font: inherit;
         }
 
-        .app {
-            display: none;
-            font-style: italic;
-            color: #999;
+        .taptap-user-card-btn {
+            padding: 0 5px;
+            min-width: 70px;
+            display: inline-block;
             line-height: 28px;
+            height: 30px;
+        }
+
+        .taptap-user-card-btn {
+            position: absolute;
+            top: 30px;
+            right: 0;
+            min-width: 70px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
         }
 
         .following {
+            display: -webkit-box;
             display: flex;
             -webkit-box-align: center;
             align-items: center;
             -webkit-box-pack: center;
             justify-content: center;
             color: #999;
+            line-height: 28px;
+            font-size: 14px;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .taptap-user-card-btn:hover .following {
+            display: none;
+        }
+
+        .taptap-user-card-btn:hover .unfollow {
+            display: block;
+        }
+
+        .taptap-user-card-btn .unfollow {
+            display: none;
+        }
+
+        .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+            border: 0;
+            border-top: 2px solid #fff;
+            border-bottom: 2px solid #14B9C8;
+            color: #14B9C8;
+        }
+
+        .nav-tabs > li > a:hover {
+            background-color: #ffffff;
+            border-color: #ffffff;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -533,64 +880,63 @@
 </div>
 
 <div id="main-container">
-    <div class="container personal-container">
+    <div class="container pesonal-container">
         <div class="row">
             <div class="col-sm-12">
                 <section class="user-page-header common-card">
                     <div class="page-header-left">
-                        <a class="img-cirle header-left-avatar"><img src=""/></a>
+                        <a class="img-circle header-left-avatar">
+                            <img th:src="${user.data.userPic}"/>
+                        </a>
                         <div class="header-left-text">
                             <div class="user-all-info">
-                                <h1>手机用户123456789</h1>
-                                <span>ID:46576991</span>
-                                <span class="passed-etiquette-exam">
-										礼仪
-									</span>
+                                <h1 class="user-all-info-h1" th:text="${user.data.gmUsername}">手机用户46576991</h1>
+                                <span class="user-all-info-span" th:text="${'ID:'+user.data.id}">ID:46576991</span>
+                                <span class="passed-etiquette-exam">礼仪</span>
                             </div>
                             <p class="left-text-intro"></p>
                             <div class="left-text-btns normal">
-                                <a href="" class="btn btn-primay">编辑资料</a>
-                                <a href="" class="btn btn-primay">用户设置</a>
-                                <a href="" class="btn btn-primay">用户认证</a>
-                                <a href="" class="btn btn-primay">礼仪考试</a>
+                                <a class="btn btn-primary btn-left-text-1" href="userInfoEdit">编辑资料</a>
+                                <!--<a class="btn btn-primary btn-left-text-1">用户设置</a>-->
+                                <!--<a class="btn btn-primary btn-left-text-1">用户认证</a>-->
+                                <!--<a class="btn btn-primary btn-left-text-1">礼仪考试</a>-->
                             </div>
                         </div>
                     </div>
                     <div class="page-header-right">
                         <ul class="list-unstyled header-right-stats">
                             <li>
-                                <a href="">
-										<span class="right-stats-number">
-											0
-										</span>
+                                <a href="" class="header-right-stats-li-a">
+                                    <span class="right-stats-number">0</span>
                                     <span>粉丝</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
-										<span class="right-stats-number">
-											1
-										</span>
+                                <a href="" class="header-right-stats-li-a">
+                                    <span class="right-stats-number" th:text="${collections.data.size()}">0</span>
                                     <span>关注</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="">
-										<span class="right-stats-number">
-											1
-										</span>
+                                <a href="" class="header-right-stats-li-a">
+                                    <span class="right-stats-number">0</span>
                                     <span>收藏</span>
                                 </a>
                             </li>
                         </ul>
+                        <div class="text-btns admin">
+
+                        </div>
                     </div>
-                    <a href="" class="user-badge-entrance"></a>
+                    <a href="" class="user-badge-entrance">
+                        <span class="icon-font icon-badge"></span>
+                    </a>
                 </section>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <section class="taptap-page-main user-users-list common-card">
+                <section class="taptap-page-main user-users-list">
                     <div class="tab-nav-mobile">
                         <ul class="nav nav-tabs">
                             <li class="tab-tab active">
@@ -602,45 +948,46 @@
                             <li class="tab-tab">
                                 <a href="">
                                     官方论坛
-                                    <span>3</span>
+                                    <span>0</span>
                                 </a>
                             </li>
                             <li class="tab-tab">
                                 <a href="">
                                     用户
-                                    <span>3</span>
+                                    <span>0</span>
                                 </a>
                             </li>
                             <li class="tab-tab">
                                 <a href="">
                                     厂商
-                                    <span>3</span>
+                                    <span>0</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content">
-                        <ul class="list-unstyled user-apps-news">
-                            <li class="user-center-user-card">
-                                <a href="" class="app-item-icon">
-                                    <img src=""/>
+                        <ul class="user-apps-new" style="margin-left: 30px">
+                            <li class="taptap-user-card" th:each="collection:${collections.data}">
+                                <a th:href="${'../../gameVo/'+collection.gmGameId}" class="app-item-icon">
+                                    <img class=".app-item-icon-img" th:src="${collection.gmIcon}"/>
                                 </a>
                                 <div class="app-item-detail">
                                     <h2 class="app-item-title">
-                                        <a href="">和平精英</a>
-                                        <small class="taptap-app-area">CN</small>
+                                        <a th:text="${collection.gmName}"
+                                           th:href="${'../../gameVo/'+collection.gmGameId}"></a>
+                                        <!--<small class="taptap-app-area">CN</small>-->
                                     </h2>
-                                    <span class="app-score" style=" width: 10px;">7.1</span>
+                                    <span class="app-score" th:text="${collection.gmMark}">7.1	</span>
                                     <p class="tags">
-                                        <span>多人联机</span>
+                                        <span class="tags-span" th:text="${collection.gmTypeEnName}"></span>
+                                        <span class="tags-span" th:text="${collection.gmTypeChName}"></span>
                                     </p>
                                 </div>
-                                <button class="btn btn-default taptap-button-friendship taptap-button-friendship-simple js-taptap-button-friendship"
-                                        type="button">
-                                    <i class="app"></i>
-                                    <span class="following">
-											已关注
-										</span>
+                                <button class="btn taptap-user-card-btn active cancle-collection" type="button">
+                                    <span th:text="${collection.id}" style="display: none;"
+                                          class="collection-id"></span>
+                                    <span class="following">已关注</span>
+                                    <span class="unfollow">取消关注</span>
                                 </button>
                             </li>
                         </ul>
@@ -757,6 +1104,28 @@
 <script src="/js/jquery.min.js "></script>
 <script src="/js/bootstrap.js "></script>
 <script src="/js/dropdown-menu.js "></script>
+<script>
+    $(function () {
+        $(".cancle-collection").click(function () {
+            var gameId = $(this).children()[0].innerText;
+            var path = window.location.pathname;
+            console.log(path);
+            $.ajax({
+                type: "post",
+                url: "deleteCollection/"+gameId,
+//                data: comment,
+                success: function (back) {
+                    location.reload();
+//                    console.log(back);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("error");
+
+                }
+            });
+        });
+    });
+</script>
 </body>
 
 </html>
