@@ -9,8 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class FgAuthority implements GrantedAuthority {
 
-    public static final String USER = "user";
-    public static final String PUBLISHER = "publisher";
+    public static final String USER = "USER";
+    public static final String PUBLISHER = "PUBLISHER";
 
     public static FgAuthority makeUserAuthority() {
         return new FgAuthority(FgAuthority.USER);

@@ -66,14 +66,14 @@ cas:
       #CAS服务登录地址
       login_url: ${cas.server.host.url}/login
       #CAS服务登出地址
-      logout_url: ${cas.server.host.url}/logout?service=${app.server.host.url}
+      logout_url: ${cas.server.host.url}/logout?service=${app.server.host.redirect}
 app:
   server:
     host:
       #应用访问地址
       url: http://localhost
       #应用重定向地址
-      redirect: /user/index
+      redirect: http://localhost/user/index
   #应用登录地址
   login:
     url: /login

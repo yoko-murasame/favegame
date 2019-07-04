@@ -4,7 +4,6 @@ import cn.dmdream.entity.Game;
 import cn.dmdream.entity.Operator;
 import cn.dmdream.entity.Publisher;
 import cn.dmdream.entity.Type;
-import cn.dmdream.game.authority.FgAuthority;
 import cn.dmdream.game.service.GameService;
 import cn.dmdream.game.service.OperatorService;
 import cn.dmdream.game.service.PublisherService;
@@ -44,7 +43,7 @@ public class GamePublisherController {
     @Reference
     private OperatorService operatorService;
 
-    @PreAuthorize(FgAuthority.PUBLISHER)//需要开发者权限访问
+    @PreAuthorize("hasAuthority('PUBLISHER')")//需要开发者权限访问
     @RequestMapping("/toPubPage")
     public ModelAndView toPubPage() {
         //查询当前发布者的信息,存入域
@@ -58,13 +57,13 @@ public class GamePublisherController {
         return mav;
     }
 
-    @PreAuthorize("hasRole('PUBLISHER')")//需要开发者权限访问
+    @PreAuthorize("hasAuthority('PUBLISHER')")//需要开发者权限访问
     @PostMapping("saveOrUpdate")
     public JsonMsg saveOrUpdate(Game game) {
         return gameService.saveOrUpdate(game);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")//需要管理员权限
+    @PreAuthorize("hasAuthority('PUBLISHER')")//需要管理员权限
     @GetMapping("all")
     public JsonMsg findAllOperator() {
         JsonMsg jsonMsg = null;
