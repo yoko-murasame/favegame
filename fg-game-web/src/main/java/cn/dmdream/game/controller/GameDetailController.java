@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * Created by 陈锦 on 2019/7/3.
  */
 
+@CrossOrigin("http://localhost:8093")
 @RestController
 @RequestMapping("gameVo")
 public class GameDetailController {

@@ -25,4 +25,6 @@ public interface UserService {
 
     JsonMsg findUserVoById(Integer id);
 
+    JsonMsg findAllUserVoByPage(Integer page, Integer pageSize);
+
 }
