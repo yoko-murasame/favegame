@@ -9,6 +9,9 @@
     <select id="findUserVoById" resultType="cn.dmdream.entity.vo.UserVo">
          select u.*,ui.* from tab_user u left join tab_userInfo ui on u.id = ui.userId where u.id=#{id};
     </select>
+    <select id="findUserVoByPhone" resultType="cn.dmdream.entity.vo.UserVo">
+         select u.*,ui.* from tab_user u left join tab_userInfo ui on u.id = ui.userId where u.gmUserPhone=#{phone};
+    </select>
 
 
 </mapper>

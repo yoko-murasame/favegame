@@ -1,4 +1,4 @@
-package cn.dmdream.game.config;
+package cn.dmdream.game.configuration;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;

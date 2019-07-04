@@ -1,4 +1,4 @@
-package cn.dmdream.game.config;
+package cn.dmdream.game.configuration.config;
 
 import org.springframework.core.convert.converter.Converter;
 

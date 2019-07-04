@@ -296,7 +296,7 @@
                             <div class="am-form-group am-form-file">
                                 <div class="tpl-form-file-img">
                                     <img id="id-reShow-img"
-                                         src="http://pspq953ox.bkt.clouddn.com/214.jpg" alt="">
+                                         src="http://img.dmdream.cn/214.jpg" alt="">
                                 </div>
                                 <button type="button" class="am-btn am-btn-danger am-btn-sm"
                                         id="id-btn-addIcon">
@@ -488,7 +488,7 @@
         handleOperator();
         //处理运营商列表
         function handleOperator() {
-            getAjaxPromise("/publisher/operator").then(function (value) {
+            getAjaxPromise("/publisher/all").then(function (value) {
                 if (value.status == 200) {
                     var list = value.data;
                     console.log(list);

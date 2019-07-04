@@ -58,6 +58,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserVo findUserVoByPhone(String phone) {
+
+        return userMapper.findUserVoByPhone(phone);
+    }
+
+    @Override
     public boolean saveOrUpdate(User user) {
 
         try {

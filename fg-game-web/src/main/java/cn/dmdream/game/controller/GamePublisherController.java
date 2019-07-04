@@ -4,6 +4,7 @@ import cn.dmdream.entity.Game;
 import cn.dmdream.entity.Operator;
 import cn.dmdream.entity.Publisher;
 import cn.dmdream.entity.Type;
+import cn.dmdream.game.authority.FgAuthority;
 import cn.dmdream.game.service.GameService;
 import cn.dmdream.game.service.OperatorService;
 import cn.dmdream.game.service.PublisherService;
@@ -12,6 +13,7 @@ import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.qiniu.util.Auth;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,6 +44,7 @@ public class GamePublisherController {
     @Reference
     private OperatorService operatorService;
 
+    @PreAuthorize(FgAuthority.PUBLISHER)//需要开发者权限访问
     @RequestMapping("/toPubPage")
     public ModelAndView toPubPage() {
         //查询当前发布者的信息,存入域
@@ -55,12 +58,14 @@ public class GamePublisherController {
         return mav;
     }
 
+    @PreAuthorize("hasRole('PUBLISHER')")//需要开发者权限访问
     @PostMapping("saveOrUpdate")
     public JsonMsg saveOrUpdate(Game game) {
         return gameService.saveOrUpdate(game);
     }
 
-    @GetMapping("operator")
+    @PreAuthorize("hasRole('ADMIN')")//需要管理员权限
+    @GetMapping("all")
     public JsonMsg findAllOperator() {
         JsonMsg jsonMsg = null;
         try{
@@ -101,9 +106,5 @@ public class GamePublisherController {
             return result;
         }
     }
-
-
-
-
 
 }

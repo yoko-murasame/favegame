@@ -12,4 +12,6 @@ public interface UserMapper extends BaseMapper<User> {
     List<UserVo> findAllUserVoByPage(@Param("start") Integer start, @Param("pageSize") Integer pageSize);
 
     UserVo findUserVoById(Integer id);
+
+    UserVo findUserVoByPhone(String phone);
 }

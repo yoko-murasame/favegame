@@ -44,6 +44,8 @@ public class TypeServiceImpl implements TypeService {
             return typeList;
         } catch (Exception e) {
             e.printStackTrace();
+            //这里由于版本不一致导致序列化的问题因此先清空缓存
+            redisTemplate.delete("typeList");
             return null;
         }
     }

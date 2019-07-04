@@ -1,5 +1,6 @@
-package cn.dmdream.game.config;
+package cn.dmdream.game.configuration;
 
+import cn.dmdream.game.configuration.config.DateConvertConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

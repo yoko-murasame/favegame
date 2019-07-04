@@ -58,3 +58,25 @@ management:
   endpoint:
     health:
       show-details: always
+cas:
+  server:
+    host:
+      #CAS服务地址
+      url: http://localhost:8093/cas
+      #CAS服务登录地址
+      login_url: ${cas.server.host.url}/login
+      #CAS服务登出地址
+      logout_url: ${cas.server.host.url}/logout?service=${app.server.host.url}
+app:
+  server:
+    host:
+      #应用访问地址
+      url: http://localhost
+      #应用重定向地址
+      redirect: /user/index
+  #应用登录地址
+  login:
+    url: /login
+  #应用登出地址
+  logout:
+    url: /logout

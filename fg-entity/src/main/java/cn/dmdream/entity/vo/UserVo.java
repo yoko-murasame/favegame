@@ -22,6 +22,7 @@ public class UserVo implements Serializable {
     private String gmUserPhone;//	varchar	手机号
     private String gmUserQQ;//	varchar	关联QQ
     private String gmUserWechat;//	varchar	关联微信/appid
+    private Integer gmDeveloperId;  //开发者Id
 
     //UserInfo信息
     private Integer userId;//	int

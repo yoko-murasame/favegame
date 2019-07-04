@@ -55,12 +55,6 @@ public class GameShowController {
         return modelAndView;
     }
 
-    @GetMapping("game/login")
-    public ModelAndView showGameDetailLogin() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
 
     @GetMapping("gameVo/test")
     public JsonMsg getTest() {
