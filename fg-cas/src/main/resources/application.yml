@@ -1,0 +1,43 @@
+#cas:
+#  server-url-prefix: http://localhost:8093/cas
+#  server-login-url: http://localhost:8093/cas/login
+#  client-host-url: http://localhost:9100
+#  validation-type: cas
+
+server:
+  port: 9100
+
+#以下是第二篇博文方式测试
+security:
+  cas:
+    server:
+      host: http://localhost:8093/cas
+      login: ${security.cas.server.host}/login
+      logout: ${security.cas.server.host}/logout?service=${security.cas.service.host}
+    service:
+      host: http://localhost:9100
+      login: /login
+      logout: /logout
+
+#以下是第三篇博文配置方式
+cas:
+  server:
+    host:
+      #CAS服务地址
+      url: http://localhost:8093/cas
+      #CAS服务登录地址
+      login_url: ${cas.server.host.url}/login
+      #CAS服务登出地址
+      #logout_url: ${cas.server.host.url}/logout?service=${app.server.host.url}
+      logout_url: ${cas.server.host.url}/logout?service=www.baidu.com
+app:
+  server:
+    host:
+      #应用访问地址
+      url: http://localhost:9100
+  #应用登录地址
+  login:
+    url: /login
+  #应用登出地址
+  logout:
+    url: /logout
