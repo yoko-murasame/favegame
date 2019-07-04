@@ -16,5 +16,8 @@ public interface GameService {
 
     JsonMsg findGameVoById(Integer id);
 
-    JsonMsg checkPass(Integer id,Integer status);
+    JsonMsg checkPass(Integer id, Integer status);
+
+    JsonMsg updateAllToSolr();
+
 }

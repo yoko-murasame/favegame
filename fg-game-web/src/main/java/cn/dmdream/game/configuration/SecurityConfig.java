@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**定义安全策略*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String [] permits = {"/login","/logout","/user/index","/gameVo/*","show/recommend/**","/"};
+        String [] permits = {"/login","/logout","/user/index","/gameVo/*","show/recommend/**","common/*"};
         http.authorizeRequests()//配置安全策略
                 .antMatchers(permits).permitAll()//定义/请求不需要验证 使用注解代替
                 .anyRequest().authenticated()//其余的所有请求都需要验证
@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(casLogoutFilter(), LogoutFilter.class)
                 .addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class);
 
-        http.csrf().disable(); //禁用CSRF
+        //http.csrf().disable(); //禁用CSRF
     }
 
     //放行静态资源

@@ -1,5 +1,6 @@
 package cn.dmdream.search.service.impl;
 
+import cn.dmdream.entity.Game;
 import cn.dmdream.entity.vo.GameVo;
 import cn.dmdream.game.service.GameService;
 import cn.dmdream.search.service.GameSearchService;
@@ -7,11 +8,10 @@ import cn.dmdream.utils.JsonMsg;
 import cn.dmdream.utils.PageModel;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.solr.core.SolrTemplate;
-import org.springframework.data.solr.core.query.Criteria;
-import org.springframework.data.solr.core.query.HighlightOptions;
-import org.springframework.data.solr.core.query.SimpleHighlightQuery;
+import org.springframework.data.solr.core.query.*;
 import org.springframework.data.solr.core.query.result.HighlightEntry;
 import org.springframework.data.solr.core.query.result.HighlightPage;
 import org.springframework.jms.annotation.JmsListener;
@@ -29,6 +29,32 @@ public class GameSearchServiceImpl implements GameSearchService {
     private GameService gameService;
 
     private JsonMsg jsonMsg;
+
+    // 更新全部
+    @JmsListener(destination = "updateAllToSolr")
+    public void listenUpdateOrDeleteAll(String message){
+        try {
+            if (message.equalsIgnoreCase("update")) {
+                Game game = new Game();
+                game.setIsValid(1);
+                JsonMsg list = gameService.findAllGameVoByPage(1, 1000000, game, null);
+                SimpleQuery query = new SimpleQuery("*:*");
+                solrTemplate.delete("game", query);
+                PageModel<GameVo> voPageModel = (PageModel<GameVo>) list.getData();
+                List<GameVo> voList = voPageModel.getList();
+                solrTemplate.saveBeans("game", voList);
+                System.out.println("正在更新索引库");
+            } else {
+                SimpleQuery query = new SimpleQuery("*:*");
+                solrTemplate.delete("game", query);
+                System.out.println("正在清空索引库");
+            }
+            solrTemplate.commit("game");
+            System.out.println("操作成功完成");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     // 监听新增/修改/删除
     @JmsListener(destination = "fg-game-search-update")

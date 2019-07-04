@@ -101,4 +101,16 @@ public class UserServiceImpl implements UserService {
         }
         return jsonMsg;
     }
+
+    @Override
+    public JsonMsg findAllUserVoByPage(Integer page, Integer pageSize) {
+        try {
+            List<UserVo> userVos = userMapper.findAllUserVoByPage((page - 1) * pageSize, pageSize);
+            jsonMsg = JsonMsg.makeSuccess("成功", userVos);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonMsg = JsonMsg.makeFail("失败", e);
+        }
+        return jsonMsg;
+    }
 }

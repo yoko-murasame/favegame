@@ -41,6 +41,11 @@ public class GameController {
         return gameService.saveOrUpdate(game);
     }
 
+    @RequestMapping("updateAllToSolr")
+    public JsonMsg updateAllToSolr() {
+        return gameService.updateAllToSolr();
+    }
+
     @GetMapping("all")
     public JsonMsg findAll() {
         return gameService.findAll();

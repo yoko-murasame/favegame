@@ -20,6 +20,11 @@
     <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" property=""/>
     <link href="/css/index-style.css" rel="stylesheet" type="text/css" media="all"/>
     <!--// css -->
+    <!-- font -->
+    <!--<link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,100,100italic,300,300italic,400italic,600,600italic,700,700italic'-->
+    <!--rel='stylesheet' type='text/css'>-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'-->
+    <!--rel='stylesheet' type='text/css'>-->
     <!-- //font -->
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.js"></script>
@@ -164,30 +169,31 @@
 <div class="services-agileits-w3layouts">
     <div class="container">
         <h3>推荐玩家</h3>
-        <div class="col-md-3 service-grid-agileits service-grid-agileits-top">
-            <img src="/images/yuanfang.png" class="img-circle">
-            <h4>元芳不看了</h4>
-            <p>很厉害很厉害的用户，毒蛇用户</p>
-            <a href="">了解玩家</a>
+        <div class="col-md-3 service-grid-agileits service-grid-agileits-top"
+             th:each="user:${recommendUsers.data}">
+            <img th:src="${user.userPic}" class="img-circle">
+            <h4 th:text="${user.gmUsername}">元芳不看了</h4>
+            <p th:text="${user.userIntroduce}">很厉害很厉害的用户，毒蛇用户</p>
+            <a th:href="${'../userCenter/'+user.id}">了解玩家</a>
         </div>
-        <div class="col-md-3 service-grid-agileits">
-            <img src="/images/taptap.png" class="img-circle">
-            <h4>taptap编辑</h4>
-            <p>资深游戏用户，游戏网站编辑。</p>
-            <a href="">了解玩家</a>
-        </div>
-        <div class="col-md-3 service-grid-agileits service-grid-agileits-bottom">
-            <img src="/images/star.jpg" class="img-circle">
-            <h4>千寻</h4>
-            <p>可爱就完事了。管他厉不厉害。</p>
-            <a href="">了解玩家</a>
-        </div>
-        <div class="col-md-3 service-grid-agileits service-grid-agileits-bottom">
-            <img src="/images/ng1.jpg" class="img-circle">
-            <h4>小丑先生</h4>
-            <p>一位神秘的玩家</p>
-            <a href="">了解玩家</a>
-        </div>
+        <!--<div class="col-md-3 service-grid-agileits">-->
+        <!--<img src="/images/taptap.png" class="img-circle">-->
+        <!--<h4>taptap编辑</h4>-->
+        <!--<p>资深游戏用户，游戏网站编辑。</p>-->
+        <!--<a href="">了解玩家</a>-->
+        <!--</div>-->
+        <!--<div class="col-md-3 service-grid-agileits service-grid-agileits-bottom">-->
+        <!--<img src="/images/star.jpg" class="img-circle">-->
+        <!--<h4>千寻</h4>-->
+        <!--<p>可爱就完事了。管他厉不厉害。</p>-->
+        <!--<a href="">了解玩家</a>-->
+        <!--</div>-->
+        <!--<div class="col-md-3 service-grid-agileits service-grid-agileits-bottom">-->
+        <!--<img src="/images/ng1.jpg" class="img-circle">-->
+        <!--<h4>小丑先生</h4>-->
+        <!--<p>一位神秘的玩家</p>-->
+        <!--<a href="">了解玩家</a>-->
+        <!--</div>-->
         <div class="clearfix"></div>
     </div>
 </div>
@@ -197,67 +203,12 @@
 <div class="new-w3-agile">
     <div class="container">
         <h3>最新上线游戏推荐</h3>
-        <div class="col-md-3 new-grid-w3l view view-eighth">
-            <img src="/images/ng1.jpg" alt=" "/>
+        <div class="col-md-3 new-grid-w3l view view-eighth" th:each="game:${recommendGames.data.list}">
+            <img th:src="${game.gmIcon}" alt=" "/>
             <div class="mask">
-                <a href="">
-                    <h4></h4></a>
-                <p>To learn more about this</p>
-            </div>
-        </div>
-        <div class="col-md-3 new-grid-w3l view view-eighth">
-            <img src="/images/ng2.jpg" alt=" "/>
-            <div class="mask">
-                <a href="">
-                    <h4>Click here</h4></a>
-                <p>To learn more about this</p>
-            </div>
-        </div>
-        <div class="col-md-3 new-grid-w3l view view-eighth">
-            <img src="/images/ng3.jpg" alt=" "/>
-            <div class="mask">
-                <a href="">
-                    <h4>Click here</h4></a>
-                <p>To learn more about this</p>
-            </div>
-        </div>
-        <div class="col-md-3 new-grid-w3l view view-eighth">
-            <img src="/images/ng4.jpg" alt=" "/>
-            <div class="mask">
-                <a href="">
-                    <h4>Click here</h4></a>
-                <p>To learn more about this</p>
-            </div>
-        </div>
-        <div class="col-md-3 new-grid-agile view view-eighth">
-            <img src="/images/ng5.jpg" alt=" "/>
-            <div class="mask">
-                <a href="">
-                    <h4>Click here</h4></a>
-                <p>To learn more about this</p>
-            </div>
-        </div>
-        <div class="col-md-3 new-grid-agile view view-eighth">
-            <img src="/images/ng6.jpg" alt=" "/>
-            <div class="mask">
-                <a href="">
-                    <h4>Click here</h4></a>
-                <p>To learn more about this</p>
-            </div>
-        </div>
-        <div class="col-md-3 new-grid-agile view view-eighth">
-            <img src="/images/ng7.jpg" alt=" "/>
-            <div class="mask">
-                <a href="">
-                    <h4>Click here</h4></a>
-                <p>To learn more about this</p>
-            </div>
-        </div>
-        <div class="col-md-3 new-grid-agile view view-eighth">
-            <img src="/images/ng8.jpg" alt=" "/>
-            <div class="mask">
-                <a href="">
-                    <h4>Click here</h4></a>
+                <a th:href="${'../gameVo/'+game.id}">
+                    <h4 th:text="${game.gmName}"></h4>
+                </a>
                 <p>To learn more about this</p>
             </div>
         </div>

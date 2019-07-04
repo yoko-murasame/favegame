@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Demo</title>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/recommend.css">
-    <link rel="stylesheet" type="text/css" href="/css/game-detail.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/game-comments.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+<head th:replace="commons/common::commonHeaderWithStyle('Fave Game',~{::title},~{::link},~{::style})">
+    <title>用户中心</title>
+    <!--自己的css-->
+    <link>
+    <!--自己的style-->
     <style>
         body {
             font-size: 14px;
@@ -287,82 +284,10 @@
 </head>
 
 <body>
-<header class="header">
-    <div class="header-inner body-width">
-        <a href="#" class="logo"></a>
-        <div class="recommend-search">
-            <input type="text" class="recommend-search-text" placeholder="Seach here...">
-            <button class="recommend-search-btn"><i class="recommend-icon-search"></i></button>
-        </div>
-        <nav class="header-nav">
-            <ul>
-                <!--<li>-->
-                <!--<span class="line"></span>-->
-                <!--<a href="#" class="dreamer">tang生活家</a>-->
-                <!--<i class="icon-text__pink icon-new">new</i>-->
-                <!--</li>-->
-                <li style="display: none;">
-                    <span class="line"></span>
-                    <a href="login.html">登录</a>
-                </li>
-                <li class="dropdown open">
-                    <span class="line"></span>
-                    <span class="user-pic"></span>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="recommend-dropdown-menu-switch">
-                        <img alt="" class="img-circle" th:src="${user.data.userPic}" width="38px" height="38px"/>
-                        <span style="color: #000;font-size: 15px">
-                                <i th:text="${user.data.gmUsername}">username</i>
-                            </span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
-<div id="recommend-dropdown-menu" class="recommend-dropdown-hide">
-    <div id="recommend-dropdown-img-container">
-        <div id="recommend-dropdown-img">
-            <img class="img-circle" th:src="${user.data.userPic}"/>
-        </div>
-        <div id="recommend-dropdown-img-username">
-            <span th:text="${user.data.gmUsername}">username</span>
-        </div>
-        <div class="recommend-dropdown-row">
-            <div>
-                <a href="#"><img src="/images/iconfont/recommend-user-center.png"/></a>
-                <p>个人中心</p>
-            </div>
-            <div>
-                <a href="#"><img src="/images/iconfont/recommend-user-account.png"/></a>
-                <p>账号管理</p>
-            </div>
-            <div>
-                <a href="#"><img src="/images/iconfont/recommend-change-password.png"/></a>
-                <p>密码修改</p>
-            </div>
-        </div>
 
-        <div class="recommend-dropdown-row">
-            <div>
-                <a href="#"><img src="/images/iconfont/recommend-nic-pic-change.png"/></a>
-                <p>修改头像</p>
-            </div>
-            <div>
-                <a href="#"><img src="/images/iconfont/recommend-message.png"/></a>
-                <p>消息</p>
-            </div>
-            <div>
-                <a href="#"><img src="/images/iconfont/recommend-help.png"/></a>
-                <p>帮助中心</p>
-            </div>
-        </div>
-        <div id="recommend-dropdown-quit">
-            <div>
-                <a href="#"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img"/>退出登录</a>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="commons/common::commonNavBar"></div>
+
+<div th:replace="commons/common::commonNavHover"></div>
 
 <div id="main-container">
     <div id="main-left">
@@ -926,149 +851,9 @@
     </div>
 </div>
 
-<footer class="footer ">
-    <div class="footer-container ">
-        <div class="footer-link ">
-            <div class="footer-link__item ">
-                <h4 class="footer-title ">关于我们</h4>
-                <ul class="footer-list ">
-                    <li class="item ">
-                        <a href="# ">关于我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">帮助中心</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">加入我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">联系我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">标签集</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">商务合作</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">免责声明</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-link__item ">
-                <h4 class="footer-title ">手机应用</h4>
-                <ul class="footer-list ">
-                    <li class="item ">
-                        <a href="# ">关于我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">帮助中心</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">加入我们</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-link__item ">
-                <div class="footer-orcode "><img src="/images/app_qrcode.png " alt="# "></div>
-                <div class="orcode-text ">
-                    <p>扫描二维码</p>
-                    <p>下载tang手机客户端</p>
-                </div>
-            </div>
-            <div class="footer-link__item ">
-                <h4 class="footer-title ">关注我们</h4>
-                <ul class="footer-list ">
-                    <li class="item ">
-                        <a href="# ">关于我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">帮助中心</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">加入我们</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="footer-link__item ">
-                <h4 class="footer-title ">友情链接</h4>
-                <ul class="footer-list ">
-                    <li class="item ">
-                        <a href="# ">关于我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">帮助中心</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">关于我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">帮助中心</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">关于我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">帮助中心</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">关于我们</a>
-                    </li>
-                    <li class="item ">
-                        <a href="# ">帮助中心</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="fopter-copyright ">
-            <p>©2019 favegame 版权所有。</p>
-        </div>
-        <div style="display: none" th:text="${user.data.id}" id="user-id"></div>
-        <div style="display: none" th:text="${game.data.id}" id="game-id"></div>
-        <div style="display: none" th:text="${game.data.gmName}" id="game-name"></div>
-    </div>
+<div th:replace="commons/common::commonFooter(~{::script})">
 
-    <!--添加回复模态框-->
-    <div class="modal fade" aria-hidden="true" id="reply-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-header-user">
-                        <img th:src="${user.data.userPic}" alt="" class="img-circle reply-img-left">
-                        <p th:text="${user.data.gmUsername}" class="reply-p-left"></p>
-                        <img src="/images/cont/detail-toR.png"/>
-                        <img alt="" class="img-circle reply-img-right">
-                        <p class="reply-p-right"></p>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group" style="margin-bottom: 0px">
-    <textarea name="contents" data-paste-listen="true" id="reply-detail"
-              class="form-control" cols="30"
-              rows="6" placeholder="请写下你的宝贵意见" required=""></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"
-                                aria-label="Close">取消
-                        </button>
-                        <button type="submit" class="btn btn-primary" id="reply-submit">发表</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="comment-id"></div>
-        <div id="reply-id"></div>
-    </div>
-    <!--</div>-->
-    <!--回复模态框结束-->
-</footer>
-
-
-<script src="/js/jquery.min.js "></script>
-<script src="/js/bootstrap.js "></script>
-<script src="/js/dropdown-menu.js"></script>
+</div>
 <script src="/js/game-detail.js"></script>
 <script>
     $(function () {
@@ -1078,6 +863,7 @@
             collection.gmCollectorId = $("#user-id").html();
             collection.gmGameId = $("#game-id").html();
             collection.gmGameName = $("#game-name").html();
+            console.log(collection);
             $.ajax({
                 type: "post",
                 url: "addCollection",
@@ -1112,6 +898,7 @@
         });
     })
 </script>
+
 </body>
 
 </html>

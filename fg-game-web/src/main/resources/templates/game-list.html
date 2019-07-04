@@ -1,102 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>Demo</title>
-		<link rel="stylesheet" href="/css/reset.css">
-		<link rel="stylesheet" href="/css/recommend.css">
-		<link rel="stylesheet" type="text/css" href="/css/recommend-show.css" />
-	</head>
+<head th:replace="commons/common::commonHeaderWithStyleWithoutBootstrap('Fave Game',~{::title},~{::link},~{::style})">
+    <title>用户中心</title>
+    <!--自己的css-->
+    <link>
+    <link rel="stylesheet" type="text/css" href="/css/recommend-show.css"/>
+    <!--自己的style-->
+    <style></style>
+</head>
 
-	<body>
+<body>
 
-		<header class="header">
-			<div class="header-inner body-width">
-				<a href="#" class="logo"></a>
-				<div class="recommend-search">
-					<input type="text" class="recommend-search-text" placeholder="Seach here...">
-					<button class="recommend-search-btn"><i class="recommend-icon-search"></i></button>
-				</div>
-				<nav class="header-nav">
-					<ul>
-						<li>
-							<span class="line"></span>
-							<a href="#" class="dreamer">tang生活家</a>
-							<i class="icon-text__pink icon-new">new</i>
-						</li>
-						<li style="display: none;">
-							<span class="line"></span>
-							<a href="login.html">登录</a>
-						</li>
-						<li class="dropdown open">
-							<span class="line"></span>
-							<span class="user-pic"></span>
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="recommend-dropdown-menu-switch">
-								<img alt="" class="img-circle" src="/images/avtar.png" width="38px" height="38px" />
-								<span style="color: #000;font-size: 15px">
-                                <i>username</i>
-                            </span>
-							</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-		<div id="recommend-dropdown-menu" class="recommend-dropdown-hide">
-			<div id="recommend-dropdown-img-container">
-				<div id="recommend-dropdown-img">
-					<img class="img-circle" src="/images/avtar.png" />
-				</div>
-				<div id="recommend-dropdown-img-username">
-					<span>username</span>
-				</div>
-				<div class="recommend-dropdown-row">
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-user-center.png" /></a>
-						<p>个人中心</p>
-					</div>
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-user-account.png" /></a>
-						<p>账号管理</p>
-					</div>
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-change-password.png" /></a>
-						<p>密码修改</p>
-					</div>
-				</div>
+<div th:replace="commons/common::commonNavBar"></div>
 
-				<div class="recommend-dropdown-row">
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-nic-pic-change.png" /></a>
-						<p>修改头像</p>
-					</div>
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-message.png" /></a>
-						<p>消息</p>
-					</div>
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-help.png" /></a>
-						<p>帮助中心</p>
-					</div>
-				</div>
-				<div id="recommend-dropdown-quit">
-					<div>
-						<a href="#"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img" />退出登录</a>
-					</div>
-				</div>
-			</div>
-		</div>
+<div th:replace="commons/common::commonNavHover"></div>
 
-		<div id="main-container">
-			<div id="main">
-				<section class="app-search-main recommend-show-page-main" id="main-left">
-					<header class="search-main-header">
-						<div class="section-title">
-							<h1>rpg</h1>
-						</div>
-						<div class="form-group">
-							<label>
+<div id="main-container">
+    <div id="main">
+        <section class="app-search-main recommend-show-page-main" id="main-left">
+            <header class="search-main-header">
+                <div class="section-title">
+                    <h1>搜索结果</h1>
+                </div>
+                <div class="form-group">
+                    <label>
                         <span>排序</span>
                         <select class="form-control input-sm">
                             <option value="hits" selected="">游戏热度</option>
@@ -104,181 +32,105 @@
                             <option value="released">发布时间</option>
                         </select>
                     </label>
-						</div>
-					</header>
-					<div class="search-main-body">
-						<div class="search-main-list" id="searchList" data-recommend-show-search-highlight-keyword="rpg" th:each="game : ${games.data.list}">
-							<div class="recommend-show-app-card">
-								<a href="#" class="app-card-left">
-									<img th:src="${game.gmIcon}" />
-								</a>
-								<div class="app-card-right app-tag-right">
-									<div class="card-app-title">
-										<a href="#" class="card-right-title">
-											<h4 data-recommend-show-search-highlight="target" class="heightlighted" th:utext="${game.gmName}">&nbsp;<small
-                                            class="recommend-show-app-area" style="vertical-align: text-top">CN
-                                    </small>
+                </div>
+            </header>
+            <div class="search-main-body" th:if="${games.data.list.size()>0}">
+                <div class="search-main-list" id="searchList" data-recommend-show-search-highlight-keyword="rpg"
+                     th:each="game : ${games.data.list}">
+                    <div class="recommend-show-app-card">
+                        <a th:href="${'/gameVo/'+game.id}" class="app-card-left">
+                            <img th:src="${game.gmIcon}"/>
+                        </a>
+                        <div class="app-card-right app-tag-right">
+                            <div class="card-app-title">
+                                <a th:href="${'/gameVo/'+game.id}" class="card-right-title">
+                                    <h4 data-recommend-show-search-highlight="target" class="heightlighted"
+                                        th:utext="${game.gmName}">&nbsp;
+                                        <small class="recommend-show-app-area" style="vertical-align: text-top">CN
+                                        </small>
                                     </h4>
-										</a>
-									</div>
-									<p class="card-right-author">
-										<a href="#" th:text="${game.gmPublisherName}"></a>
-										<span class="title-end"></span>
-									</p>
-									<div class="card-right-rating">
-										<span th:text="${game.gmMark}">8.1</span>
-										<i class="background"></i>
-										<i class="colored" style="width: 56.7px"></i>
-									</div>
-									<span class="card-right-times">(851758 人安装)</span>
-									<p class="card-tags">
-										<a class="btn btn-xs btn-default " href="#" th:text="${game.gmTypeName}">养成</a>
-										<!--<a class="btn btn-xs btn-default " href="#" th:text="${game.gmDetail}"></a>
-										<a class="btn btn-xs btn-default " href="#">模拟</a>-->
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="app-search-side recommend-show-page-side" id="main-right">
-					<div class="search-side-body">
-						<div class="section-title-side">
-							<h3>最新上架</h3>
-						</div>
-						<div class="side-body-apps">
-							<div class="recommend-show-side-item">
-								<a class="side-item-left" href="#">
-									<img src="images/cont/head_img1.jpg" alt="合成坦克（测试版）" title="合成坦克（测试版）">
-								</a>
-								<div class="side-item-right">
-									<a href="#" class="item-right-title flex-text-overflow">
-										<span class="flex-text">合成坦克（测试版）</span>
-									</a>
-									<div class="item-right-label">
-										<a href="#">休闲</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
-		</div>
+                                </a>
+                            </div>
+                            <p class="card-right-author">
+                                <a th:utext="${game.gmPublisherName}"></a>
+                                <span class="title-end"></span>
+                            </p>
+                            <div class="card-right-rating">
+                                <span th:text="${game.gmMark}" style="position: relative;top: 3px">8.1</span>
+                                <i class="background"></i>
+                                <i class="colored"></i>
+                            </div>
+                            <span class="card-right-times" th:text="${game.gmOperatorName}"></span>
+                            <p class="card-tags">
+                                <a class="btn btn-xs btn-default " href="#" th:utext="${game.gmTypeName}">养成</a>
+                                <a class="btn btn-xs btn-default " href="#" th:utext="${game.gmDetail}"></a>
+                                <a class="btn btn-xs btn-default " href="#">模拟</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-main-body" th:if="${games.data.list.size()==0}">
+                <div class="search-main-list" id="searchList" data-recommend-show-search-highlight-keyword="rpg">
+                    <div class="recommend-show-app-card">
+                        <a class="app-card-left">
+                            <img src="/images/list-not-find.png"/>
+                        </a>
+                        <h1 style="font-size: 30px;position: relative;top: 30px;">没有找到您想要的结果！</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="app-search-side recommend-show-page-side" id="main-right">
+            <div class="search-side-body">
+                <div class="section-title-side">
+                    <h3>最新上架</h3>
+                </div>
+                <div class="side-body-apps">
+                    <div class="recommend-show-side-item" th:each="recommend: ${recommendGames.data.list}">
+                        <a class="side-item-left" th:href="${'/gameVo/'+recommend.id}">
+                            <img th:src="${recommend.gmIcon}" alt="合成坦克（测试版）" title="合成坦克（测试版）">
+                        </a>
+                        <div class="side-item-right">
+                            <a class="item-right-title flex-text-overflow" th:href="${'/gameVo/'+recommend.id}">
+                                <span class="flex-text" th:text="${recommend.gmName}">合成坦克（测试版）</span>
+                            </a>
+                            <div class="item-right-label">
+                                <a href="#" th:text="${recommend.gmTypeName}">休闲</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
 
-		<footer class="footer">
-			<div class="footer-container">
-				<div class="footer-link">
-					<div class="footer-link__item">
-						<h4 class="footer-title">关于我们</h4>
-						<ul class="footer-list">
-							<li class="item">
-								<a href="#">关于我们</a>
-							</li>
-							<li class="item">
-								<a href="#">帮助中心</a>
-							</li>
-							<li class="item">
-								<a href="#">加入我们</a>
-							</li>
-							<li class="item">
-								<a href="#">联系我们</a>
-							</li>
-							<li class="item">
-								<a href="#">标签集</a>
-							</li>
-							<li class="item">
-								<a href="#">商务合作</a>
-							</li>
-							<li class="item">
-								<a href="#">免责声明</a>
-							</li>
-						</ul>
-					</div>
-					<div class="footer-link__item">
-						<h4 class="footer-title">手机应用</h4>
-						<ul class="footer-list">
-							<li class="item">
-								<a href="#">关于我们</a>
-							</li>
-							<li class="item">
-								<a href="#">帮助中心</a>
-							</li>
-							<li class="item">
-								<a href="#">加入我们</a>
-							</li>
-						</ul>
-					</div>
-					<div class="footer-link__item">
-						<div class="footer-orcode"><img src="/images/app_qrcode.png" alt="#"></div>
-						<div class="orcode-text">
-							<p>扫描二维码</p>
-							<p>下载tang手机客户端</p>
-						</div>
-					</div>
-					<div class="footer-link__item">
-						<h4 class="footer-title">关注我们</h4>
-						<ul class="footer-list">
-							<li class="item">
-								<a href="#">关于我们</a>
-							</li>
-							<li class="item">
-								<a href="#">帮助中心</a>
-							</li>
-							<li class="item">
-								<a href="#">加入我们</a>
-							</li>
-						</ul>
-					</div>
-					<div class="footer-link__item">
-						<h4 class="footer-title">友情链接</h4>
-						<ul class="footer-list">
-							<li class="item">
-								<a href="#">关于我们</a>
-							</li>
-							<li class="item">
-								<a href="#">帮助中心</a>
-							</li>
-							<li class="item">
-								<a href="#">关于我们</a>
-							</li>
-							<li class="item">
-								<a href="#">帮助中心</a>
-							</li>
-							<li class="item">
-								<a href="#">关于我们</a>
-							</li>
-							<li class="item">
-								<a href="#">帮助中心</a>
-							</li>
-							<li class="item">
-								<a href="#">关于我们</a>
-							</li>
-							<li class="item">
-								<a href="#">帮助中心</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="fopter-copyright">
-					<p>©2019 favegame 版权所有。</p>
-				</div>
-			</div>
-		</footer>
+<div th:replace="commons/common::commonFooter(~{::script})">
+    <script>
+        $(function () {
+            $(".cancle-collection").click(function () {
+                var gameId = $(this).children()[0].innerText;
+                var path = window.location.pathname;
+                console.log(path);
+                $.ajax({
+                    type: "post",
+                    url: "deleteCollection/" + gameId,
+//                data: comment,
+                    success: function (back) {
+                        location.reload();
+//                    console.log(back);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log("error");
 
-		<script src="/js/jquery.min.js"></script>
-		<script src="/js/recommend.js"></script>
-		<script>
-			$(function() {
-				$("#recommend-dropdown-menu-switch").hover(function() {
-					$("#recommend-dropdown-menu").removeClass("recommend-dropdown-hide");
-				});
-				$("#recommend-dropdown-menu").mouseleave(function() {
-					$("#recommend-dropdown-menu").addClass("recommend-dropdown-hide");
-				});
-			});
-		</script>
+                    }
+                });
+            });
+        });
+    </script>
+</div>
 
-	</body>
+</body>
 
 </html>

@@ -45,6 +45,7 @@ public class UserAuthDetailService/*
             userAuthVo.setGmUsername(userVo.getGmUsername());
             userAuthVo.setGmUserPhone(userVo.getGmUserPhone());
             userAuthVo.setId(userVo.getId());
+            userAuthVo.setUserPic(userVo.getUserPic());
             //权限设置
             Set<FgAuthority> authorities = new HashSet<FgAuthority>();
             Integer gmDeveloperId = userVo.getGmDeveloperId();
