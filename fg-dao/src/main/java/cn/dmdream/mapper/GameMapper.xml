@@ -86,6 +86,8 @@
     <select id="findGameVoById" resultType="cn.dmdream.entity.vo.GameVo">
       select g.*,t.id as gmTypeId,t.gmTypeEnName as gmTypeName,p.id as gmPublisherId,p.gmPublisherName as gmPublisherName
       ,o.id as gmOperatorId,o.gmOperatorName as gmOperatorName
+        ,(select count(1) from tab_collection c where c.gmGameId = g.id) as countCollector
+        ,(select count(1) from tab_attention a where a.gmGameId = g.id) as countAttentrion <!--查询收藏和关注人数-->
       from tab_game g
       left join tab_type t on g.gmTypeId = t.id
       left join tab_publisher p on g.gmPublisherId = p.id

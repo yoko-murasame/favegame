@@ -35,23 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
         auth.authenticationProvider(casAuthenticationProvider());
-        //inMemoryAuthentication 从内存中获取
-        //auth.inMemoryAuthentication().withUser("chengli").password("123456").roles("USER")
-        //.and().withUser("admin").password("123456").roles("ADMIN");
-
-        //jdbcAuthentication从数据库中获取，但是默认是以security提供的表结构
-        //usersByUsernameQuery 指定查询用户SQL
-        //authoritiesByUsernameQuery 指定查询权限SQL
-        //auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(query).authoritiesByUsernameQuery(query);
-
-        //注入userDetailsService，需要实现userDetailsService接口
-        //auth.userDetailsService(userDetailsService);
     }
 
     /**定义安全策略*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String [] permits = {"/login","/logout","/user/index","/gameVo/*","show/recommend/**","common/*"};
+        String [] permits = {"/login","/logout","/","show/recommend/**","common/*","/search/**"};
         http.authorizeRequests()//配置安全策略
                 .antMatchers(permits).permitAll()//定义/请求不需要验证 使用注解代替
                 .anyRequest().authenticated()//其余的所有请求都需要验证
@@ -67,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(casLogoutFilter(), LogoutFilter.class)
                 .addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class);
 
-        //http.csrf().disable(); //禁用CSRF
+        http.csrf().disable(); //禁用CSRF
     }
 
     //放行静态资源

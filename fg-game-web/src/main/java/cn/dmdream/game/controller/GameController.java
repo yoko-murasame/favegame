@@ -7,6 +7,7 @@ import cn.dmdream.game.service.UserService;
 import cn.dmdream.search.service.GameSearchService;
 import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,33 +15,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class GameController {
 
     @Reference
-    private UserService userService;
-
-    @Reference
-    private TypeService typeService;
-
-    @Reference
     private GameService gameService;
 
     @Reference
     private GameSearchService gameSearchService;
-
-    @GetMapping({"","/"})
-    public ModelAndView toIndex() {
-        ModelAndView modelAndView = new ModelAndView();
-        //JsonMsg user = userService.findUserVoById(20);
-        JsonMsg types = typeService.findAllType();
-        modelAndView.setViewName("index");
-        //modelAndView.addObject("user", user);
-        modelAndView.addObject("types", types);
-        return modelAndView;
-    }
 
     @RequestMapping("add")
     public JsonMsg saveOuUpdate(Game game) {
         return gameService.saveOrUpdate(game);
     }
 
+    @PostAuthorize("hasAuthority('PUBLISHER')")
     @RequestMapping("updateAllToSolr")
     public JsonMsg updateAllToSolr() {
         return gameService.updateAllToSolr();

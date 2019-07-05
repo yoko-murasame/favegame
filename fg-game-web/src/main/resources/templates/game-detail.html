@@ -308,12 +308,12 @@
 							<span itemprop="aggregateRating" itemscope="" itemtype="" class="app-rating-block">
         					<span class="app-rating-container">
             					<span itemprop="ratingValue" class="app-rating-score"
-                                      th:text="${game.data.gmMark==null?0:game.data.gmMark}">7.2</span>
+                                      th:text="${game.data.gmMark==null?'无':game.data.gmMark}">7.2</span>
 							</span>
 							</span>
                     <h1 itemprop="name" class="main-header-game-name" th:text="${game.data.gmName}">楚留香</h1>
                     <div class="header-text-author">
-                        <a href="#" itemprop="publisher">
+                        <a th:href="|/search/${game.data.gmPublisherName}|" itemprop="publisher">
                             <span>厂商: </span>
                             <span itemprop="name" th:text="${game.data.gmPublisherName}">网易游戏</span>
                         </a>
@@ -339,26 +339,61 @@
                             <span class="follow" th:if="${isCollect.data}">关注</span>
                             </button>
                             <p class="description">
-                                <span class="count-stats" th:text="${game.data.countCollector}"></span> 0人关注
+                                <span class="count-stats" th:text="|${game.data.countCollector==null?0:game.data.countCollector}人关注|"></span>
                             </p>
                         </div>
                         <span class="text-hints">7月26日更新：新门派太阴</span>
                     </div>
 
                     <div class="download-btn-wrap ">
-                        <div class="taptap-button-download">
-                            <a th:href="${game.data.gmAndroidUrl}">
+                        <!--安卓判断-->
+                        <div class="taptap-button-download" th:if="${game.data.gmPlatformIsAndroid == 1}">
+                            <a th:href="${game.data.gmAndroidUrl}" th:if="${game.data.gmFree == 0 or game.data.gmFree == null or game.data.gmPrice==0 or game.data.gmPrice == null}">
                                 <button class="btn btn-primary btn-lg android js-header-android-download" type="button">
                                     <i><img src="/images/iconfont/android.png"/></i>
                                     <span>下载</span>
                                 </button>
                             </a>
+
+                            <a th:href="@{|/order/add/${game.data.gmPrice}/${game.data.id}/${session.user.id}|}" th:if="${isPurchase.data==false and game.data.gmFree == 1 and game.data.gmPrice!=0 }">
+                                <button class="btn btn-primary btn-lg android js-header-android-download" type="button">
+                                    <i><img src="/images/iconfont/android.png"/></i>
+                                    <span th:text="|￥${game.data.gmPrice}|">购买</span>
+                                </button>
+                            </a>
+
+                            <a th:href="${game.data.gmAndroidUrl}" th:if="${isPurchase.data}">
+                                <button class="btn btn-primary btn-lg android js-header-android-download" type="button">
+                                    <i><img src="/images/iconfont/android.png"/></i>
+                                    <span>下载(已购买)</span>
+                                </button>
+                            </a>
                         </div>
-                        <div class="taptap-button-download">
-                            <a>
-                                <button data-taptap-log="toGame" data-target="#iosDownloadModal">
+                        <!--暂无安卓下载-->
+                        <div class="taptap-button-download" th:if="${game.data.gmPlatformIsAndroid == 0 or game.data.gmPlatformIsAndroid==null}">
+                            <a th:href="@{#}">
+                                <button disabled="disabled" class="btn btn-primary btn-lg android js-header-android-download" type="button">
+                                    <i><img src="/images/iconfont/android.png"/></i>
+                                    <span>暂无下载</span>
+                                </button>
+                            </a>
+                        </div>
+                        <!--IOS判断,有IOS-->
+                        <div class="taptap-button-download" >
+                            <a th:href="${game.data.gmIOSUrl}" target="_blank">
+                                <button data-taptap-log="toGame" data-target="#iosDownloadModal"  th:if="${game.data.gmPlatformIsIOS == 1}">
                                     <i><img src="/images/iconfont/Apple.png"/></i>
-                                    <span>下载</span>
+                                    <span>App Store</span>
+                                </button>
+                            </a>
+                        </div>
+
+                        <!--无IOS-->
+                        <div class="taptap-button-download" th:if="${game.data.gmPlatformIsIOS == 0 or game.data.gmPlatformIsIOS==null}">
+                            <a th:href="@{#}">
+                                <button disabled="disabled" data-taptap-log="toGame" data-target="#iosDownloadModal">
+                                    <i><img src="/images/iconfont/Apple.png"/></i>
+                                    <span>暂无IOS</span>
                                 </button>
                             </a>
                         </div>
@@ -410,7 +445,7 @@
                     <ul class="intro-list-unstyled" data-taptap-app="screenshots" id="imageShots">
                         <li th:each="media : ${game.data.gmIntroMedia}">
                             <a href="#" th:switch="${media.indexOf('mp4')==-1}">
-                                <video th:src="${media}" th:case="false"/>
+                                <video th:src="${media}" th:case="false" controls/>
                                 <img th:src="${media}" th:case="true"/>
                             </a>
                         </li>
@@ -560,8 +595,8 @@
             <!--用户评分添加-->
             <div class="review-add " id="comment">
                 <div class="review-add-user ">
-                    <img th:src="${user.data.userPic}" alt=" "/>
-                    <p th:text="${user.data.gmUsername}">锦爸爸</p>
+                    <img th:src="${user.userPic}" alt=" "/>
+                    <p th:text="${user.gmUsername}">锦爸爸</p>
                 </div>
                 <div class="review-add-stars ">
                     <p>
@@ -588,8 +623,8 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <div class="modal-header-user">
-                                    <img th:src="${user.data.userPic}" alt="" class="img-circle">
-                                    <p th:text="'评价者：'+${user.data.gmUsername}">评价者：15443410@Social</p>
+                                    <img th:src="${user.userPic}" alt="" class="img-circle">
+                                    <p th:text="'评价者：'+${user.gmUsername}">评价者：15443410@Social</p>
                                 </div>
                                 <div class="switch-btn">
                                     <button type="button" class="btn-exit"
@@ -829,7 +864,7 @@
             <h3>厂商其他游戏</h3>
             <a href="#" class="pull-right">更多</a>
         </div>
-        <div class="show-side-body" th:each="pubGame : ${pubGames.data}">
+        <div class="show-side-body" th:each="pubGame : ${pubGames.data.list}">
             <div class="game-detail-side-item">
                 <a class="side-item-left" th:href="${pubGame.id}">
                     <img th:src="${pubGame.gmIcon}"/>
@@ -839,7 +874,7 @@
                         <span class="flex-text " th:text="${pubGame.gmName}">猫和老鼠：欢乐互动</span>
                     </a>
                     <div class="item-right-label ">
-                        <a href="#">多人</a>
+                        <a th:href="|/search/${pubGame.gmTypeName}|" th:text="${pubGame.gmTypeName}">多人</a>
                         <p class="right-label-rating pull-right ">
                             <span th:text="${pubGame.gmMark==null?0:pubGame.gmMark}">8.4</span>
                             <i><img src="/images/star.png"/></i>
@@ -851,37 +886,71 @@
     </div>
 </div>
 
-<div th:replace="commons/common::commonFooter(~{::script})">
-
+<!--添加回复模态框-->
+<div class="modal fade" aria-hidden="true" id="reply-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-user">
+                    <img th:src="${user.userPic}" alt="" class="img-circle reply-img-left">
+                    <p th:text="${user.gmUsername}" class="reply-p-left"></p>
+                    <img src="/images/cont/detail-toR.png"/>
+                    <img alt="" class="img-circle reply-img-right">
+                    <p class="reply-p-right"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 0px">
+    <textarea name="contents" data-paste-listen="true" id="reply-detail"
+              class="form-control" cols="30"
+              rows="6" placeholder="请写下你的宝贵意见" required=""></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                            aria-label="Close">取消
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="reply-submit">发表</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="comment-id"></div>
+    <div id="reply-id"></div>
 </div>
-<script src="/js/game-detail.js"></script>
-<script>
+<!--</div>-->
+<!--回复模态框结束-->
+
+<div th:replace="commons/common::commonFooter(~{::script})">
+</div>
+
+<script th:inline="javascript">
     $(function () {
         $("#btn-collection").click(function () {
             var path = window.location.pathname;
             var collection = {};
-            collection.gmCollectorId = $("#user-id").html();
-            collection.gmGameId = $("#game-id").html();
-            collection.gmGameName = $("#game-name").html();
+            collection.gmCollectorId = [[${user.id}]];
+            collection.gmGameId = [[${game.data.id}]];
+            collection.gmGameName = /*[[${game.data.gmName}]]*/ null;
             console.log(collection);
             $.ajax({
                 type: "post",
-                url: "addCollection",
+                url: "/gameVo/addCollec",
                 data: collection,
                 success: function (back) {
                     location.reload();
 //                    console.log(back);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    console.log("error");
-
+                    console.log("error",XMLHttpRequest,textStatus,errorThrown);
                 }
             });
         });
         $("#btn-cancle-collection").click(function () {
             var collection = {};
-            collection.gmCollectorId = $("#user-id").html();
-            collection.gmGameId = $("#game-id").html();
+            collection.gmCollectorId = [[${user.id}]];
+            collection.gmGameId = [[${game.data.id}]];
             $.ajax({
                 type: "post",
                 url: "cancleCollect",
@@ -892,10 +961,159 @@
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     console.log("error");
+                }
+            });
+        });
+
+        //game-detail.js
+
+        $("#reply-submit").click(function () {
+            var reply = {};
+            var path = window.location.pathname;
+            reply.replierId = [[${user.id}]];
+            reply.toCommentId = $("#comment-id").html();
+            reply.content = $("#reply-detail").val();
+            console.log(reply);
+            $.ajax({
+                type: "post",
+                url: path + "/addReply",
+                data: reply,
+                success: function (back) {
+                    location.reload();
+//                    console.log(back);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("error");
 
                 }
             });
         });
+
+        $("#comment-submit").click(function () {
+            var comment = {};
+            var path = window.location.pathname;
+            comment.gmComment = $("#comment-detail").val();
+            comment.gmCritic = [[${user.id}]];
+            comment.gmGameId = [[${game.data.id}]];
+            console.log($(".body-rate-star").children()[0].className);
+            if ($(".body-rate-star").children()[0].className == "review-add-stars-hover") {
+                comment.gmRate = 2;
+            }
+            if ($(".body-rate-star").children()[1].className == "review-add-stars-hover") {
+                comment.gmRate = 4;
+            }
+            if ($(".body-rate-star").children()[2].className == "review-add-stars-hover") {
+                comment.gmRate = 6;
+            }
+            if ($(".body-rate-star").children()[3].className == "review-add-stars-hover") {
+                comment.gmRate = 8;
+            }
+            if ($(".body-rate-star").children()[4].className == "review-add-stars-hover") {
+                comment.gmRate = 10;
+            }
+            console.log(comment);
+            $.ajax({
+                type: "post",
+                url: path + "/addComment",
+                data: comment,
+                success: function (back) {
+                    location.reload();
+//                    console.log(back);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("error");
+
+                }
+            });
+        });
+
+
+        //初始化星星样式
+        $(".review-add-stars p i").hover(function () {
+            var index = $(this).index();
+            $(this).parent().children().removeClass("review-add-stars-hover");
+            $(this).prevAll().addClass("review-add-stars-hover");
+            $(this).addClass("review-add-stars-hover");
+            var that = $(".body-rate-star i")[index];
+            $(that).parent().children().removeClass("review-add-stars-hover");
+            $(that).prevAll().addClass("review-add-stars-hover");
+            $(that).addClass("review-add-stars-hover");
+            if (index == 0) {
+                $(".review-add-stars span").text("讨厌");
+                $(".body-rate-text").text("讨厌");
+            } else if (index == 1) {
+                $(".review-add-stars span").text("不喜欢");
+                $(".body-rate-text").text("不喜欢");
+            } else if (index == 2) {
+                $(".review-add-stars span").text("还可以");
+                $(".body-rate-text").text("还可以");
+            } else if (index == 3) {
+                $(".review-add-stars span").text("很不错")
+                $(".body-rate-text").text("很不错");
+            } else if (index == 4) {
+                $(".review-add-stars span").text("棒极了");
+                $(".body-rate-text").text("棒极了");
+            }
+        });
+
+        $(".review-add-stars p i").click(function () {
+            $('#comment-modal').modal("show");
+        });
+        $(".comment-btn-reply").click(function () {
+            $('#reply-modal').modal("show");
+            var path = $(this).parent().parent().parent().parent().prev().children()[0].src;
+            var name = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[1].innerText;
+            var commentId = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[3].innerText;
+            $(".reply-img-right").attr('src', path);
+            $(".reply-p-right").text(name);
+            $("#comment-id").html(commentId);
+        });
+        $(".reply-btn-reply").click(function () {
+            $('#reply-modal').modal("show");
+            var path = $(this).parent().parent().parent().parent().prev().children()[0].src;
+            var name = $(this).parent().parent().parent().parent().children()[0].childNodes[1].childNodes[0].innerText;
+            var commentId = $(this).parent().parent().parent().parent().parent().parent().parent().parent().children()[0].childNodes[1].childNodes[3].innerText;
+            $("#comment-id").html(commentId);
+            $(".reply-img-right").attr('src', path);
+            $(".reply-p-right").text(name);
+        });
+//        $(".review-add-stars p i").mouseleave(function () {
+//            $(this).parent().children().removeClass("review-add-stars-hover");
+//            $(".review-add-stars span").text("");
+//        });
+
+        $(".body-rate-star i").click(function () {
+            var index = $(this).index();
+            $(this).parent().children().removeClass("review-add-stars-hover");
+            $(this).prevAll().addClass("review-add-stars-hover");
+            $(this).addClass("review-add-stars-hover");
+            var that = $(".review-add-stars p i")[index];
+            $(that).parent().children().removeClass("review-add-stars-hover");
+            $(that).prevAll().addClass("review-add-stars-hover");
+            $(that).addClass("review-add-stars-hover");
+            if (index == 0) {
+                $(".review-add-stars span").text("讨厌");
+                $(".body-rate-text").text("讨厌");
+            } else if (index == 1) {
+                $(".review-add-stars span").text("不喜欢");
+                $(".body-rate-text").text("不喜欢");
+            } else if (index == 2) {
+                $(".review-add-stars span").text("还可以");
+                $(".body-rate-text").text("还可以");
+            } else if (index == 3) {
+                $(".review-add-stars span").text("很不错")
+                $(".body-rate-text").text("很不错");
+            } else if (index == 4) {
+                $(".review-add-stars span").text("棒极了");
+                $(".body-rate-text").text("棒极了");
+            }
+        });
+
+//        $(".body-rate-star i").mouseleave(function () {
+//            $(this).prevAll().removeClass("review-add-stars-hover");
+//            $(this).removeClass("review-add-stars-hover");
+//            $(".body-rate-text").text("");
+//        });
     })
 </script>
 

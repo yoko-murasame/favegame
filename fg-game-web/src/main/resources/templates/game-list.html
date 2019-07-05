@@ -26,10 +26,10 @@
                 <div class="form-group">
                     <label>
                         <span>排序</span>
-                        <select class="form-control input-sm">
-                            <option value="hits" selected="">游戏热度</option>
-                            <option value="score">游戏评分</option>
-                            <option value="released">发布时间</option>
+                        <select class="form-control input-sm" id="id-sort-search" >
+                            <option value="countCollector" th:selected="${sortField eq 'countCollector'}">游戏热度</option>
+                            <option value="gmMark" th:selected="${sortField eq 'gmMark'}">游戏评分</option>
+                            <option value="gmPubdate" th:selected="${sortField eq 'gmPubdate'}">发布时间</option>
                         </select>
                     </label>
                 </div>
@@ -52,19 +52,22 @@
                                 </a>
                             </div>
                             <p class="card-right-author">
-                                <a th:utext="${game.gmPublisherName}"></a>
+                                <a th:href="|/search/${game.gmPublisherName}|" th:utext="${game.gmPublisherName}"></a>
                                 <span class="title-end"></span>
                             </p>
                             <div class="card-right-rating">
                                 <span th:text="${game.gmMark}" style="position: relative;top: 3px">8.1</span>
                                 <i class="background"></i>
-                                <i class="colored"></i>
+                                <i class="colored" th:style="'width:'+72/10*${game.gmMark}+'px!important'"></i>
                             </div>
-                            <span class="card-right-times" th:text="${game.gmOperatorName}"></span>
+                            <a style="display: inline;" th:href="|/search/${game.gmOperatorName}|">
+                                <span class="card-right-times" th:utext="${game.gmOperatorName}"></span>
+                            </a>
                             <p class="card-tags">
-                                <a class="btn btn-xs btn-default " href="#" th:utext="${game.gmTypeName}">养成</a>
-                                <a class="btn btn-xs btn-default " href="#" th:utext="${game.gmDetail}"></a>
-                                <a class="btn btn-xs btn-default " href="#">模拟</a>
+                                <a class="btn btn-xs btn-default " th:href="|/search/${game.gmTypeName}|" th:utext="${game.gmTypeName}">养成</a>
+                                <a class="btn btn-xs btn-default " href="#" th:if="${game.gmFree==1 and game.gmPrice!= null}" th:text="|${game.gmPrice}元|"></a>
+                                <a class="btn btn-xs btn-default " href="#" th:if="${game.gmFree == 0 or game.gmFree == null  }" th:text="${'免费'}"></a>
+                                <a class="btn btn-xs btn-default " href="#" >[[${game.countCollector}]]人收藏</a>
                             </p>
                         </div>
                     </div>
@@ -96,7 +99,7 @@
                                 <span class="flex-text" th:text="${recommend.gmName}">合成坦克（测试版）</span>
                             </a>
                             <div class="item-right-label">
-                                <a href="#" th:text="${recommend.gmTypeName}">休闲</a>
+                                <a th:href="|/search/${recommend.gmTypeName}|" th:text="${recommend.gmTypeName}">休闲</a>
                             </div>
                         </div>
                     </div>
@@ -128,9 +131,17 @@
                 });
             });
         });
+
     </script>
 </div>
-
+<script>
+$(function () {
+    //监听排序改变
+    $("#id-sort-search").on("change", function () {
+        window.location.href = "/search/index/allVo?sortField="+ $(this).val();
+    });
+})
+</script>
 </body>
 
 </html>

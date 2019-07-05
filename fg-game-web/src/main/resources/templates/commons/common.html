@@ -72,7 +72,7 @@
 <header th:fragment="commonNavBar" class="header">
     <!--公共导航条-->
     <div class="header-inner body-width">
-        <a href="#" class="logo"></a>
+        <a href="/search/index/allVo" class="logo"></a>
         <div class="recommend-search">
             <input type="text" class="recommend-search-text" placeholder="Seach here..." id="common-search-condition">
             <button class="recommend-search-btn" id="common-search-btn"><i class="recommend-icon-search"></i></button>
@@ -86,7 +86,7 @@
                 <!--</li>-->
                 <li id="common-user-login" style="display: none;position: relative;top: 10px;">
                     <span class="line"></span>
-                    <a href="login.html">登录</a>
+                    <a href="/myLogin">登录</a>
                 </li>
                 <li class="dropdown open" id="common-user-pic" style="display: none;">
                     <span class="line"></span>
@@ -142,7 +142,7 @@
         </div>
         <div id="recommend-dropdown-quit">
             <div>
-                <a href="#"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img"/>退出登录</a>
+                <a href="/logout"><img src="/images/iconfont/recommend-quit.png" id="recommend-dropdown-quit-img"/>退出登录</a>
             </div>
         </div>
     </div>
@@ -269,6 +269,7 @@
                 type: "get",
                 url: "/common/getUser",
                 success: function (back) {
+                    console.log(back);
                     $("#common-user-pic").show();
                     $("#common-nav-hover-usercenter").attr("href", "/userCenter/" + back.data.id);
                     $(".common-nav-hover-userPic").attr("src", back.data.userPic);

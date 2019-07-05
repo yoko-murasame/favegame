@@ -20,6 +20,7 @@ import java.util.List;
 @Component
 @Service(interfaceClass = OrderService.class)
 public class OrderServiceImpl implements OrderService {
+
     @Autowired
     private OrderMapper orderMapper;
 
@@ -82,5 +83,13 @@ public class OrderServiceImpl implements OrderService {
         QueryWrapper<Order> queryWrapper = new QueryWrapper<Order>();
         queryWrapper.eq("gmOrderPerformance", status);
         return orderMapper.selectCount(queryWrapper);
+    }
+
+    @Override
+    public boolean isPurchase(Integer userId, Integer gameId) {
+        QueryWrapper<Order> qr = new QueryWrapper<>();
+        qr.eq("gmGameId", gameId).eq("gmPurchaserId", userId).eq("gmOrderPerformance", 1);
+        List<Order> orders = orderMapper.selectList(qr);
+        return orders.size()>0?true:false;
     }
 }

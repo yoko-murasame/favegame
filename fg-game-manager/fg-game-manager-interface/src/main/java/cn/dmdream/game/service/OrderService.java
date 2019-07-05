@@ -23,4 +23,6 @@ public interface OrderService {
     boolean deletdByBatch(List<Integer> id);
 
     int totalCount(Integer status);
+
+    boolean isPurchase(Integer userId, Integer gameId);
 }

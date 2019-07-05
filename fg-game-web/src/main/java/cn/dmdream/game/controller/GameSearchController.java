@@ -8,10 +8,7 @@ import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -55,6 +52,31 @@ public class GameSearchController {
             JsonMsg searchGames = gameSearchService.findByKeywordByPage(keyword, 1, 100);
             //推荐五个游戏
             JsonMsg recommendGames = gameService.findAllGameVoByPage(1, 5, new Game(), null);
+            modelAndView.addObject("recommendGames", recommendGames);
+            modelAndView.addObject("games", searchGames);
+//            System.out.println(byKeywordByPage.getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return modelAndView;
+    }
+
+    @GetMapping("index/allVo")
+    public ModelAndView searchGameAllVo(@RequestParam(defaultValue = "gmPubdate") String sortField) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("sortField", sortField);
+        sortField += " desc";
+        try {
+            modelAndView.setViewName("game-list");
+            JsonMsg searchGames = gameService.findAllGameVoByPage(1,20,new Game(),sortField);
+            //推荐五个游戏
+            JsonMsg recommendGames = null;
+            if ((Math.random() * 10) % 2 == 1) {
+                recommendGames = gameService.findAllGameVoByPage(1, 5, new Game(), "gmPrice desc");
+            }else{
+                recommendGames = gameService.findAllGameVoByPage(2, 5, new Game(), "gmPrice desc");
+            }
             modelAndView.addObject("recommendGames", recommendGames);
             modelAndView.addObject("games", searchGames);
 //            System.out.println(byKeywordByPage.getData());

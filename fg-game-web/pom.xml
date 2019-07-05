@@ -82,6 +82,12 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
         </dependency>
+        <!--支付宝-->
+        <dependency>
+            <groupId>com.alipay.api</groupId>
+            <artifactId>k12-alipay-sdk</artifactId>
+            <version>0.0.1-beta</version>
+        </dependency>
     </dependencies>
 
     <build>

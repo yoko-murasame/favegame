@@ -1,11 +1,14 @@
 package cn.dmdream.game.controller;
 
 import cn.dmdream.entity.Game;
+import cn.dmdream.game.authority.UserAuthVo;
 import cn.dmdream.game.service.GameService;
 import cn.dmdream.game.service.UserService;
 import cn.dmdream.search.service.GameSearchService;
 import cn.dmdream.utils.JsonMsg;
 import com.alibaba.dubbo.config.annotation.Reference;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,7 +32,16 @@ public class CommonController {
 
     @GetMapping("getUser")
     public JsonMsg getUser() {
-        JsonMsg user = userService.findUserVoById(20);
+        JsonMsg user =  null;
+        try {
+            //从security上下文获取登录用户
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserAuthVo userAuthVo = (UserAuthVo) authentication.getPrincipal();
+            user = JsonMsg.makeSuccess("成功", userService.findUserVoByPhone(userAuthVo.getGmUserPhone()));
+        } catch (Exception e) {
+            System.out.println("当前未登录");
+            user = JsonMsg.makeFail("失败",null);
+        }
         return user;
     }
 

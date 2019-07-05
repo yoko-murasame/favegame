@@ -9,6 +9,6 @@
         select * from tab_collection c left join tab_game g on c.gmGameId = g.id left join tab_type t on g.gmTypeId = t.id where c.gmCollectorId = #{id} limit ${start} ,${pageSize};
     </select>
     <select id="isUserCollectGame" resultType="cn.dmdream.entity.vo.CollectionVo">
-        select * from tab_collection where gmCollectorId = #{userId} and gmGameId = #{gameId}
+        select * from tab_collection c left join tab_game g on c.gmGameId = g.id where c.gmCollectorId = #{userId} and c.gmGameId = #{gameId}
     </select>
 </mapper>

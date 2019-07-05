@@ -60,8 +60,8 @@ public class CollectionServiceImpl implements CollectionService {
     @Override
     public boolean isCollect(Integer userId, Integer gameId) {
         //true -> 未收藏；false -> 已收藏
-        boolean isCollect = collectionMapper.isUserCollectGame(userId, gameId) == null ? true : false;
-        return isCollect;
+        CollectionVo userCollectGame = collectionMapper.isUserCollectGame(userId, gameId);
+        return userCollectGame== null ? true : false;
     }
 
     @Override

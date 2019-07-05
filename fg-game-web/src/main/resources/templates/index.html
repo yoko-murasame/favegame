@@ -70,18 +70,19 @@
                         <a href="">主页</a>
                     </li>
                     <li class="hover-effect" style="margin-top: 12px;">
-                        <a href="">游戏列表</a>
+                        <a href="/search/index/allVo">游戏列表</a>
                     </li>
                     <li class="hover-effect" style="margin-top: 12px;">
                         <a href="">有关我们</a>
                     </li>
-                    <li class="hover-effect">
-                        <a th:href="'../userCenter/'+${user.data.id}">个人中心<img th:src="${user.data.userPic}" alt=""
-                                                                               class="img-circle-top"/></a>
+                    <li class="hover-effect" th:if="${session.user != null}">
+                        <a th:href="'../userCenter/'+${session.user.id}">个人中心<img th:src="${session.user.userPic}" alt="" class="img-circle-top"/></a>
+                    </li>
+                    <li class="hover-effect" th:if="${session.user == null}" style="margin-top: 12px;">
+                        <a href="/myLogin">登录</a>
                     </li>
                 </ul>
             </div>
-
         </div>
     </nav>
     <!-- //Navbar -->
@@ -126,8 +127,8 @@
         <ul id="flexiselDemo1">
             <li th:each="type:${types.data}">
                 <div class="trend-grid">
-                    <a href="">
-                        <h4 th:text="${type.gmTypeChName}">策略游戏</h4>
+                    <a th:href="|/search/${type.gmTypeEnName}|">
+                        <h4 th:text="${type.gmTypeEnName}">策略游戏</h4>
                         <img th:src="${type.gmImgDemo}" alt=" " class="img-responsive"/>
                     </a>
                 </div>

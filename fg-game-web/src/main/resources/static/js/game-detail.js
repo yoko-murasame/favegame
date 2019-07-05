@@ -3,7 +3,7 @@ $(function () {
     $("#reply-submit").click(function () {
         var reply = {};
         var path = window.location.pathname;
-        reply.replierId = $("#user-id").text();
+        reply.replierId = [[${user.id}]];
         reply.toCommentId = $("#comment-id").html();
         reply.content = $("#reply-detail").val();
         console.log(reply);
@@ -26,8 +26,8 @@ $(function () {
         var comment = {};
         var path = window.location.pathname;
         comment.gmComment = $("#comment-detail").val();
-        comment.gmCritic = $("#user-id").text();
-        comment.gmGameId = $("#game-id").text();
+        comment.gmCritic = [[${user.id}]];
+        comment.gmGameId = [[${game.data.id}]];
         console.log($(".body-rate-star").children()[0].className);
         if ($(".body-rate-star").children()[0].className == "review-add-stars-hover") {
             comment.gmRate = 2;

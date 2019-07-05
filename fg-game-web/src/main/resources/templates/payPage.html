@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="/assets/js/amazeui.min.js"></script>
+	</head>
+	<style type="text/css">
+		.row {
+			margin-right: -15px;
+			margin-left: -15px;
+		}
+		
+		.col-sm-12 {
+			width: 768px;
+			float: left;
+			min-height: 1px;
+			padding-right: 15px;
+			padding-left: 15px;
+			position: static;
+		}
+		
+		.order-pay-container {
+			width: 616px;
+			margin: 0 auto;
+			padding: 50px 33px;
+			background: #fff;
+			border-radius: 3px;
+			box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+			line-height: 20px;
+			font-size: 14px;
+		}
+		
+		.order-pay-header {
+			padding-bottom: 40px;
+			text-align: center;
+			border-bottom: 1px solid #eee;
+		}
+		
+		.order-pay-body {
+			padding: 20px 0 20px 125px;
+			border-bottom: 1px solid #eee;
+		}
+		
+		.order-pay-footer {
+			padding-top: 40px;
+			text-align: center;
+		}
+		/*等待支付*/
+		
+		.icon-font {
+			font-size: 60px;
+			margin-bottom: 15px;
+			background: url(../static/img/auth-icon.png) 0 -501px no-repeat;
+			background-size: 160px;
+			height: 60px;
+			width: 60px;
+			display: inline-block;
+		}
+		
+		.order-pay-header p {
+			font-size: 16px;
+			color: #333;
+			line-height: 24px;
+			margin: 0;
+		}
+		
+		.order-pay-body p {
+			margin: 0;
+			line-height: 25px;
+			font-size: 14px;
+			color: #999;
+		}
+		
+		.rmb-font {
+			color: #E60012!important;
+			font-weight: 500;
+		}
+		
+		.order-pay-body span {
+			color: #151515;
+			line-height: 25px;
+			padding-left: 5px;
+		}
+		
+		.order-pay-body>p>span a {
+			text-decoration: none;
+		}
+		
+		.order-pay-body>p>span a:hover {
+			text-decoration: underline;
+		}
+		
+		.btn-btn-primary {
+			width: 278px;
+			height: 38px;
+			font-size: 16px;
+			line-height: 40px;
+			border-radius: 3px;
+			box-shadow: none;
+			border-color: #12A7B4;
+			padding: 5px 10px;
+			color: #fff;
+			background: #12A7B4;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: middle;
+			font-weight: 400;
+			margin-bottom: 0;
+			display: inline-block;
+			text-decoration: none;
+		}
+		
+		.btn-btn-primary:hover {
+			color: #12A7B4;
+			border-color: #b4ebfa!important;
+			background: #b4ebfa!important;
+		}
+		
+		a:hover {
+			text-decoration: none;
+		}
+	</style>
+
+	<body>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="order-pay-container">
+					<section class="order-pay-header">
+						<span class="icon-font if-ok-circle"></span>
+						<p>订单提交成功</p>
+						<p>请在<span class="left-time" id="order-left-time">29</span>分钟内完成支付！</p>
+					</section>
+					<section class="order-pay-body">
+						<p>支付金额: <span class="rmb-font">¥1</span></p>
+						<p>支付方式: <span>支付宝支付</span></p>
+						<p>商品名称: <span><a href="">说剑 (Android版)</a></span></p>
+						<p>购买目的: <span>买给自己</span></p>
+					</section>
+					<section class="order-pay-footer">
+						<a class="btn-btn-primary" data-toggle="modal" data-target="#myModal">
+							立即支付
+						</a>
+					</section>
+				</div>
+			</div>
+		</div>
+		<div style="width: 260px;" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div>
+						<div id="doc-qrcode" class="am-text-center"></div>
+					</div>
+
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+		<script>
+			function makeCode(text) {
+				$("#doc-qrcode").empty().qrcode(text);
+			}
+			$(function(){
+				makeCode("https://qr.alipay.com/bax064269u4bx1y4qngc0040");
+				setTimeout(function () {
+                    window.location.href = "/order/return_url";
+                },2000)
+			});
+		</script>
+	</body>
+
+</html>

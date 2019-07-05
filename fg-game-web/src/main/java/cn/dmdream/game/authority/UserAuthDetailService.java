@@ -59,7 +59,6 @@ public class UserAuthDetailService/*
         }catch(Exception e){
             e.printStackTrace();
         }
-
         return userAuthVo;
     }
 

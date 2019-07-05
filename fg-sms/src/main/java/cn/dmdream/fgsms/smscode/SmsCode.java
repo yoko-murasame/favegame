@@ -40,8 +40,8 @@ public class SmsCode {
             String mobile = (String) params.get("mobile");
             String code = (String) params.get("code");
             // TODO: 2019/7/2 这里先使用固定密码,后期演示再使用短信发送
-            //SmsUtilsTencent.sentLoginSms(mobile,code);
-            code = "123123";
+            SmsUtilsTencent.sentLoginSms(mobile,code);
+            //code = "123123";
             //存入redis
             redisTemplate.opsForHash().put("loginSmsSet", mobile, code);
         } catch (Exception e) {
