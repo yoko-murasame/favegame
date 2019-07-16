@@ -1,7 +1,7 @@
 #配置七牛云的验证key
 qiniu:
-  accessKey: zrPgkmztAVlJWWfh_j8xtKNRGu_18a1mx6O59Swy
-  secretKey: GNOSIuF8bPFA5v3Dx6XoooxZtXut2FeZHQxoj9hA
+  accessKey: 不告诉你
+  secretKey: 不告诉你
   bucket: fairyhouse    #存储空间名称
   domain: http://img.dmdream.cn/    #外链域名
 server:

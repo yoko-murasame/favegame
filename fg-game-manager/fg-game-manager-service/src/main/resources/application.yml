@@ -4,9 +4,9 @@ server:
 spring:
   #配置数据库连接信息,在最新版本(8.XX)jdbc中,url中需要指定时区,springboot默认的Tomcat中时区是美国时区
   datasource:
-    url: jdbc:mysql://cloud.dmdream.cn:3306/favegame?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://不告诉你:3306/favegame?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8
     username: root
-    password: s18334435420
+    password: 不告诉你
     driver-class-name: com.mysql.cj.jdbc.Driver
   #Dubbo配置
   dubbo:
@@ -20,12 +20,12 @@ spring:
       port: 20880
   #ActiveMQ配置
   activemq:
-    broker-url: tcp://193.112.41.124:61616
+    broker-url: tcp://不告诉你:61616
   #配置Redis
   redis:
-    host: 193.112.41.124
+    host: 不告诉你
     port: 6379
-    password: s18334435420
+    password: 不告诉你
     database: 0
     #最大空闲连接数
     jedis:

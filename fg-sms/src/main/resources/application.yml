@@ -3,12 +3,12 @@ server:
 spring:
   #activeMQ
   activemq:
-    broker-url: tcp://193.112.41.124:61616
+    broker-url: tcp://不告诉你:61616
   #配置Redis
   redis:
-    host: 193.112.41.124
+    host: 不告诉你
     port: 6379
-    password: s18334435420
+    password: 不告诉你
     database: 0
     #最大空闲连接数
     jedis:

@@ -13,6 +13,6 @@ spring:
       port: 20881
   data:
     solr:
-      host: http://cloud.dmdream.cn:8088/solr
+      host: http://不告诉你:8088/solr
   activemq:
-    broker-url: tcp://193.112.41.124:61616
+    broker-url: tcp://不告诉你:61616
