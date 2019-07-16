@@ -9,6 +9,8 @@
 
 PS：请不要攻击我，谢谢QWQ
 
+Cas单点登录模块地址(需要先Build再单独部署到Tomcat服务器) https://github.com/yoko-murasame/favegame-cas
+
 在线演示视频：http://img.dmdream.cn/favegame.mp4
 ### 实体类相关
 
